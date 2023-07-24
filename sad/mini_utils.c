@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fouaouri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 16:24:44 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/07/23 23:51:07 by marvin           ###   ########.fr       */
+/*   Updated: 2023/07/24 01:37:59 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[j])
 		lorst[i++] = s2[j++];
 	lorst[i] = '\0';
-	return (free(s1), lorst);
+	return ( lorst);
 }
 
 char	*ft_strjoin_char(char *s1, char c)

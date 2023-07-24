@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fouaouri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:33:48 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/07/23 23:48:40 by marvin           ###   ########.fr       */
+/*   Updated: 2023/07/24 04:28:20 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,20 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+typedef struct t_info
+{
+
+	int				i_exp;
+	int				check;
+	int				check1;
+	
+}					t_info;
+typedef struct t_data
+{
+	char			*content;
+	struct t_data	*next;
+
+}					t_data;
 typedef struct s_variables
 {
 	int		i;
@@ -113,5 +127,24 @@ void	help_clean_1(char *str, char *str1, int i, int k);
 int		count_dquotes(t_read *readline);
 int		count_s_quotes(t_read *readline);
 void	ft_exit(t_list *cmd);
+int		ft_cd(t_list *p, t_data **data);
+char	*getpwd(void);
+void	printerr(char *s1, char *s2, char *s3);
+char	*getz(void);
+void	ft_putstr_fd(char *s, int fd);
+void	ft_export(t_list *p, t_data **data, t_info *info);
+char	*ft_strjoin10(char *s1, char *s2);
+void	ft_putchar_fd(char c, int fd);
+void	ft_lstadd_back1(t_data **lst, t_data *new);
+t_data	*ft_lstnew1(void *content);
+t_data	*ft_lstlast(t_data *lst);
+int		ft_isdigit(int c);
+int	ft_unset(t_list *p, t_data **data);
+char	*ft_strjoin1(char *s1, char *s2);
+int	ft_isalpha(int c);
+int	checktossawiplace(char *s);
+char	*bringbeforetossawi(char *s);
+int	strlenhtal(char *s);
+char	*bringaftertossawi(char *s);
 // int		check_syntax_error(t_read *readline);
 #endif

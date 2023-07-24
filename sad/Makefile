@@ -1,4 +1,4 @@
-src = parsing.c exit.c mini_utils.c minishell.c mini_utils_2.c sep_cmd.c counters.c expand_n.c ft_split.c\
+src = parsing.c cd.c unset.c export.c exit.c pwd.c mini_utils.c minishell.c mini_utils_2.c sep_cmd.c counters.c expand_n.c ft_split.c\
 	ft_count_quotes.c mini_utils_3.c help_clean.c part_parsing.c
 
 O_files = $(src:.c=.o)
