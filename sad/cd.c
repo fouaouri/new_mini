@@ -1,47 +1,59 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fouaouri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/24 22:02:02 by fouaouri          #+#    #+#             */
+/*   Updated: 2023/07/25 02:12:49 by fouaouri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
-int	ft_strlen1(const char *s)
+//***
+int	ft_strlen_len(const char *s)
 {
 	int	i;
 
 	if (!s)
 		return (0);
 	i = 0;
-	while (s[i] != '\0')
-	{
+	while (s[i])
 		i++;
-	}
 	return (i);
 }
-char	*ft_strjoin10(char *s1, char *s2)
+//***
+char	*ft_strjoin_join(char *s1, char *s2)
 {
-	char	*p;
+	char	*str;
 	int		i;
 	int		j;
 
 	if (!s1 && !s2)
 		return (NULL);
-	p = (char *)malloc(ft_strlen1(s1) + ft_strlen1(s2) + 1);
-	if (!p)
+	str = (char *)malloc(ft_strlen_len(s1) + ft_strlen_len(s2) + 1);
+	if (!str)
 		return (NULL);
 	i = -1;
 	while (s1 && s1[++i])
 	{
-		if (i <= ft_strlen1(s1))
-			p[i] = s1[i];
+		if (i <= ft_strlen_len(s1))
+			str[i] = s1[i];
 	}
 	j = -1;
 	while (s2 && s2[++j])
 	{
-		if (i < ft_strlen1(s1) + ft_strlen1(s2))
-			p[i] = s2[j];
+		if (i < ft_strlen_len(s1) + ft_strlen_len(s2))
+			str[i] = s2[j];
 		i++;
 	}
-	p[i] = '\0';
+	str[i] = '\0';
 	free(s1);
-	return (p);
+	return (str);
 }
 
-char	*getmyenv(char *s, t_data **env)
+char	*get_env(char *s, t_data **env)
 {
 	t_data	*tmp;
 	char	*str;
@@ -54,55 +66,52 @@ char	*getmyenv(char *s, t_data **env)
 	{
 		if (ft_strncmp(s, tmp->content, ft_strlen(s)) == 0)
 		{
-			str = ft_strjoin10(str, tmp->content + ft_strlen(s) + 1);
+			str = ft_strjoin_join(str, tmp->content + ft_strlen(s) + 1);
 			break ;
 		}
 		tmp = tmp->next;
 	}
 	if (!tmp)
-	{
-		free(str);
-		return (NULL);
-	}
+		return (free(str), NULL);
 	return (str);
 }
 
-char	*getsecondlast(char *s)
-{
-	int		i;
-	int		j;
-	char	*str;
+// char	*getsecondlast(char *s)
+// {
+// 	int		i;
+// 	int		j;
+// 	char	*str;
 
-	i = 0;
-	j = 0;
-	while (s[i])
-		i++;
-	i -= 1;
-	while (i > 0 && s[i] != '/')
-		i--;
-	str = malloc(i + 1);
-	while (j < i)
-	{
-		str[j] = s[j];
-		j++;
-	}
-	str[j] = '\0';
-	return (str);
-}
+// 	i = 0;
+// 	j = 0;
+// 	while (s[i])
+// 		i++;
+// 	i -= 1;
+// 	while (i > 0 && s[i] != '/')
+// 		i--;
+// 	str = malloc(i + 1);
+// 	while (j < i)
+// 	{
+// 		str[j] = s[j];
+// 		j++;
+// 	}
+// 	str[j] = '\0';
+// 	return (str);
+// }
 
-char	*helper(char *s)
+char	*get_content(char *str)
 {
 	char	*s1;
 	char	*s2;
 
-	s1 = s;
-	s2 = getpwd();
-	s = ft_strjoin("PWD=", s2);
+	s1 = str;
+	s2 = __pwd__();
+	str = ft_strjoin("PWD=", s2);
 	(free(s1), free(s2));
-	return (s);
+	return (str);
 }
 
-void	chengingoldpwd(char *s, t_data **data)
+void	oldpwd_from_env(char *str, t_data **data)
 {
 	t_data	*tmp;
 	int		count;
@@ -115,13 +124,13 @@ void	chengingoldpwd(char *s, t_data **data)
 		if (ft_strncmp(tmp->content, "OLDPWD", 6) == 0)
 		{
 			s1 = tmp->content;
-			tmp->content = ft_strjoin("OLDPWD=", s);
+			tmp->content = ft_strjoin("OLDPWD=", str);
 			free(s1);
 			count++;
 		}
 		else if (ft_strncmp(tmp->content, "PWD=", 4) == 0)
 		{
-			tmp->content = helper(tmp->content);
+			tmp->content = get_content(tmp->content);
 			count++;
 		}
 		if (count == 2)
@@ -130,82 +139,81 @@ void	chengingoldpwd(char *s, t_data **data)
 	}
 }
 
-int	whdfnccd(t_data **data)
+int	get_cd_d_point(t_data **data)
 {
 	char	*oldpwd;
 
-	oldpwd = getpwd();
+	oldpwd = __pwd__();
 	chdir("..");
 	if ((*data)->content)
-		chengingoldpwd(oldpwd, data);
+		oldpwd_from_env(oldpwd, data);
 	free(oldpwd);
 	return (1);
 }
 
-int	noarg(t_list *p, t_data **data)
+int	empty_cmd(t_list *sep, t_data **data)
 {
-	char	*oldpwd;
-	char	*home;
+	char	*pwd;
+	char	*ennv;
 
-	oldpwd = getpwd();
-	home = getmyenv("HOME", data);
-	if (!home)
+	pwd = __pwd__();
+	ennv = get_env("HOME", data);
+	if (!ennv)
 	{
-		free(oldpwd);
-		printerr("bash", p->commandes[0], "HOME not set");
+		free(pwd);
+		error("bash", sep->commandes[0], "HOME not set");
 		return (0);
 	}
-	chdir(home);
-	chengingoldpwd(oldpwd, data);
-	free(home);
-	free(oldpwd);
+	chdir(ennv);
+	oldpwd_from_env(pwd, data);
+	(free(ennv), free(pwd));
 	return (1);
 }
 
-int	whdfnccd100(t_list *p, t_data **data)
+int	get_cd_d_point1(t_list *sep, t_data **data)
 {
-	char	*oldpwd;
-	int		dir;
+	char	*d_pwd;
+	int		i;
 
-	dir = 0;
-	oldpwd = getpwd();
-	chengingoldpwd(oldpwd, data);
-	dir = chdir(p->commandes[1]);
-	if (dir == -1)
+	i = 0;
+	d_pwd = __pwd__();
+	oldpwd_from_env(d_pwd, data);
+	i = chdir(sep->commandes[1]);
+	if (i == -1)
 	{
-		printerr(p->commandes[0], p->commandes[1], "No such file or directory");
-		free(oldpwd);
+		error(sep->commandes[0], sep->commandes[1], "No such file or directory");
+		free(d_pwd);
 		return (1);
 	}
-	free(oldpwd);
+	free(d_pwd);
 	return (1);
 }
 
-int	ft_cd(t_list *p, t_data **data)
+int	__cd__(t_list *sep, t_data **data)
 {
-	char	*oldpwd;
+	char	*d_pwd;
 
-	if (ft_strcmp(p->commandes[0], "CD") == 0)
+	if (ft_strcmp(sep->commandes[0], "CD") == 0)
 		return (0);
-	if (p->commandes[1] == NULL)
-		return (noarg(p, data));
+	if (sep->commandes[1] == NULL)
+		return (empty_cmd(sep, data));
 	else
 	{
-		if (ft_strncmp(".", p->commandes[1], 1) == 0 && p->commandes[1][1] == '\0')
+		if (ft_strncmp(".", sep->commandes[1], 1) == 0 && sep->commandes[1][1] == '\0')
 		{
-			oldpwd = getz();
-			if (!oldpwd)
+			d_pwd = null_buffer();
+			if (!d_pwd)
 				ft_putstr_fd("cd: error retrieving current directory: \
 					getcwd: cannot access\
 					parent directories: No such file or directory\n", 2);
 			else
-				free(oldpwd);
+				free(d_pwd);
 			return (1);
 		}
-		else if (ft_strncmp("..", p->commandes[1], 2) == 0 && p->commandes[1][2] == '\0')
-			return (whdfnccd(data));
+		else if (ft_strncmp("..", sep->commandes[1], 2) == 0 && sep->commandes[1][2] == '\0')
+			return (get_cd_d_point(data));
 		else
-			return (whdfnccd100(p, data));
+			return (get_cd_d_point1(sep, data));
 	}
 	return (0);
 }

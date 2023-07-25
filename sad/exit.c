@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fouaouri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/24 22:59:35 by fouaouri          #+#    #+#             */
+/*   Updated: 2023/07/24 22:59:35 by fouaouri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
+
 void	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
@@ -6,15 +19,19 @@ void	ft_putchar_fd(char c, int fd)
 
 void	ft_putstr_fd(char *s, int fd)
 {
+	int	i;
+
 	if (!s)
-		return (ft_putchar_fd(0, fd));
-	while (*s)
+		return ;
+	i = 0;
+	while (s[i])
 	{
-		ft_putchar_fd(*s, fd);
-		s++;
+		write(fd, &s[i], 1);
+		i++;
 	}
 }
-void	printerr(char *s1, char *s2, char *s3)
+
+void	error(char *s1, char *s2, char *s3)
 {
 	ft_putstr_fd(s1, 2);
 	ft_putstr_fd(": ", 2);
@@ -29,23 +46,25 @@ void	printerr(char *s1, char *s2, char *s3)
 		ft_putchar_fd('\n', 2);
 	}
 }
-int	ft_isdigit(int c)
+
+int	ft_is_digit(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
 	return (0);
 }
-int	ft_atoi_fd(char *str)
+
+int	ft_atoi_atoi(char *str)
 {
-	unsigned char	res;
+	unsigned char	result;
 	int				i;
 	int				sign;
 
-	res = 0;
+	result = 0;
 	i = 0;
 	sign = 1;
-	while (str[i] == '\t' || str[i] == '\f' || str[i] == '\v' || str[i] == '\r'
-		|| str[i] == ' ')
+	while (str[i] == ' ' || str[i] == '\v' || str[i] == '\f' || str[i] == '\r'
+		|| str[i] == '\t')
 		i++;
 	if (str[i] == '+' || str[i] == '-')
 	{
@@ -55,59 +74,60 @@ int	ft_atoi_fd(char *str)
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		res = res * 10;
-		res += str[i] - 48;
+		result = result * 10 + (str[i] - '0');
 		i++;
 	}
 	if (sign == -1)
-		return (res = (signed char)res * sign);
-	return (res * sign);
+		return (result = (signed char)result * sign);
+	return (result * sign);
 }
 
-int	isnum(char *s)
+int	is_number(char *str)
 {
 	int	i;
+	int	nb;
 
 	i = 0;
-	if (s[i] == '-')
+	if (str[i] == '-')
 		i++;
-	while (s[i])
+	while (str[i])
 	{
-		if (!ft_isdigit(s[i]))
+		if (!ft_is_digit(str[i]))
 			return (-1);
 		i++;
 	}
-	return (ft_atoi_fd(s));
+	nb = ft_atoi_atoi(str);
+	return (nb);
 }
 
-void	exit_ut(char *s)
+void	exit_many_arg(char *s)
 {
 	printf("%s\n", s);
 	write(1, "bash: ", 6);
-	printerr(s, NULL, "too many arguments");
+	error(s, NULL, "too many arguments");
 	// g_globe.exit_status = 1;
 }
 
-void	ft_exit(t_list *cmd)
+void	__exit__(t_list *sep)
 {
-	if (cmd->commandes[1] == NULL)
+	if (sep->commandes[1] == NULL)
 	{
-		printf("%s\n", cmd->commandes[0]);
+		printf("%s\n", sep->commandes[0]);
 		exit(100);
 	}
-	if (isnum(cmd->commandes[1]) == -1)
+	if (is_number(sep->commandes[1]) == -1)
 	{
-		printf("%s\n", cmd->commandes[0]);
+		printf("%s\n", sep->commandes[0]);
 		write(1, "bash: ", 6);
-		printerr(cmd->commandes[0], cmd->commandes[1], "numeric argument required");
+		error(sep->commandes[0], sep->commandes[1], "numeric argument required");
 		exit(255);
 	}
-	else if (cmd->commandes[2])
-		exit_ut(cmd->commandes[0]);
+	else if (sep->commandes[2])
+		exit_many_arg(sep->commandes[0]);
 	else
 	{
-		printf("%s\n", cmd->commandes[0]);
-		// g_globe.exit_status = isnum(cmd->commandes[1]);
+		printf("%s\n", sep->commandes[0]);
+		// g_globe.exit_status = is_number(cmd->commandes[1]);
 		exit(10);
 		// exit(g_globe.exit_status);
 

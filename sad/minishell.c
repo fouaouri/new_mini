@@ -6,7 +6,7 @@
 /*   By: fouaouri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:36:42 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/07/24 04:50:06 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/07/25 05:17:28 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	convert(t_data **data, char **env)
 	i = -1;
 	if (!env[0])
 	{
-		tmp1 = getpwd();
+		tmp1 = __pwd__();
 		tmp = ft_strjoin("PWD=", tmp1);
 		ft_lstadd_back1(data, ft_lstnew1(tmp));
 		(free(tmp), free(tmp1));
@@ -71,7 +71,7 @@ void	convert(t_data **data, char **env)
 		while (env[++i])
 		{
 			// if (ft_strncmp(env[i], "SHLVL=", 6) == 0)
-			// 	usnet12(&tmp, &tmp1, &env[i]);
+			// 	to___unset__(&tmp, &tmp1, &env[i]);
 			ft_lstadd_back1(data, ft_lstnew1(env[i]));
 		}
 	}
@@ -251,8 +251,8 @@ void	print_minishell(t_read *readln)
 {
 	readln->input = readline("my_minishell $> ");
 	add_history(readln->input);
-	if (readln->input == NULL)
-		readln->input = ft_calloc(1, 1);
+	// if (readln->input == NULL)
+	// 	readln->input = ft_calloc(1, 1);
 }
 
 int lst_size(t_list *node)
@@ -342,7 +342,7 @@ char **convertto2d(t_data **d)
 	newenv[i] = NULL;
 	return newenv;
 }
-void	printerr2(char *s1, char *s2, char *s3)
+void	error2(char *s1, char *s2, char *s3)
 {
 	ft_putstr_fd(s1, 2);
 	ft_putstr_fd(": ", 2);
@@ -380,7 +380,7 @@ void one_cmd(t_list *node, t_data **envp)
 		hold = path_finder(env, node->commandes);
 		if(!hold)
 		{
-			printerr2("bash", node->commandes[0], "No such file or directory");
+			error2("bash", node->commandes[0], "No such file or directory");
 			return;
 		}
 		if (access(hold, X_OK) == -1)
@@ -420,8 +420,7 @@ void	close_pipes(int	*pipes, int number_of_cmds)
 		i++;
 	}	
 }
-
-void	multiple_cmd(t_list *node, t_data **envp, int number_of_cmds)
+void	multiple_cmd(t_list *node, t_data **envp, int number_of_cmds,t_data_data *info)
 {
 	pid_t	*pids;
 	int		status;
@@ -429,11 +428,11 @@ void	multiple_cmd(t_list *node, t_data **envp, int number_of_cmds)
 	t_list	*tmp;
 	char **env;
 	int		i;
-	char *hold;
 
-	env = convertto2d(envp);
+
 	i = 0;
 	tmp = node;
+	env = convertto2d(envp);
 	pids = malloc(sizeof(pid_t) * number_of_cmds);
 	pipes = NULL;
 	pipes = create_pipes(number_of_cmds);
@@ -447,18 +446,7 @@ void	multiple_cmd(t_list *node, t_data **envp, int number_of_cmds)
 			if (i < number_of_cmds - 1)
 				dup2(pipes[i * 2 + 1], 1);
 			close_pipes(pipes, number_of_cmds);
-			hold = path_finder(env, node->commandes);
-		if(!hold)
-		{
-			printerr2("bash", node->commandes[0], "No such file or directory");
-			return;
-		}
-		if (access(hold, X_OK) == -1)
-		{
-			write(2, "Access failed\n", 15); 
-			exit(1);
-		}
-			execve(hold, tmp->commandes, env);
+			execve(path_finder(env, tmp->commandes), tmp->commandes, env);
 		}
 		tmp = tmp->next;
 		i++;
@@ -469,28 +457,78 @@ void	multiple_cmd(t_list *node, t_data **envp, int number_of_cmds)
 		waitpid(pids[i++], &status, 0);
 }
 
-void exucution(t_list *node,t_data **envp,t_info *info)
+// void	multiple_cmd(t_list *node, t_data **envp, int number_of_cmds)
+// {
+// 	pid_t	*pids;
+// 	int		status;
+// 	int		*pipes;
+// 	t_list	*tmp;
+// 	char **env;
+// 	int		i;
+// 	char *hold;
+
+// 	env = convertto2d(envp);
+// 	i = 0;
+// 	tmp = node;
+// 	pids = malloc(sizeof(pid_t) * number_of_cmds);
+// 	pipes = NULL;
+// 	pipes = create_pipes(number_of_cmds);
+// 	while (i < number_of_cmds)
+// 	{
+// 		pids[i] = fork();
+// 		if (pids[i] == 0)
+// 		{
+// 			if (i > 0)
+// 				dup2(pipes[i * 2 - 2], 0);
+// 			if (i < number_of_cmds - 1)
+// 				dup2(pipes[i * 2 + 1], 1);
+// 			close_pipes(pipes, number_of_cmds);
+// 			hold = path_finder(env, node->commandes);
+// 		if(!hold)
+// 		{
+// 			error2("bash", node->commandes[0], "No such file or directory");
+// 			return;
+// 		}
+// 		if (access(hold, X_OK) == -1)
+// 		{
+// 			write(2, "Access failed\n", 15); 
+// 			exit(1);
+// 		}
+// 			execve(hold, tmp->commandes, env);
+// 		}
+// 		tmp = tmp->next;
+// 		i++;
+// 	}
+// 	close_pipes(pipes, number_of_cmds);
+// 	i = 0;
+// 	while (i < number_of_cmds)
+// 		waitpid(pids[i++], &status, 0);
+// }
+
+void exucution(t_list *node,t_data **envp,t_data_data *info)
 {
 	
 	if(lst_size(node) == 1)
 	{
+		
 		if( ft_strcmp(node->commandes[0] , "exit") == 0)
 		{
-			printf("node->commandes[0] = %s\n",node->commandes[0]);
-			ft_exit(node);
+			
+			__exit__(node);
 		}
 		else if(ft_strcmp(node->commandes[0] , "cd") == 0)
-				ft_cd(node,envp);
+				__cd__(node,envp);
 		else if(ft_strcmp(node->commandes[0] , "pwd") == 0)
 		{
-			printf("%s\n",getpwd());
+			printf("%s\n",__pwd__());
 		}
 		else if(ft_strcmp(node->commandes[0] , "export") == 0)
 		{
-			ft_export(node,envp,info);
+			
+			__export__(node,envp,info);
 		}
 		else if(ft_strcmp(node->commandes[0] , "unset") == 0)		
-			ft_unset(node,envp);
+			__unset__(node,envp);
 		//printf("size \n");
 		// if (node->commandes[0] == "echo")
 		// 	command_echo();
@@ -501,7 +539,8 @@ void exucution(t_list *node,t_data **envp,t_info *info)
 	}
 	else
 	{
-		multiple_cmd(node, envp, lst_size(node));
+		
+		multiple_cmd(node, envp, lst_size(node),info);
 	}
 	// while (waitpid(-1, NULL, 0) != -1)
 	// 	;
@@ -515,7 +554,7 @@ int	main(int ac, char **av, char **env)
 	t_file *sep;
 	t_list *node = NULL;
 	t_data	*envp;
-	t_info	*info;
+	t_data_data	*info;
 	// int sepe = 0;
 	// int		i = 0;
 
@@ -524,7 +563,7 @@ int	main(int ac, char **av, char **env)
 	sep = malloc(sizeof(t_file));
 	readline->exit_status = 0;
 	convert(&envp, env);
-	info = malloc(sizeof(t_info));
+	info = malloc(sizeof(t_data_data));
 	while (ac == 1)
 	{
 		print_minishell(readline);
@@ -547,7 +586,6 @@ int	main(int ac, char **av, char **env)
 			// if (sepe != -1)
 			sep_files(readline, sep, &node);
 			exucution(node,&envp,info);
-			printf("haha\n");
 			
 			
 		// }
@@ -555,10 +593,16 @@ int	main(int ac, char **av, char **env)
 		// {
 		// 	i = 0;
 		// 	while(node->commandes[i])
-		// 		printf("commandes :%s\n", node->commandes[i++]);
+		// 	{
+		// 		printf("file_name :%d = %s\n", i,node->commandes[i]);
+		// 		i++;	
+		// 	}
 		// 	i = 0;
 		// 	 while(node->file_name[i])
-		// 	 	printf("file_name : %s\n", node->file_name[i++]);
+		// 	 {
+		// 	 	printf("file_name :%d = %s\n", i,node->file_name[i]);
+		// 		i++;
+		// 	 }
 		// 	i = 0;
 		// 	while (node->type[i])
 		// 		printf("type : %s\n", node->type[i++]);
@@ -566,3 +610,11 @@ int	main(int ac, char **av, char **env)
 		// }
 	}
 }
+
+// cd *****
+// exit ****
+// export
+// pwd *****
+// unset *****
+
+

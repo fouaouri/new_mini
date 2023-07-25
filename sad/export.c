@@ -1,14 +1,6 @@
 #include "minishell.h"
-int	strlenhtal(char *s)
-{
-	int	i;
 
-	i = 0;
-	while (s[i] && s[i] != '=')
-		i++;
-	return (i);
-}
-void	printerr1(char *s1, char *s2, char *s3)
+void	error01(char *s1, char *s2, char *s3)
 {
 	ft_putstr_fd(s1, 2);
 	ft_putstr_fd(": ", 2);
@@ -25,50 +17,47 @@ void	printerr1(char *s1, char *s2, char *s3)
 	// g_globe.exit_status = 1;
 }
 
-// int	ft_isdigit(int c)
-// {
-// 	if (c >= '0' && c <= '9')
-// 		return (1);
-// 	return (0);
-// }
 int	ft_isalpha(int c)
 {
 	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
 		return (1);
 	return (0);
 }
-int	chekspecial(char *s)
+
+int	special_characters(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (s[i])
+	while (str[i])
 	{
-		if (!(ft_isalpha(s[i])) && !(ft_isdigit(s[i])) && s[i] != '_'
-			&& (s[i] != '=') && (s[i] != '+'))
+		if (!(ft_isalpha(str[i])) && !(ft_is_digit(str[i])) && str[i] != '='
+			&& (str[i] != '_') && (str[i] != '+'))
 			return (0);
 		i++;
 	}
 	return (1);
 }
-int	checkingifexist1(char *s, t_data **data, int l)
+
+int	get_one_or_zero(char *str, t_data **data, int l)
 {
 	t_data	*tmp;
 
 	tmp = *data;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->content, s, l) == 0)
+		if (ft_strncmp(tmp->content, str, l) == 0)
 			return (0);
 		tmp = tmp->next;
 	}
 	return (1);
 }
-char	*ft_strjoin1(char *s1, char *s2)
+
+char	*ft_strjoin_join01(char *s1, char *s2)
 {
 	char	*p;
 	int		i;
-	int		mid;
+	int		k;
 
 	if (!s1 || !s2)
 		return (0);
@@ -82,52 +71,51 @@ char	*ft_strjoin1(char *s1, char *s2)
 	while (s1[++i] && s1[i] != '=')
 		p[i] = s1[i];
 	p[i++] = '=';
-	mid = 0;
-	while (s2[mid])
+	k = 0;
+	while (s2[k])
 	{
-		p[mid + i] = s2[mid];
-		mid++;
+		p[k + i] = s2[k];
+		k++;
 	}
-	p[mid + i] = '\0';
+	p[k + i] = '\0';
 	free(s1);
 	return (p);
 }
-int	checktossawiplace(char *s)
+
+int	search_for_equal(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (s[i])
+	while (str[i])
 	{
-		if (s[i] == '=')
+		if (str[i] == '=')
 			return (i);
 		i++;
 	}
 	return (0);
 }
-char	*bringbeforetossawi(char *s)
+
+char	*equale_value(char *s)
 {
+	char	*str;
 	int		i;
 	int		j;
-	char	*str;
 
 	i = 0;
 	j = 0;
-	i = checktossawiplace(s);
+	i = search_for_equal(s);
 	if (i == 0)
 		return (NULL);
 	str = malloc(i + 1);
 	i = 0;
 	while (s[i] != '=')
-	{
-		str[i] = s[j];
-		i++;
-		j++;
-	}
+		str[i++] = s[j++];
 	str[i] = '\0';
 	return (str);
 }
-char	*withoutp(char *s)
+
+char	*split_str_with_plus(char *s)
 {
 	char	*str;
 	int		j;
@@ -144,26 +132,52 @@ char	*withoutp(char *s)
 		j++;
 	}
 	str[j] = '\0';
-	str = ft_strjoin10(str, s + i + 1);
+	str = ft_strjoin_join(str, s + i + 1);
 	return (str);
 }
-int	help_exp(char *s, int flag)
+
+// int	help_exp(char *s, int flag)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	if (!ft_isalpha(s[0]) && s[0] != '_')
+// 	{
+// 		if (flag == 0)
+// 			free(s);
+// 		return (1);
+// 	}
+// 	while (s[i])
+// 	{
+// 		if (!(ft_isalpha(s[i])) && !(ft_is_digit(s[i])) && s[i] != '_'
+// 			&& (s[i] != '='))
+// 		{
+// 			if (flag == 0)
+// 				free(s);
+// 			return (1);
+// 		}
+// 		i++;
+// 	}
+// 	return (0);
+// }
+
+int	check_exported1(char *s, int l)
 {
 	int	i;
 
 	i = 0;
 	if (!ft_isalpha(s[0]) && s[0] != '_')
 	{
-		if (flag == 0)
+		if (l == 0)
 			free(s);
 		return (1);
 	}
 	while (s[i])
 	{
-		if (!(ft_isalpha(s[i])) && !(ft_isdigit(s[i])) && s[i] != '_'
+		if (!(ft_isalpha(s[i])) && !(ft_is_digit(s[i])) && s[i] != '_'
 			&& (s[i] != '='))
 		{
-			if (flag == 0)
+			if (l == 0)
 				free(s);
 			return (1);
 		}
@@ -171,27 +185,49 @@ int	help_exp(char *s, int flag)
 	}
 	return (0);
 }
-int	checkchar(char *str)
+
+// int	checkchar(char *str)
+// {
+// 	int		i;
+// 	char	*s;
+// 	int		flag;
+
+// 	flag = 0;
+// 	i = 0;
+// 	s = equale_value(str);
+// 	if (s == NULL)
+// 	{
+// 		(s = str);
+// 		(flag = 1);
+// 	}
+// 	if (help_exp(s, flag))
+// 		return (1);
+// 	if (flag == 0)
+// 		free(s);
+// 	return (0);
+// }
+int	check_exported(char *str)
 {
 	int		i;
+	int		l;
 	char	*s;
-	int		flag;
 
-	flag = 0;
+	l = 0;
 	i = 0;
-	s = bringbeforetossawi(str);
+	s = equale_value(str);
 	if (s == NULL)
 	{
 		(s = str);
-		(flag = 1);
+		(l = 1);
 	}
-	if (help_exp(s, flag))
+	if (check_exported1(s, l))
 		return (1);
-	if (flag == 0)
+	if (l == 0)
 		free(s);
 	return (0);
 }
-char	*bringaftertossawi(char *s)
+
+char	*get_env_value1(char *s)
 {
 	int		i;
 	int		j;
@@ -215,20 +251,21 @@ char	*bringaftertossawi(char *s)
 	str[i] = '\0';
 	return (str);
 }
-int	ecrase(char *s, t_data **data, int *check)
+
+int	get_env_value(char *s, t_data **data, int *check)
 {
 	t_data	*tmp;
 	char	*str;
 
 	tmp = *data;
-	str = bringaftertossawi(s);
+	str = get_env_value1(s);
 	while (tmp)
 	{
 		if (ft_strncmp(tmp->content, s, *check) == 0
 			&& ((ft_strncmp(tmp->content + *check, "=", 1) == 0)
 				|| !(tmp->content[*check])))
 		{
-			tmp->content = ft_strjoin1(tmp->content, str);
+			tmp->content = ft_strjoin_join01(tmp->content, str);
 			free(str);
 			return (0);
 		}
@@ -237,6 +274,7 @@ int	ecrase(char *s, t_data **data, int *check)
 	free(str);
 	return (1);
 }
+
 int	checkingifexist(char *s, t_data **data)
 {
 	t_data	*tmp;
@@ -244,7 +282,7 @@ int	checkingifexist(char *s, t_data **data)
 	int		len;
 
 	len = 0;
-	str = bringbeforetossawi(s);
+	str = equale_value(s);
 	tmp = *data;
 	if (!(tmp))
 		return (1);
@@ -255,7 +293,7 @@ int	checkingifexist(char *s, t_data **data)
 		else
 			len = ft_strlen(str);
 		if (ft_strncmp(tmp->content, s, len) == 0
-			&& strlenhtal(tmp->content) == ft_strlen(s))
+			&& strlen1(tmp->content) == ft_strlen(s))
 		{
 			free(str);
 			return (0);
@@ -265,13 +303,14 @@ int	checkingifexist(char *s, t_data **data)
 	free(str);
 	return (1);
 }
-void	export_1(t_data **data, char *s, int *check1, int *i)
+
+void	help_export(t_data **data, char *s, int *check1, int *i)
 {
-	if (checkchar(s) == 1)
-		printerr1("export", s, "not a valid identifier");
-	else if (checkingifexist1(s, data, *check1) == 0)
+	if (check_exported(s) == 1)
+		error01("export", s, "not a valid identifier");
+	else if (get_one_or_zero(s, data, *check1) == 0)
 	{
-		if (ecrase(s, data, check1) == 1)
+		if (get_env_value(s, data, check1) == 1)
 			ft_lstadd_back1(data, ft_lstnew1(s));
 		// g_globe.exit_status = 0;
 	}
@@ -286,13 +325,13 @@ void	export_1(t_data **data, char *s, int *check1, int *i)
 		// g_globe.exit_status = 0;
 	}
 }
-int	checkzaid(char *s)
+int	equal(char *s)
 {
 	int		i;
 	int		len;
 	char	*str;
 
-	str = bringbeforetossawi(s);
+	str = equale_value(s);
 	if (!str)
 		len = 0;
 	else
@@ -315,18 +354,19 @@ int	checkzaid(char *s)
 	return (0);
 }
 
-int	free_export(char *s, int i)
+int	free_exp(char *s, int i)
 {
 	free(s);
 	return (i);
 }
+//**********************************************************
 int	checknotexist(char *s, t_data **data, int len)
 {
 	t_data	*tmp;
 	char	*str;
 
 	len = 0;
-	str = bringbeforetossawi(s);
+	str = equale_value(s);
 	tmp = *data;
 	while (tmp)
 	{
@@ -334,16 +374,16 @@ int	checknotexist(char *s, t_data **data, int len)
 			len = ft_strlen(s);
 		else
 		{
-			if (checkzaid(s) != 0)
+			if (equal(s) != 0)
 				len = ft_strlen(str) - 1;
 			else
 				len = ft_strlen(str);
 		}
 		if (ft_strncmp(tmp->content, s, len) == 0)
-			return (free_export(str, 0));
+			return (free_exp(str, 0));
 		tmp = tmp->next;
 	}
-	return (free_export(str, -1));
+	return (free_exp(str, -1));
 }
 void	smt(int *i, int *check, int *flag)
 {
@@ -394,18 +434,18 @@ void	joining(char *s, t_data **data, int *check)
 	char	*str;
 
 	tmp = *data;
-	str = bringaftertossawi(s);
+	str = get_env_value1(s);
 	while (tmp)
 	{
 		if (ft_strncmp(tmp->content, s, *check) == 0
 			&& (tmp->content[*check] == '=' || tmp->content[*check] == '\0'))
 		{
 			if (!checktossawi(tmp->content))
-				tmp->content = ft_strjoin10(tmp->content, str);
+				tmp->content = ft_strjoin_join(tmp->content, str);
 			else
 			{
-				tmp->content = ft_strjoin1(tmp->content, "=");
-				tmp->content = ft_strjoin1(tmp->content, str);
+				tmp->content = ft_strjoin_join01(tmp->content, "=");
+				tmp->content = ft_strjoin_join01(tmp->content, str);
 			}
 		}
 		tmp = tmp->next;
@@ -420,7 +460,7 @@ void	export_2(t_data **data, char *s, int *check)
 	if (checknotexist(s, data, *check) == -1)
 	{
 		
-		str = withoutp(s);
+		str = split_str_with_plus(s);
 		ft_lstadd_back1(data, ft_lstnew1(str));
 		// g_globe.exit_status = 0;
 		free(str);
@@ -432,14 +472,14 @@ void	export_2(t_data **data, char *s, int *check)
 	}
 }
 
-void	iniiiit(t_info *info)
+void	iniiiit(t_data_data *info)
 {
 	info->check = 0;
 	info->check1 = 0;
 	info->i_exp = 1;
 }
 
-int	checkchar1(char *s)
+int	check_exported01(char *s)
 {
 	int	i;
 
@@ -448,7 +488,7 @@ int	checkchar1(char *s)
 		return (0);
 	while (s[i])
 	{
-		if (!(ft_isalpha(s[i])) && !(ft_isdigit(s[i])) && s[i] != '_'
+		if (!(ft_isalpha(s[i])) && !(ft_is_digit(s[i])) && s[i] != '_'
 			&& ((s[i] == '=') && ft_strlen(s) != 1))
 			return (1);
 		i++;
@@ -502,17 +542,17 @@ void	printenvwithx(t_data **data)
 	}
 }
 
-void	iniiiit1(t_info *info, char *s)
+void	iniiiit1(t_data_data *info, char *s)
 {
-	info->check = checkzaid(s);
-	info->check1 = checktossawiplace(s);
+	info->check = equal(s);
+	info->check1 = search_for_equal(s);
 }
 
 int	export_3(t_data **data, char *s)
 {
 	if (!s[0])
 	{
-		printerr1("export", s, "not a valid identifier");
+		error01("export", s, "not a valid identifier");
 		return (1);
 	}
 	else if (checkingifexist(s, data) == 0)
@@ -522,9 +562,9 @@ int	export_3(t_data **data, char *s)
 	}
 	else
 	{
-		if (checkchar(s) == 1)
+		if (check_exported(s) == 1)
 		{
-			printerr1("export", s, "not a valid identifier");
+			error01("export", s, "not a valid identifier");
 			return (1);
 		}
 		else
@@ -536,7 +576,7 @@ int	export_3(t_data **data, char *s)
 	return (0);
 }
 
-void	export_4(t_data **data, t_list *p, t_info *info)
+void	export_4(t_data **data, t_list *p, t_data_data *info)
 {
 	while (p->commandes[info->i_exp])
 	{
@@ -553,16 +593,16 @@ void	export_4(t_data **data, t_list *p, t_info *info)
 		else if (info->check == -1)
 		{
 			
-			if (checkchar(p->commandes[info->i_exp]) == 1)
+			if (check_exported(p->commandes[info->i_exp]) == 1)
 			{
-				printerr1(p->commandes[0], p->commandes[info->i_exp],
+				error01(p->commandes[0], p->commandes[info->i_exp],
 					"not a valid identifier");
 			}
 		}
 		else if (info->check == 0 && checktossawi(p->commandes[info->i_exp]) == 0)
 		{
 			
-			export_1(data, p->commandes[info->i_exp], &info->check1, &info->i_exp);
+			help_export(data, p->commandes[info->i_exp], &info->check1, &info->i_exp);
 		}
 		else if (info->check != 0 && info->check != -1)
 		{
@@ -609,7 +649,7 @@ t_data	*sort_list(t_data *lst)
 	lst = tmp;
 	return (lst);
 }
-void	ft_export(t_list *p, t_data **data, t_info *info)
+void	__export__(t_list *p, t_data **data, t_data_data *info)
 {
 	iniiiit(info);
 	if (p->commandes[1] == NULL)

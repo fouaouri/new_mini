@@ -6,7 +6,7 @@
 /*   By: fouaouri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 17:34:28 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/07/16 02:31:01 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/07/25 04:33:18 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 
 	i = 0;
 	if (!s1 || !s2)
-		return (0);
+		return (-1);
 	str1 = (unsigned char *)s1;
 	str2 = (unsigned char *)s2;
 	while ((str1[i] || str2[i]))

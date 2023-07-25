@@ -1,30 +1,31 @@
 #include "minishell.h"
-char	*getz(void)
-{
-	char	*s;
 
-	s = getcwd(NULL, 0);
-	return (s);
+char	*null_buffer(void)
+{
+	char	*str;
+
+	str = getcwd(NULL, 0);
+	return (str);
 }
 
-char	*getpwd(void)
+char	*__pwd__(void)
 {
+	char	*buffer;
 	char	*tmp;
-	char	*path;
-	char	s[1024];
-	char	*buff;
+	char	*pwd;
+	char	str[1024];
 
-	tmp = getcwd(s, sizeof(s));
+	tmp = getcwd(str, sizeof(str));
 	if (tmp)
 	{
-		buff = ft_strdup(tmp);
-		return (buff);
+		buffer = ft_strdup(tmp);
+		return (buffer);
 	}
 	else
 	{
-		path = getenv("PWD");
-		if (path != NULL)
-			return (path);
+		pwd = getenv("PWD");
+		if (pwd != NULL)
+			return (pwd);
 	}
 	return (NULL);
 }

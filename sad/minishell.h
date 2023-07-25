@@ -6,7 +6,7 @@
 /*   By: fouaouri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:33:48 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/07/24 04:28:20 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/07/25 04:13:51 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,35 @@
 # define MINISHELL_H
 
 # include <stdlib.h>
+# include <limits.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
-typedef struct t_info
+typedef struct t_data_data
 {
-
 	int				i_exp;
 	int				check;
 	int				check1;
-	
-}					t_info;
+}	t_data_data;
+
+typedef struct s_env
+{
+	char *key;
+	char *data;
+	struct s_env *next;
+
+} t_env;
+
 typedef struct t_data
 {
 	char			*content;
 	struct t_data	*next;
 
-}					t_data;
+}	t_data;
+
 typedef struct s_variables
 {
 	int		i;
@@ -82,12 +91,6 @@ typedef struct s_file
 	int		sum;
 }	t_file;
 
-// typedef struct s_cmdlist
-// {
-// 	int content;
-// 	struct	s_cmdlist *next;
-// }	t_cmdlist;
-
 int		ft_strlen(char *s);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strdup(char *s1);
@@ -126,25 +129,29 @@ void	help_clean(char *str, char *str1, int i, int k);
 void	help_clean_1(char *str, char *str1, int i, int k);
 int		count_dquotes(t_read *readline);
 int		count_s_quotes(t_read *readline);
-void	ft_exit(t_list *cmd);
-int		ft_cd(t_list *p, t_data **data);
-char	*getpwd(void);
-void	printerr(char *s1, char *s2, char *s3);
-char	*getz(void);
+void	__exit__(t_list *cmd);
+int		__cd__(t_list *p, t_data **data);
+char	*__pwd__(void);
+void	error(char *s1, char *s2, char *s3);
+char	*null_buffer(void);
 void	ft_putstr_fd(char *s, int fd);
-void	ft_export(t_list *p, t_data **data, t_info *info);
-char	*ft_strjoin10(char *s1, char *s2);
+void	__export__(t_list *p, t_data **data, t_data_data *info);
+char	*ft_strjoin_join(char *s1, char *s2);
 void	ft_putchar_fd(char c, int fd);
 void	ft_lstadd_back1(t_data **lst, t_data *new);
 t_data	*ft_lstnew1(void *content);
 t_data	*ft_lstlast(t_data *lst);
-int		ft_isdigit(int c);
-int	ft_unset(t_list *p, t_data **data);
-char	*ft_strjoin1(char *s1, char *s2);
-int	ft_isalpha(int c);
-int	checktossawiplace(char *s);
-char	*bringbeforetossawi(char *s);
-int	strlenhtal(char *s);
-char	*bringaftertossawi(char *s);
+int		ft_is_digit(int c);
+int		__unset__(t_list *p, t_data **data);
+char	*ft_strjoin_join01(char *s1, char *s2);
+int		ft_isalpha(int c);
+int		search_for_equal(char *s);
+char	*get_env_value1(char *s);
+int		strlen1(char *s);
+char	*equale_value(char *s);
+void	ft_list_remove_if(t_data **begin_list, char *data_ref);
+char	*ft_itoa(int n);
+int		ft_atoi(const char *str);
+int		strlen1(char *s);
 // int		check_syntax_error(t_read *readline);
 #endif
