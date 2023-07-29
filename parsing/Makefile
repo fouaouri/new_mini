@@ -2,7 +2,7 @@ src = parsing.c mini_utils.c minishell.c mini_utils_2.c sep_cmd.c counters.c exp
 	ft_count_quotes.c mini_utils_3.c help_clean.c part_parsing.c #echo.c env.c libft_bonus.c redirections.c 
 
 O_files = $(src:.c=.o)
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror # -fsanitize=address -g3
 
 NAME = minishell
 
