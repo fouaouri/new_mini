@@ -6,7 +6,7 @@
 /*   By: fouaouri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:36:42 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/07/26 19:10:57 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/07/29 15:42:20 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,7 @@ int check_parentheses(t_read *readline)
 		{
 			if(readline->arr[len][i] == ')')
 			{
-				write(2, "bash: syntax error near unexpected token \n", 45);
+				write(2, "bash: syntax error near unexpected token \n", 43);
 				readline->exit_status = 258;
 				return (-1);
 				break ;
@@ -245,7 +245,7 @@ int check_d_quotes(t_read *readline)
 	}
 	if(count % 2 != 0 || count1 % 2 != 0)
 	{
-		write(2, "bash: syntax error near unexpected token \n", 51);
+		write(2, "bash: syntax error near unexpected token \n", 43);
 		readline->exit_status = 258;
 		return (-1);
 	}
