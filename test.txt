@@ -39,5 +39,5 @@ echo "           lllkfl | >kk        "kkkkk
 echo lllll"           lllkfl | >kk        "
 echo "'       ''    lllkfl | >kk  ''      '"
 
-jrbi only spaces and tabs ==> segfault
+jrbi only spaces and tabs ==> segfault (noted // okey I will)
 command to be test =>    |  
