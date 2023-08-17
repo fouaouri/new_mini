@@ -20,19 +20,21 @@ BON=$(BONUS:%.c=%.o)
 
 # Defaulte Target
 all: $(NAME)
+	@echo "Compilation done !"
 
 $(NAME): $(MAN)
 
 bonus: $(MAN) $(BON)
 
 %.o:%.c
-	$(CC) $(CFLAGS) $<
-	ar -rc $(NAME) $@
+	@$(CC) $(CFLAGS) $<
+	@echo -n "."
+	@ar -rc $(NAME) $@
 
 clean:
-	$(RM) *.o
+	@$(RM) *.o
 
 fclean:
-	$(RM) *.o $(NAME)
+	@$(RM) *.o $(NAME)
 
 re: fclean all 

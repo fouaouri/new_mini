@@ -11,7 +11,9 @@ EXECUTION_SRC = execution/
 PARSING_FILES = parsing.c mini_utils.c minishell.c mini_utils_2.c \
 								sep_cmd.c counters.c expand_n.c ft_split.c \
 								ft_count_quotes.c mini_utils_3.c help_clean.c \
-								part_parsing.c #echo.c env.c libft_bonus.c redirections.c 
+								part_parsing.c \
+
+# echo.c env.c libft_bonus.c redirections.c 
 
 EXECUTION_FILES = check_cmd.c parse_path.c
 
@@ -28,27 +30,26 @@ O_FILES = $(addprefix $(PARSING_OBJ), $(EXECUTION_OBJ))
 all: libft $(NAME)
 
 libft:
-	make -C $(LIBFT)
+	@make -C $(LIBFT)
 
 parsing: libft $(PARSING_OBJ)
-	echo $(PARSING_OBJ)
-	$(CC) $(CFLAGS) $(PARSING_OBJ) $(LIBS) -o pars
+	@$(CC) -lreadline $(CFLAGS) $(PARSING_OBJ) $(LIBS) -o pars
 
 execution: libft $(EXECUTION_OBJ)
-	$(CC) $(CFLAGS) $(EXECUTION_OBJ) $(LIBS) -o exec
+	@$(CC) $(CFLAGS) $(EXECUTION_OBJ) $(LIBS) -o exec
 
 $(NAME):
-	$(CC) $(CFLAGS) $(ALL_FILES) $(LIBS) -o $(NAME)
+	@$(CC) -lreadline $(CFLAGS) $(ALL_FILES) $(LIBS) -o $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean : 
-	@make clean -C $(LIBFT)
-	rm -rf $(O_FILES)
+	@cd $(LIBFT) && make clean
+	@rm -rf $(O_FILES)
 
 fclean : clean
-	@make fclean -C $(LIBFT)
+	@cd $(LIBFT) && make fclean
 	rm -rf $(NAME) exec pars
 
 re : fclean $(NAME)
