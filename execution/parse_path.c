@@ -6,21 +6,20 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:27:02 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/15 22:23:01 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/16 15:28:57 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
-#include <stdlib.h>
 
-char **parse_path(char *path)
+char	**parse_path(char *path)
 {
 	char **res;
 	res = ft_split(path, ':');
 	return (res);
 }
 
-int main(int argc, char *argv[])
+int	main(void)
 {
 	char **path;
 
@@ -30,6 +29,7 @@ int main(int argc, char *argv[])
 	path = parse_path(pp);
 	while (*path)
 	{
+		printf("ret => %d\n",check_cmd(*path, "ls"));
 		printf("%s\n", *path);
 		path++;
 	}

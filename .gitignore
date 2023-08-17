@@ -1,2 +1,3 @@
 *.o
-sad/
+*.out
+.DS_Store

@@ -6,7 +6,7 @@
 /*   By: fouaouri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:33:48 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/07/26 17:55:01 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/08/17 12:48:02 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,14 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <string.h>
+# include "../libs/libft/libft.h"
+#if __APPLE__
 # include <readline/readline.h>
 # include <readline/history.h>
-
-
+#else 
+# include "../readline/readline.h"
+# include "../readline/history.h"
+#endif
 
 typedef struct s_variables
 {
@@ -71,25 +75,25 @@ typedef struct s_file
 	int		sum;
 }	t_file;
 
-int		ft_strlen(char *s);
-char	*ft_strjoin(char *s1, char *s2);
-char	*ft_strdup(char *s1);
-void	*ft_calloc(int count, int size);
+// int		ft_strlen(char *s);
+// char	*ft_strjoin(char *s1, char *s2);
+// char	*ft_strdup(char *s1);
+// void	*ft_calloc(int count, int size);
 int		count_words(char *str);
 int		counter(char *str);
 void	print_minishell(t_read *readln);
 void	replace_char(t_read *readline);
 void	skip_spaces(t_read *readline);
 void	fill_the_arr(t_read	*readline);
-char	*ft_substr(char *s, int start, int len);
+// char	*ft_substr(char *s, int start, int len);
 void	skip_spaces_in_the_input(t_read *readline);
-int		ft_strcmp(const char *s1, const char *s2);
+// int		ft_strcmp(const char *s1, const char *s2);
 void	sep_files(t_read *readline, t_file *sep, t_list **node);
 t_list	*ft_lstnew(char **file_name, char **commandes, char **type);
 void	ft_lst_add_back(t_list **head, char **file_name,
 			char **commandes, char **type);
 int		count_files(t_read *readline);
-char	*ft_strcpy(char *s1, char *s2);
+// char	*ft_strcpy(char *s1, char *s2);
 void	sep_by_spaces(t_read *readline);
 int		counter_sep(char *str);
 void	add_spaces_in_the_input(t_read *readline);
@@ -99,10 +103,10 @@ void	exit_function(t_read *readline);
 void	clean_d_quotes(t_read *readline);
 char	*ft_clean_d_quotes(char *str);
 int		check_d_quotes(t_read *readline);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
+// int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	expand_arr(t_read *readline, char **env);
 char	*ft_strjoin_char(char *s1, char c);
-char	**ft_split(char const *s, char c);
+// char	**ft_split(char const *s, char c);
 void	split_into_arr(t_read *readline);
 void	syntax_error(t_read *readline, char **env);
 void	help_clean(char *str, char *str1, int i, int k);
@@ -113,18 +117,18 @@ void	__exit__(t_list *cmd);
 char	*__pwd__(void);
 void	error(char *s1, char *s2, char *s3);
 char	*null_buffer(void);
-void	ft_putstr_fd(char *s, int fd);
+// void	ft_putstr_fd(char *s, int fd);
 char	*ft_strjoin_join(char *s1, char *s2);
-void	ft_putchar_fd(char c, int fd);
+// void	ft_putchar_fd(char c, int fd);
 int		ft_is_digit(int c);
 char	*ft_strjoin_join01(char *s1, char *s2);
-int		ft_isalpha(int c);
+// int		ft_isalpha(int c);
 int		search_for_equal(char *s);
 char	*get_env_value1(char *s);
-int		strlen1(char *s);
+// int		strlen1(char *s);
 char	*equale_value(char *s);
-char	*ft_itoa(int n);
-int		ft_atoi(const char *str);
+// char	*ft_itoa(int n);
+// int		ft_atoi(const char *str);
 int		strlen1(char *s);
 // int		check_syntax_error(t_read *readline);
 #endif
