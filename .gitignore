@@ -1,3 +1,5 @@
 *.o
 *.out
+exec
+pars
 .DS_Store

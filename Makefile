@@ -5,7 +5,6 @@ CFLAGS = -Wall -Wextra -Werror # -g3 -fsanitize=address
 LIBFT = libs/libft
 LIBS = $(addprefix $(LIBFT), /libft.a)
 
-
 PARSING_SRC = parsing/
 EXECUTION_SRC = execution/
 
