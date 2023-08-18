@@ -6,7 +6,7 @@
 /*   By: fouaouri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:36:42 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/07/29 15:42:20 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/18 21:45:10 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,64 +275,62 @@ void	print_minishell(t_read *readln)
 		readln->input = ft_calloc(1, 1);
 }
 
-int	main(int ac, char **av, char **env)
-{
-	(void)env;
-	t_read	*readline;
-	t_file *sep;
-	t_list *node = NULL;
-	int sepe = 0;
-	int		i = 0;
+// int	main(int ac, char **av, char **env)
+// {
+// 	(void)env;
+// 	t_read	*readline;
+// 	t_file *sep;
+// 	t_list *node = NULL;
+// 	int sepe = 0;
+// 	int		i = 0;
 
-	(void)av;
-	readline = malloc(sizeof(t_read));
-	sep = malloc(sizeof(t_file));
-	readline->exit_status = 0;
-	while (ac == 1)
-	{
-		print_minishell(readline);
-		if(readline->input == NULL)
-			exit (1);
-		expand_arr(readline, env);
-		// printf("exp : %s\n", readline->exp);
-		sepe = check_d_quotes(readline);
-		if(sepe != -1)
-		{
-			replace_char(readline);
-			// printf("replace :%s\n", readline->replace);
-			skip_spaces_in_the_input(readline);
-			// exit_function(readline);
-			sep_by_spaces(readline);
-			add_spaces_in_the_input(readline);
-			fill_the_arr(readline);
-			clean_d_quotes(readline);
-			sepe = check_syntax_error(readline);
-			if (sepe != -1)
-				sep_files(readline, sep, &node);
-			
-			
-		}
-		while(node != NULL)
-		{
-			i = 0;
-			while(node->commandes[i])
-			{
-				printf("file_name :%d = %s\n", i,node->commandes[i]);
-				i++;	
-			}
-			i = 0;
-			 while(node->file_name[i])
-			 {
-			 	printf("file_name :%d = %s\n", i,node->file_name[i]);
-				i++;
-			 }
-			i = 0;
-			while (node->type[i])
-				printf("type : %s\n", node->type[i++]);
-			node = node->next;
-		}
-	}
-}
+// 	(void)av;
+// 	readline = malloc(sizeof(t_read));
+// 	sep = malloc(sizeof(t_file));
+// 	readline->exit_status = 0;
+// 	while (ac == 1)
+// 	{
+// 		print_minishell(readline);
+// 		if(readline->input == NULL)
+// 			exit (1);
+// 		expand_arr(readline, env);
+// 		// printf("exp : %s\n", readline->exp);
+// 		sepe = check_d_quotes(readline);
+// 		if(sepe != -1)
+// 		{
+// 			replace_char(readline);
+// 			// printf("replace :%s\n", readline->replace);
+// 			skip_spaces_in_the_input(readline);
+// 			// exit_function(readline);
+// 			sep_by_spaces(readline);
+// 			add_spaces_in_the_input(readline);
+// 			fill_the_arr(readline);
+// 			clean_d_quotes(readline);
+// 			sepe = check_syntax_error(readline);
+// 			if (sepe != -1)
+// 				sep_files(readline, sep, &node);
+// 		}
+// 		while(node != NULL)
+// 		{
+// 			i = 0;
+// 			while(node->commandes[i])
+// 			{
+// 				printf("commandes :%d = %s\n", i,node->commandes[i]);
+// 				i++;	
+// 			}
+// 			i = 0;
+// 			 while(node->file_name[i])
+// 			 {
+// 			 	printf("file_name :%d = %s\n", i,node->file_name[i]);
+// 				i++;
+// 			 }
+// 			i = 0;
+// 			while (node->type[i])
+// 				printf("type : %s\n", node->type[i++]);
+// 			node = node->next;
+// 		}
+// 	}
+// }
 
 
 

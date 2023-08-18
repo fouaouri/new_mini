@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_path.c                                       :+:      :+:    :+:   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/15 16:27:02 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/18 10:14:55 by melhadou         ###   ########.fr       */
+/*   Created: 2023/08/18 21:32:31 by melhadou          #+#    #+#             */
+/*   Updated: 2023/08/18 21:47:20 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-char	**parse_path(char *path)
+int	ft_heredoc(char *dilimiter)
 {
-	char **res;
+	char *line;
+	int p_fd[2];
 
-	res = ft_split(path, ':');
-	return (res);
+	// check for error in pipe
+	pipe(p_fd);
+	while (1)
+	{
+		line = readline("> ");
+		if (!ft_strcmp(line, dilimiter))
+			break ;
+		write(p_fd[1], line, ft_strlen(line));
+		free(line);
+		close(p_fd[1]);
+	}
+	return (p_fd[0]);
 }

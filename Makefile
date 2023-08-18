@@ -1,6 +1,6 @@
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror # -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror  -g3 -fsanitize=address
 
 LIBFT = libs/libft
 LIBS = $(addprefix $(LIBFT), /libft.a)
@@ -8,14 +8,14 @@ LIBS = $(addprefix $(LIBFT), /libft.a)
 PARSING_SRC = parsing/
 EXECUTION_SRC = execution/
 
+EXECUTION_FILES = check_cmd.c parse_path.c test.c heredoc.c
+
 PARSING_FILES = parsing.c mini_utils.c minishell.c mini_utils_2.c \
 								sep_cmd.c counters.c expand_n.c ft_split.c \
-								ft_count_quotes.c mini_utils_3.c help_clean.c \
-								part_parsing.c \
+								ft_count_quotes.c mini_utils_3.c help_clean.c part_parsing.c \
 
 # echo.c env.c libft_bonus.c redirections.c 
 
-EXECUTION_FILES = check_cmd.c parse_path.c
 
 PARSING_F_FILES = $(addprefix $(PARSING_SRC), $(PARSING_FILES))
 EXECUTION_F_FILES	= $(addprefix $(EXECUTION_SRC), $(EXECUTION_FILES))
@@ -46,7 +46,7 @@ $(NAME):
 
 clean : 
 	@cd $(LIBFT) && make clean
-	@rm -rf $(O_FILES)
+	rm -rf $(PARSING_OBJ) $(EXECUTION_OBJ)
 
 fclean : clean
 	@cd $(LIBFT) && make fclean
