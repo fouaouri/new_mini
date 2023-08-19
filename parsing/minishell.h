@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fouaouri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:33:48 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/17 22:19:44 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/19 14:33:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ void	fill_the_arr(t_read	*readline);
 // char	*ft_substr(char *s, int start, int len);
 void	skip_spaces_in_the_input(t_read *readline);
 int		ft_strcmp(const char *s1, const char *s2);
-void	sep_files(t_read *readline, t_file *sep, t_list **node);
+// void	sep_files(t_read *readline, t_file *sep, t_list **node);
+t_list	**sep_files(t_read *readline, t_file *sep);
 t_list	*ft_lstnew(char **file_name, char **commandes, char **type);
 void	ft_lst_add_back(t_list **head, char **file_name,
 			char **commandes, char **type);

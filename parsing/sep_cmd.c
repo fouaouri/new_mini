@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sep_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fouaouri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 21:29:00 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/07/26 18:06:26 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/08/19 14:34:41 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,11 @@ void	fill_commands_files(t_read *readline, t_file *sep,
 	null_function(sep, var);
 }
 
-void	sep_files(t_read *readline, t_file *sep, t_list **node)
+t_list	**sep_files(t_read *readline, t_file *sep)
 {
 	int			pipe_index;
 	t_variables	*var;
+	t_list **node = malloc(sizeof(t_list));
 
 	var = malloc(sizeof(t_variables));
 	pipe_index = index_pipe(readline);
@@ -90,4 +91,5 @@ void	sep_files(t_read *readline, t_file *sep, t_list **node)
 		ft_lst_add_back(node, sep->file_name, sep->commandes, sep->type);
 		pipe_index = index_pipe(readline);
 	}
+	return (node);
 }
