@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:36:42 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/19 15:00:02 by marvin           ###   ########.fr       */
+/*   Updated: 2023/08/20 15:22:29 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,6 +302,7 @@ t_list	**parsing(t_read *readline, char **env)
 
 int	main(int ac, char **env)
 {
+	int i;
 	(void)env;
 	t_read	*readline;
 	readline = malloc(sizeof(t_read));

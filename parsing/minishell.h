@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:33:48 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/19 14:33:24 by marvin           ###   ########.fr       */
+/*   Updated: 2023/08/20 15:26:28 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <string.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+#	include <readline/readline.h>
+#	include <readline/history.h>
+// local includes
 # include "../libs/libft/libft.h"
 
 typedef struct s_variables
