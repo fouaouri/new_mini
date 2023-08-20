@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fouaouri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:36:42 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/18 21:45:10 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/19 15:00:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
 
 int	check_pipes(t_read *readline)
 {
@@ -275,62 +273,64 @@ void	print_minishell(t_read *readln)
 		readln->input = ft_calloc(1, 1);
 }
 
-// int	main(int ac, char **av, char **env)
-// {
-// 	(void)env;
-// 	t_read	*readline;
-// 	t_file *sep;
-// 	t_list *node = NULL;
-// 	int sepe = 0;
-// 	int		i = 0;
+t_list	**parsing(t_read *readline, char **env)
+{
+	t_list	**node;
+	t_file	*sep;
+	int		sepe;
+	
+	// node = NULL;
+	readline->exit_status = 0;
+	sep = malloc(sizeof(t_file));
+	print_minishell(readline);
+	expand_arr(readline, env);
+	sepe = check_d_quotes(readline);
+	if(sepe != -1)
+	{
+		replace_char(readline);
+		skip_spaces_in_the_input(readline);
+		sep_by_spaces(readline);
+		add_spaces_in_the_input(readline);
+		fill_the_arr(readline);
+		clean_d_quotes(readline);
+		sepe = check_syntax_error(readline);
+		if (sepe != -1)
+			node = sep_files(readline, sep);
+	}
+	return (node);              
+}
 
-// 	(void)av;
-// 	readline = malloc(sizeof(t_read));
-// 	sep = malloc(sizeof(t_file));
-// 	readline->exit_status = 0;
-// 	while (ac == 1)
-// 	{
-// 		print_minishell(readline);
-// 		if(readline->input == NULL)
-// 			exit (1);
-// 		expand_arr(readline, env);
-// 		// printf("exp : %s\n", readline->exp);
-// 		sepe = check_d_quotes(readline);
-// 		if(sepe != -1)
-// 		{
-// 			replace_char(readline);
-// 			// printf("replace :%s\n", readline->replace);
-// 			skip_spaces_in_the_input(readline);
-// 			// exit_function(readline);
-// 			sep_by_spaces(readline);
-// 			add_spaces_in_the_input(readline);
-// 			fill_the_arr(readline);
-// 			clean_d_quotes(readline);
-// 			sepe = check_syntax_error(readline);
-// 			if (sepe != -1)
-// 				sep_files(readline, sep, &node);
-// 		}
-// 		while(node != NULL)
-// 		{
-// 			i = 0;
-// 			while(node->commandes[i])
-// 			{
-// 				printf("commandes :%d = %s\n", i,node->commandes[i]);
-// 				i++;	
-// 			}
-// 			i = 0;
-// 			 while(node->file_name[i])
-// 			 {
-// 			 	printf("file_name :%d = %s\n", i,node->file_name[i]);
-// 				i++;
-// 			 }
-// 			i = 0;
-// 			while (node->type[i])
-// 				printf("type : %s\n", node->type[i++]);
-// 			node = node->next;
-// 		}
-// 	}
-// }
+int	main(int ac, char **env)
+{
+	(void)env;
+	t_read	*readline;
+	readline = malloc(sizeof(t_read));
+	while (ac == 1)
+	{
+		t_list **hold;
+		hold = NULL;
+		hold = parsing(readline, env);
+		while((*hold) != NULL)
+		{
+			i = 0;
+			while((*hold)->commandes[i])
+			{
+				printf("commandes :%d = %s\n", i,(*hold)->commandes[i]);
+				i++;	
+			}
+			i = 0;
+			 while((*hold)->file_name[i])
+			 {
+			 	printf("file_name :%d = %s\n", i,(*hold)->file_name[i]);
+				i++;
+			 }
+			i = 0;
+			while ((*hold)->type[i])
+				printf("type : %s\n", (*hold)->type[i++]);
+			(*hold) = (*hold)->next;
+		}
+	}
+}
 
 
 
