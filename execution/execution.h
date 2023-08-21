@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:26:36 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/20 21:02:31 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/21 15:35:37 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	ft_heredoc(char *dilimiter);
 int ft_error(int err_id, char *file_name);
 
 // files execution
-int	check_file_acces(char *file);
+int	check_infile_acces(char *file);
+int	check_outfile_acces(char *file);
 int handle_files(t_list *node);
 #endif
