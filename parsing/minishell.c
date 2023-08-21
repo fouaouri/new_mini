@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:36:42 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/20 15:22:29 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/20 21:26:59 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,38 +300,38 @@ t_list	**parsing(t_read *readline, char **env)
 	return (node);              
 }
 
-int	main(int ac, char **env)
-{
-	int i;
-	(void)env;
-	t_read	*readline;
-	readline = malloc(sizeof(t_read));
-	while (ac == 1)
-	{
-		t_list **hold;
-		hold = NULL;
-		hold = parsing(readline, env);
-		while((*hold) != NULL)
-		{
-			i = 0;
-			while((*hold)->commandes[i])
-			{
-				printf("commandes :%d = %s\n", i,(*hold)->commandes[i]);
-				i++;	
-			}
-			i = 0;
-			 while((*hold)->file_name[i])
-			 {
-			 	printf("file_name :%d = %s\n", i,(*hold)->file_name[i]);
-				i++;
-			 }
-			i = 0;
-			while ((*hold)->type[i])
-				printf("type : %s\n", (*hold)->type[i++]);
-			(*hold) = (*hold)->next;
-		}
-	}
-}
+// int	main(int ac, char **env)
+// {
+// 	int i;
+// 	(void)env;
+// 	t_read	*readline;
+// 	readline = malloc(sizeof(t_read));
+// 	while (ac == 1)
+// 	{
+// 		t_list **hold;
+// 		hold = NULL;
+// 		hold = parsing(readline, env);
+// 		while((*hold) != NULL)
+// 		{
+// 			i = 0;
+// 			while((*hold)->commandes[i])
+// 			{
+// 				printf("commandes :%d = %s\n", i,(*hold)->commandes[i]);
+// 				i++;	
+// 			}
+// 			i = 0;
+// 			 while((*hold)->file_name[i])
+// 			 {
+// 			 	printf("file_name :%d = %s\n", i,(*hold)->file_name[i]);
+// 				i++;
+// 			 }
+// 			i = 0;
+// 			while ((*hold)->type[i])
+// 				printf("type : %s\n", (*hold)->type[i++]);
+// 			(*hold) = (*hold)->next;
+// 		}
+// 	}
+// }
 
 
 

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:33:48 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/20 15:26:28 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/20 21:25:54 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ typedef struct s_list
 	char			**file_name;
 	char			**commandes;
 	char			**type;
+	// execution vars
+	int	infile;
+	int	outfile;
 	struct s_list	*next;
 }	t_list;
 
@@ -75,6 +78,7 @@ typedef struct s_file
 // char	*ft_strjoin(char *s1, char *s2);
 // char	*ft_strdup(char *s1);
 // void	*ft_calloc(int count, int size);
+t_list	**parsing(t_read *readline, char **env); // parsing function
 int		count_words(char *str);
 int		counter(char *str);
 void	print_minishell(t_read *readln);
