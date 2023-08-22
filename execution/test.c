@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/21 15:34:05 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/22 21:42:14 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(int ac, char **av, char **env)
 {
 	(void)av;
-	int i;
+	// int i;
 	t_read	*readline;
 	t_list	**hold;
 
@@ -28,21 +28,22 @@ int	main(int ac, char **av, char **env)
 			// calling exection function
 			if ((*hold)->type)
 				handle_files((*hold));
-			i = 0;
-			while((*hold)->commandes[i])
-			{
-				printf("commandes :%d = %s\n", i,(*hold)->commandes[i]);
-				i++;	
-			}
-			i = 0;
-			 while((*hold)->file_name[i])
-			 {
-			 	printf("file_name :%d = %s\n", i,(*hold)->file_name[i]);
-				i++;
-			 }
-			i = 0;
-			while ((*hold)->type[i])
-				printf("type : %s\n", (*hold)->type[i++]);
+			exec_one_cmd((*hold), env);
+			// i = 0;
+			// while((*hold)->commandes[i])
+			// {
+			// 	printf("commandes :%d = %s\n", i,(*hold)->commandes[i]);
+			// 	i++;	
+			// }
+			// i = 0;
+			//  while((*hold)->file_name[i])
+			//  {
+			//  	printf("file_name :%d = %s\n", i,(*hold)->file_name[i]);
+			// 	i++;
+			//  }
+			// i = 0;
+			// while ((*hold)->type[i])
+			// 	printf("type : %s\n", (*hold)->type[i++]);
 			(*hold) = (*hold)->next;
 		}
 	}

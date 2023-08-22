@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:26:36 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/21 15:35:37 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/22 21:51:56 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <sys/wait.h>
 
 enum {
 	SUCCESS = 1,
@@ -28,7 +29,7 @@ enum {
 
 // execution
 char	**parse_path(char *path);
-char	*check_cmd(char *path, char *cmd);
+char	*check_cmd(char **path, char *cmd);
 
 // heredoc section
 int	ft_heredoc(char *dilimiter);
@@ -40,4 +41,7 @@ int ft_error(int err_id, char *file_name);
 int	check_infile_acces(char *file);
 int	check_outfile_acces(char *file);
 int handle_files(t_list *node);
+
+// exec function
+void	exec_one_cmd(t_list *node, char **env);
 #endif
