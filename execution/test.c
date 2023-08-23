@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/22 21:42:14 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/23 12:56:47 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,14 @@ int	main(int ac, char **av, char **env)
 	// int i;
 	t_read	*readline;
 	t_list	**hold;
+	
 
 	readline = malloc(sizeof(t_read));
 	while (ac == 1)
 	{
 		hold = parsing(readline, env);
+		(*hold)->outfile = 1;
+		(*hold)->infile = 0;
 		while((*hold) != NULL)
 		{
 			// calling exection function
