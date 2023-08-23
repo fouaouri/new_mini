@@ -6,7 +6,7 @@
 /*   By: melhadou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 13:17:31 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/22 21:54:05 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/23 12:47:16 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ char	*check_cmd(char **path, char *cmd)
 	char	*tmp;
 	int		ret;
 
+	ret = access(cmd, F_OK);
+	if (!ret)
+		return (cmd);
 	while (*path)
 	{
 		tmp = ft_strjoin(*path, "/");
