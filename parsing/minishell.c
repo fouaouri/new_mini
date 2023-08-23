@@ -6,7 +6,8 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:36:42 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/23 12:51:33 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:56:50 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:45:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,32 +81,33 @@ int	check_pipes(t_read *readline)
 
 int	check_redirections(t_read *readline)
 {
-	int i;
+	// int i;
 	int len;
 	
 	len = counter_arr(readline->put_zero) - 1;
 	if(len < 0)
 		len = 0;
-	i = 0;
+	// i = 0;
 		
-	if ((ft_strcmp(readline->arr[len], ">") == 0 || ft_strcmp(readline->arr[len], "<") == 0)
-	|| (ft_strcmp(readline->arr[len], ">>") == 0 || ft_strcmp(readline->arr[len], "<<") == 0))
+	if (readline->arr[len] && ((ft_strcmp(readline->arr[len], ">") == 0 || ft_strcmp(readline->arr[len], "<") == 0)
+	|| (ft_strcmp(readline->arr[len], ">>") == 0 || ft_strcmp(readline->arr[len], "<<") == 0)))
 	{
 		write(2, "bash: syntax error near unexpected token\n", 41);
 		readline->exit_status = 258;
 		return (-1);
 	}
-	while(readline->string[i] && readline->string[i + 1])
-	{
-		if(readline->input[i] == '>' && readline->input[i + 1] == '<')
-		{
-			write(2, "bash: syntax error near unexpected token\n", 41);
-			readline->exit_status = 258;
-			return (-1);
-			break;
-		}
-		i++;
-	}
+	// while(readline->input[i] && readline->string[i] && readline->string[i + 1])
+	// {
+	// 	if(readline->input[i] == '>' && readline->input[i + 1] == '<')
+	// 	{
+	// 		write(2, "bash: syntax error near unexpected token\n", 41);
+	// 		readline->exit_status = 258;
+	// 		return (-1);
+	// 		break;
+	// 	}
+	// 	else
+	// 		i++;
+	// }
 	// i = 0;
 	// while(readline->arr[i])
 	// {
@@ -278,12 +280,13 @@ t_list	**parsing(t_read *readline, char **env)
 	t_list	**node;
 	t_file	*sep;
 	int		sepe;
-	
-	// node = NULL;
+
 	readline->exit_status = 0;
 	sep = malloc(sizeof(t_file));
 	print_minishell(readline);
+	printf("input : %s\n", readline->input);
 	expand_arr(readline, env);
+	printf("exp : %s\n", readline->exp);
 	sepe = check_d_quotes(readline);
 	if(sepe != -1)
 	{
@@ -293,45 +296,43 @@ t_list	**parsing(t_read *readline, char **env)
 		add_spaces_in_the_input(readline);
 		fill_the_arr(readline);
 		clean_d_quotes(readline);
-		sepe = check_syntax_error(readline);
-		if (sepe != -1)
+		// sepe = check_syntax_error(readline);
+		// if (sepe != -1)
 			node = sep_files(readline, sep);
 	}
 	return (node);              
 }
 
-// int	main(int ac, char **env)
-// {
-// 	int i;
-// 	(void)env;
-// 	t_read	*readline;
-// 	readline = malloc(sizeof(t_read));
-// 	while (ac == 1)
-// 	{
-// 		t_list **hold;
-// 		hold = NULL;
-// 		hold = parsing(readline, env);
-// 		while((*hold) != NULL)
-// 		{
-// 			i = 0;
-// 			while((*hold)->commandes[i])
-// 			{
-// 				printf("commandes :%d = %s\n", i,(*hold)->commandes[i]);
-// 				i++;	
-// 			}
-// 			i = 0;
-// 			 while((*hold)->file_name[i])
-// 			 {
-// 			 	printf("file_name :%d = %s\n", i,(*hold)->file_name[i]);
-// 				i++;
-// 			 }
-// 			i = 0;
-// 			while ((*hold)->type[i])
-// 				printf("type : %s\n", (*hold)->type[i++]);
-// 			(*hold) = (*hold)->next;
-// 		}
-// 	}
-// }
-
-
-
+int	main(int ac, char **av, char **env)
+{
+	(void)av;
+	t_read	*readline;
+	int i = 0;
+	readline = malloc(sizeof(t_read));
+	while (ac == 1)
+	{
+		t_list **hold;
+		hold = NULL;
+		hold = parsing(readline, env);
+		while((*hold) != NULL)
+		{
+			i = 0;
+			while((*hold)->commandes[i])
+			{
+				printf("commandes :%d = %s\n", i,(*hold)->commandes[i]);
+				i++;	
+			}
+			i = 0;
+			 while((*hold)->file_name[i])
+			 {
+			 	printf("file_name :%d = %s\n", i,(*hold)->file_name[i]);
+				i++;
+			 }
+			i = 0;
+			while ((*hold)->type[i])
+				printf("type : %s\n", (*hold)->type[i++]);
+			(*hold) = (*hold)->next;
+		}
+		// system("leaks minishell");
+	}
+}
