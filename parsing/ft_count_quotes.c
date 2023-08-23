@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_count_quotes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fouaouri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 02:25:10 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/07/17 21:40:21 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:41:34 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	ft_count_d_quotes(char *str)
 
 	i = 0;
 	count = 0;
-	len = ft_strlen(str);
+	if (str)
+		len = ft_strlen(str);
 	count1 = help_count(str, i, count, len);
 	return (count1);
 }
@@ -61,7 +62,8 @@ void	data_clean(char *str, t_variables *var)
 	var->alloc = ft_count_d_quotes(str);
 	var->k = 0;
 	var->str1 = malloc(var->alloc + 1);
-	var->len = ft_strlen(str);
+	if (str)
+		var->len = ft_strlen(str);
 }
 
 char	*ft_clean_d_quotes(char *str)
