@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/23 13:01:11 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/23 16:05:07 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ void	exec_one_cmd(t_list *node, char **env)
 			if (node->outfile != 1)
 			{
 				dup2(node->outfile, 1);
+			}
+			if (node->infile != 0)
+			{
+				dup2(node->infile, 0);
 			}
 			if (execve(cmd_full_path, node->commandes, env) == -1)
 				exit(1);

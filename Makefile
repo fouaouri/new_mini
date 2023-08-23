@@ -47,10 +47,10 @@ $(NAME):
 
 clean : 
 	@cd $(LIBFT) && make clean
-	rm -rf $(PARSING_OBJ) $(EXECUTION_OBJ)
+	@rm -rf $(PARSING_OBJ) $(EXECUTION_OBJ)
 
 fclean : clean
 	@cd $(LIBFT) && make fclean
-	rm -rf $(NAME) exec pars
+	@rm -rf $(NAME) exec pars
 
 re : fclean all
