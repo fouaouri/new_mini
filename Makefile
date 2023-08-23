@@ -53,4 +53,4 @@ fclean : clean
 	@cd $(LIBFT) && make fclean
 	rm -rf $(NAME) exec pars
 
-re : fclean $(NAME)
+re : fclean all

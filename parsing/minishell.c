@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:36:42 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/23 15:56:50 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/23 16:00:34 by melhadou         ###   ########.fr       */
 /*   Updated: 2023/08/23 15:45:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -303,36 +303,36 @@ t_list	**parsing(t_read *readline, char **env)
 	return (node);              
 }
 
-int	main(int ac, char **av, char **env)
-{
-	(void)av;
-	t_read	*readline;
-	int i = 0;
-	readline = malloc(sizeof(t_read));
-	while (ac == 1)
-	{
-		t_list **hold;
-		hold = NULL;
-		hold = parsing(readline, env);
-		while((*hold) != NULL)
-		{
-			i = 0;
-			while((*hold)->commandes[i])
-			{
-				printf("commandes :%d = %s\n", i,(*hold)->commandes[i]);
-				i++;	
-			}
-			i = 0;
-			 while((*hold)->file_name[i])
-			 {
-			 	printf("file_name :%d = %s\n", i,(*hold)->file_name[i]);
-				i++;
-			 }
-			i = 0;
-			while ((*hold)->type[i])
-				printf("type : %s\n", (*hold)->type[i++]);
-			(*hold) = (*hold)->next;
-		}
-		// system("leaks minishell");
-	}
-}
+// int	main(int ac, char **av, char **env)
+// {
+// 	(void)av;
+// 	t_read	*readline;
+// 	int i = 0;
+// 	readline = malloc(sizeof(t_read));
+// 	while (ac == 1)
+// 	{
+// 		t_list **hold;
+// 		hold = NULL;
+// 		hold = parsing(readline, env);
+// 		while((*hold) != NULL)
+// 		{
+// 			i = 0;
+// 			while((*hold)->commandes[i])
+// 			{
+// 				printf("commandes :%d = %s\n", i,(*hold)->commandes[i]);
+// 				i++;	
+// 			}
+// 			i = 0;
+// 			 while((*hold)->file_name[i])
+// 			 {
+// 			 	printf("file_name :%d = %s\n", i,(*hold)->file_name[i]);
+// 				i++;
+// 			 }
+// 			i = 0;
+// 			while ((*hold)->type[i])
+// 				printf("type : %s\n", (*hold)->type[i++]);
+// 			(*hold) = (*hold)->next;
+// 		}
+// 		// system("leaks minishell");
+// 	}
+// }
