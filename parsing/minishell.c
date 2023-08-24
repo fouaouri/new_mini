@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:36:42 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/24 22:14:59 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/24 22:42:22 by melhadou         ###   ########.fr       */
 /*   Updated: 2023/08/23 15:45:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -269,7 +269,7 @@ int	check_syntax_error(t_read *readline)
 
 void	print_minishell(t_read *readln)
 {
-	readln->input = readline("my_minishell $> ");
+	readln->input = readline("\033[0;32mMinishell $> \033[0m");
 	add_history(readln->input);
 	if (readln->input == NULL)
 		readln->input = ft_calloc(1, 1);
