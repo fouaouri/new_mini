@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/23 12:56:47 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/23 16:14:56 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	main(int ac, char **av, char **env)
 	// int i;
 	t_read	*readline;
 	t_list	**hold;
-	
 
 	readline = malloc(sizeof(t_read));
 	while (ac == 1)

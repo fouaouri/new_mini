@@ -1,21 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_path.c                                       :+:      :+:    :+:   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/15 16:27:02 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/23 16:19:17 by melhadou         ###   ########.fr       */
+/*   Created: 2023/08/23 16:19:28 by melhadou          #+#    #+#             */
+/*   Updated: 2023/08/23 16:19:34 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"execution.h"
-
-char	**parse_path(char *path)
-{
-	char **res;
-
-	res = ft_split(path, ':');
-	return (res);
-}
+#include "execution.h"
