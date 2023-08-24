@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:26:36 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/23 16:07:42 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/24 20:39:22 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,5 @@ int handle_files(t_list *node);
 
 // exec function
 void	exec_one_cmd(t_list *node, char **env);
+void	exec_cmd(t_list *node, char **env);
 #endif
