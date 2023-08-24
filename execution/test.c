@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/24 22:00:43 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/24 22:05:26 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ int main(int ac, char **av, char **env) {
 		t_list *current = *hold;
 		while (current != NULL)
 		{
-			if (current->type)
-				handle_files(current);
-
 			if (current->next != NULL) {
 				pipe(pipe_fd);
 				current->outfile = pipe_fd[1]; // Set this command to write to pipe;
 				current->next->infile = pipe_fd[0];  // Set next command's input
 			} else
 				current->outfile = STDOUT_FILENO; // Set last command's output to terminal
+
+			if (current->type)
+				handle_files(current);
 
 			exec_cmd(current, env);
 
