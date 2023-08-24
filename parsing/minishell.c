@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:36:42 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/23 16:00:34 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/24 22:14:59 by melhadou         ###   ########.fr       */
 /*   Updated: 2023/08/23 15:45:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -284,9 +284,9 @@ t_list	**parsing(t_read *readline, char **env)
 	readline->exit_status = 0;
 	sep = malloc(sizeof(t_file));
 	print_minishell(readline);
-	printf("input : %s\n", readline->input);
+	// printf("input : %s\n", readline->input);
 	expand_arr(readline, env);
-	printf("exp : %s\n", readline->exp);
+	// printf("exp : %s\n", readline->exp);
 	sepe = check_d_quotes(readline);
 	if(sepe != -1)
 	{
