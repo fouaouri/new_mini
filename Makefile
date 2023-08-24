@@ -27,9 +27,13 @@ ALL_FILES = $(addprefix $(PARSING_SRC), $(PARSING_FILES)) \
 
 PARSING_OBJ = $(PARSING_F_FILES:%.c=%.o)
 EXECUTION_OBJ = $(EXECUTION_F_FILES:%.c=%.o)
-O_FILES = $(addprefix $(PARSING_OBJ), $(EXECUTION_OBJ))
+O_FILES = $(PARSING_F_FILES:%.c=%.o)
+O_FILES += $(EXECUTION_F_FILES:%.c=%.o)
 
-all: libft $(NAME)
+all: $(NAME)
+
+$(NAME): libft $(O_FILES)
+	@$(CC) -lreadline $(CFLAGS) $(ALL_FILES) $(LIBS) -o $(NAME)
 
 libft:
 	@make -C $(LIBFT)
@@ -40,8 +44,6 @@ parsing: libft $(PARSING_OBJ)
 execution: libft $(EXECUTION_OBJ)
 	@$(CC) $(CFLAGS) $(EXECUTION_OBJ) $(LIBS) -o exec
 
-$(NAME):
-	@$(CC) -lreadline $(CFLAGS) $(ALL_FILES) $(LIBS) -o $(NAME)
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@

@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/23 16:14:56 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/24 19:49:29 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,6 @@ int	main(int ac, char **av, char **env)
 			if ((*hold)->type)
 				handle_files((*hold));
 			exec_one_cmd((*hold), env);
-			// i = 0;
-			// while((*hold)->commandes[i])
-			// {
-			// 	printf("commandes :%d = %s\n", i,(*hold)->commandes[i]);
-			// 	i++;	
-			// }
-			// i = 0;
-			//  while((*hold)->file_name[i])
-			//  {
-			//  	printf("file_name :%d = %s\n", i,(*hold)->file_name[i]);
-			// 	i++;
-			//  }
-			// i = 0;
-			// while ((*hold)->type[i])
-			// 	printf("type : %s\n", (*hold)->type[i++]);
 			(*hold) = (*hold)->next;
 		}
 	}

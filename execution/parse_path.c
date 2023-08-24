@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:27:02 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/23 16:19:17 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/24 19:50:36 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,6 @@ char	**parse_path(char *path)
 	char **res;
 
 	res = ft_split(path, ':');
+
 	return (res);
 }
