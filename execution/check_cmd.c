@@ -6,7 +6,7 @@
 /*   By: melhadou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 13:17:31 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/23 12:47:16 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/25 22:08:28 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*check_cmd(char **path, char *cmd)
 	char	*tmp;
 	int		ret;
 
+	if (!cmd[0])
+		return (NULL);
 	ret = access(cmd, F_OK);
 	if (!ret)
 		return (cmd);
