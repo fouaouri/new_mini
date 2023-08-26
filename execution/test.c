@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/26 20:23:54 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/26 20:49:07 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@ int main(int ac, char **av, char **env) {
 	t_list **hold;
 	int i;
 	int pipe_fd[2];
+	// t_env *ft_env;
 
 	readline = malloc(sizeof(t_read));
+	// ft_env = init_env(env);
+	
 	while (ac == 1) {
 		hold = parsing(readline, env);
 		(*hold)->outfile = STDOUT_FILENO;
@@ -55,7 +58,14 @@ int main(int ac, char **av, char **env) {
 				current->outfile = STDOUT_FILENO; // Set last command's output to terminal
 
 			if (current->type)
-				handle_files(current);
+			{
+				int status = handle_files(current);
+				if (status < 0)
+				{
+					// FIX: Handle error and make exec function not in main
+					break ;
+				}
+			}
 
 			exec_cmd(current, env);
 

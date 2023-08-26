@@ -5,3 +5,5 @@ pars
 .DS_Store
 *.a
 minishell
+*.json
+.cache

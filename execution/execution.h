@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:26:36 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/25 22:50:35 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/26 20:36:50 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,13 @@ enum {
 	FILE_NOT_EXIST = -2,
 	PERSMISSION_DENIED = -3,
 };
+
+typedef struct t_env
+{
+	char *key;
+	char *value;
+	struct t_env *next;
+} t_env;
 
 // execution
 char	**parse_path(char *path);
