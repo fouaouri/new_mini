@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/25 22:06:33 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/26 20:23:54 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int main(int ac, char **av, char **env) {
 	(void)av;
 	t_read *readline;
 	t_list **hold;
+	int i;
 	int pipe_fd[2];
 
 	readline = malloc(sizeof(t_read));
@@ -25,6 +26,25 @@ int main(int ac, char **av, char **env) {
 		(*hold)->infile = STDIN_FILENO;
 
 		t_list *current = *hold;
+		
+		while (current != NULL)
+		{
+			i = 0;
+			while (current->type[i])
+			{
+				if (!ft_strcmp(current->type[i], "h"))
+				{
+					int fd = ft_heredoc(current->file_name[i]);
+					free(current->file_name[i]);
+					current->file_name[i] = ft_itoa(fd);
+				}
+				i++;
+			}
+			current = current->next;
+		}
+
+		current = *hold;
+
 		while (current != NULL)
 		{
 			if (current->next != NULL) {

@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/25 22:10:05 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/26 12:33:17 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@ void	exec_cmd(t_list *node, char **env) {
 
 	int in_fd = node->infile;
 	int out_fd = node->outfile;
+
+	// just for now
+	// check for builtins exit
+	if (node->commandes[0] && !ft_strcmp(node->commandes[0], "exit"))
+	{
+		ft_exit(node->commandes);
+	}
 
 	// FIX: just fix for now
 	if (node->commandes[0])

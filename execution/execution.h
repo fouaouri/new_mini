@@ -6,14 +6,17 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:26:36 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/24 20:39:22 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/25 22:50:35 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
+
 # include "../parsing/minishell.h"
 # include "../libs/libft/libft.h"
+# include "../builtins/builtins.h"
+
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
