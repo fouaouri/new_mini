@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:33:48 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/20 21:25:54 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/27 16:55:24 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,18 @@ typedef struct s_file
 	char	**type;
 	int		sum;
 }	t_file;
+
+// Parsing Environment
+typedef struct t_env
+{
+	char *key;
+	char *value;
+	struct t_env *next;
+} t_env;
+
+/* init env functions*/
+t_env *init_env(char **env);
+
 
 // int		ft_strlen(char *s);
 // char	*ft_strjoin(char *s1, char *s2);

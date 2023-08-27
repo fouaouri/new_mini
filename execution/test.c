@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/26 20:49:07 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/27 16:52:28 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@ int main(int ac, char **av, char **env) {
 	t_list **hold;
 	int i;
 	int pipe_fd[2];
-	// t_env *ft_env;
 
 	readline = malloc(sizeof(t_read));
-	// ft_env = init_env(env);
 	
 	while (ac == 1) {
 		hold = parsing(readline, env);
