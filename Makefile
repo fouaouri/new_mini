@@ -11,13 +11,13 @@ EXECUTION_SRC = execution/
 
 EXECUTION_FILES = check_cmd.c parse_path.c test.c heredoc.c \
 									handle_files.c ft_errors.c open_pipes.c \
-									exec_utils.c parse_env.c
+									exec_utils.c 
 
 BUILTINS_FILES = exit.c
 
 PARSING_FILES = parsing.c mini_utils.c minishell.c mini_utils_2.c \
 								sep_cmd.c counters.c expand_n.c ft_split.c \
-								ft_count_quotes.c mini_utils_3.c help_clean.c part_parsing.c \
+								ft_count_quotes.c mini_utils_3.c help_clean.c part_parsing.c parse_env.c \
 
 # echo.c env.c libft_bonus.c redirections.c 
 
