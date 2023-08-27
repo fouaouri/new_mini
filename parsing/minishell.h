@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:33:48 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/27 16:55:24 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/27 18:22:43 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 #	include <readline/history.h>
 // local includes
 # include "../libs/libft/libft.h"
+
+// golobal variable for exit status
+int exit_status = 0;
 
 typedef struct s_variables
 {
