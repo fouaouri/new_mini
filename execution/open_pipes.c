@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/28 22:47:15 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/28 23:12:24 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	exec_cmd(t_list *node, char **env) {
 				// close(STDIN_FILENO);
 			}
 		}
-		else
+		else // error checking
 		{
 			if (ft_strchr(node->commandes[0], '/'))
 				printf("minishell: %s: no such file or directory\n", node->commandes[0]);
