@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 21:29:00 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/19 14:34:41 by marvin           ###   ########.fr       */
+/*   Updated: 2023/08/28 18:52:33 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	fill_commands_files(t_read *readline, t_file *sep,
 		if ((ft_strcmp(readline->arr1[var->i], "<") == 0
 				|| ft_strcmp(readline->arr1[var->i], ">") == 0 || ft_strcmp(readline->arr1[var->i], "<<") == 0 || ft_strcmp(readline->arr1[var->i], ">>") == 0))
 		{
-			printf("here\n");
+			// printf("here\n");
 			if (ft_strcmp(readline->arr1[var->i], "<") == 0)
 				sep->type[var->j] = ft_strdup("i");
 			else if (ft_strcmp(readline->arr1[var->i], ">") == 0)

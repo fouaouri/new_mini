@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/23 16:19:28 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/28 18:35:26 by melhadou         ###   ########.fr       */
+/*   Created: 2023/08/28 15:53:42 by melhadou          #+#    #+#             */
+/*   Updated: 2023/08/28 15:55:11 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-void	close_fd(int in_fd, int out_fd)
+void	free_list(t_list **node)
 {
-	if (in_fd != STDIN_FILENO)
-		close(in_fd);
-	if (out_fd != STDOUT_FILENO)
-		close(out_fd);
+	t_list *temp;
+
+	while (*node != NULL) {
+		temp = (*node);
+		free((*node)->commandes);
+		free((*node)->type);
+		free((*node)->file_name);
+		(*node) = (*node)->next;
+		free(temp);
+	}
 }

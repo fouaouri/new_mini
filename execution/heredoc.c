@@ -6,11 +6,34 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 21:32:31 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/25 21:18:29 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/28 18:43:52 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+
+void	handle_heredoc(t_list *node)
+{
+	int	i;
+
+	while (node != NULL)
+	{
+		i = 0;
+		while (node->type[i])
+		{
+			if (!ft_strcmp(node->type[i], "h"))
+			{
+				if (node->file_name[i] == NULL)
+					return ;
+				int fd = ft_heredoc(node->file_name[i]);
+				free(node->file_name[i]);
+				node->file_name[i] = ft_itoa(fd);
+			}
+			i++;
+		}
+		node = node->next;
+	}
+}
 
 int	ft_heredoc(char *dilimiter)
 {
@@ -18,6 +41,10 @@ int	ft_heredoc(char *dilimiter)
 	int p_fd[2];
 
 	// check for error in pipe
+	if (dilimiter == NULL)
+	{
+		return (-1);
+	}
 	pipe(p_fd);
 	while (1)
 	{

@@ -6,19 +6,21 @@
 /*   By: melhadou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 13:17:31 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/25 22:08:28 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/28 16:03:30 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"execution.h"
 
-// i needd to join the cmd from t_node and check if its exisct or not using acces function
 char	*check_cmd(char **path, char *cmd)
 {
 	char	*tmp;
 	int		ret;
 
+	/* NOTE: checking for valid cmd */
 	if (!cmd[0])
+		return (NULL);
+	if (cmd[0] == '.' && cmd[1] == '/')
 		return (NULL);
 	ret = access(cmd, F_OK);
 	if (!ret)

@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:26:36 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/27 18:54:22 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/28 16:15:05 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ enum {
 char	**parse_path(char *path);
 char	*check_cmd(char **path, char *cmd);
 
+// exec utils
+void	handle_heredoc(t_list *node);
+void	close_fd(int in_fd, int out_fd);
+
 // heredoc section
 int	ft_heredoc(char *dilimiter);
 
@@ -48,4 +52,11 @@ int handle_files(t_list *node);
 // exec function
 void	exec_one_cmd(t_list *node, char **env);
 void	exec_cmd(t_list *node, char **env);
+
+// exuction flow functions
+int	execute(t_list *node,char **env);
+
+// free utils
+void	free_list(t_list **node);
+
 #endif

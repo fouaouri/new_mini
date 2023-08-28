@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/27 18:32:38 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/28 16:12:22 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ void	exec_cmd(t_list *node, char **env) {
 				exit(EXIT_FAILURE);
 			} else
 			{
-
-			// status code 
+				// status code 
 				int status_code = 0;
 				waitpid(pid, &status_code, 0);
+				// close(STDIN_FILENO);
 			}
 		}
 		else
