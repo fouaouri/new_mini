@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:26:36 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/27 16:54:36 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/27 18:54:22 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ enum {
 	FILE_NOT_EXIST = -2,
 	PERSMISSION_DENIED = -3,
 };
-
 
 // execution
 char	**parse_path(char *path);

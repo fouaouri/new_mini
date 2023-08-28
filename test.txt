@@ -1,4 +1,5 @@
-Export k="a B "
+44
+ort k="a B "
 Ls >$k
 [00:59]
 echo $Pa'hw'<"Makefi"le|cat -e

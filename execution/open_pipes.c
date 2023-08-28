@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/26 12:33:17 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/27 18:32:38 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,12 @@ void	exec_cmd(t_list *node, char **env) {
 				perror("fork");
 				exit(EXIT_FAILURE);
 			} else
-				wait(&pid); // This should be outside the "if" statement to ensure parent waits for child
+			{
+
+			// status code 
+				int status_code = 0;
+				waitpid(pid, &status_code, 0);
+			}
 		}
 		else
 		{

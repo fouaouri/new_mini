@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 15:38:48 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/26 20:24:59 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/27 21:36:00 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	handle_files(t_list *node)
 		}
 		else if (!ft_strcmp(node->type[i], "o"))
 		{
-			status = open(node->file_name[i], O_WRONLY | O_CREAT, 0644);
+			status = open(node->file_name[i], O_WRONLY | O_TRUNC | O_CREAT, 0644);
 			if (status < 0)
 				return (status);
 			node->outfile = status;

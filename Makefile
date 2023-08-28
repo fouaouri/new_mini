@@ -37,30 +37,32 @@ O_FILES = $(PARSING_F_FILES:%.c=%.o)
 O_FILES += $(EXECUTION_F_FILES:%.c=%.o)
 O_FILES += $(BUILTINS_F_FILES:%.c=%.o)
 
+SILENT = @
+
 all: $(NAME)
 
 $(NAME): libft $(O_FILES)
-	@$(CC) -lreadline $(CFLAGS) $(ALL_FILES) $(LIBS) -o $(NAME)
+	$(SILENT) $(CC) -lreadline $(CFLAGS) $(ALL_FILES) $(LIBS) -o $(NAME)
 
 libft:
-	@make -C $(LIBFT)
+	$(SILENT)	cd $(LIBFT) && make
 
 parsing: libft $(PARSING_OBJ)
-	@$(CC) -lreadline $(CFLAGS) $(PARSING_OBJ) $(LIBS) -o pars
+	$(SILENT) $(CC) -lreadline $(CFLAGS) $(PARSING_OBJ) $(LIBS) -o pars
 
 execution: libft $(EXECUTION_OBJ)
-	@$(CC) $(CFLAGS) $(EXECUTION_OBJ) $(LIBS) -o exec
+	$(SILENT) $(CC) $(CFLAGS) $(EXECUTION_OBJ) $(LIBS) -o exec
 
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@
+	$(SILENT) $(CC) $(CFLAGS) -c $< -o $@
 
 clean : 
-	@cd $(LIBFT) && make clean
-	@rm -rf $(PARSING_OBJ) $(EXECUTION_OBJ) $(O_FILES)
+	$(SILENT) cd $(LIBFT) && make clean
+	$(SILENT) rm -rf $(PARSING_OBJ) $(EXECUTION_OBJ) $(O_FILES)
 
 fclean : clean
-	@cd $(LIBFT) && make fclean
-	@rm -rf $(NAME) exec pars
+	$(SILENT) cd $(LIBFT) && make fclean
+	$(SILENT) rm -rf $(NAME) exec pars
 
 re : fclean all

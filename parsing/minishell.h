@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:33:48 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/27 18:22:43 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/27 21:14:03 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@
 # include "../libs/libft/libft.h"
 
 // golobal variable for exit status
-int exit_status = 0;
+
+extern int exit_status;
+// int exit_status = 0;
 
 typedef struct s_variables
 {
@@ -85,8 +87,18 @@ typedef struct t_env
 	struct t_env *next;
 } t_env;
 
+// Data Structure for global variables
+typedef struct	t_data
+{
+	int		exit_status;
+	t_env	*env;
+}	t_data;
+
+// global variable for data
+// t_data g_data;
+
 /* init env functions*/
-t_env *init_env(char **env);
+t_env	*init_env(char **env);
 
 
 // int		ft_strlen(char *s);
