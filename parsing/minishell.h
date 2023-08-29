@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:33:48 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/27 21:14:03 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/29 11:57:12 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_list
 	// execution vars
 	int	infile;
 	int	outfile;
+	int	pid;
 	struct s_list	*next;
 }	t_list;
 
