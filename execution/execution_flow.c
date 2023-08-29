@@ -6,12 +6,16 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 15:47:16 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/29 16:47:00 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/29 22:34:29 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
+/*
+	 BUG:
+	 => I need to close infile for first cmd: like => cat | ls. ls should print then cat
+*/
 int	execute(t_list *node,char **env)
 {
 	int pipe_fd[2];
@@ -19,8 +23,8 @@ int	execute(t_list *node,char **env)
 	if (node->next != NULL)
 	{
 		pipe(pipe_fd);
-		node->outfile = pipe_fd[1]; // Set this command to write to pipe;
 		node->next->infile = pipe_fd[0];  // Set next command's input
+		node->outfile = pipe_fd[1]; // Set this command to write to pipe;
 	}
 	else
 		node->outfile = STDOUT_FILENO; // Set last command's output to terminal
@@ -32,19 +36,8 @@ int	execute(t_list *node,char **env)
 	}
 
 	exec_cmd(node, env);
-	
-	// close pipe from child 
-	if (node->pid != 0)
-	{
-		if (node->next != NULL)
-			close(pipe_fd[1]); // Close current pipe's write end
-	}
 
 	if (node->next != NULL)
 		close(pipe_fd[1]); // Close current pipe's write end
-	
-	/* BUG:
-	 * I need to close infile for first cmd: like => cat | ls. ls should print then cat
-	 */
 	return (SUCCESS);
 }
