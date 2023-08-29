@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/29 12:00:33 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/29 16:37:56 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	exec_cmd(t_list *node, char **env) {
 	char *cmd_full_path;
-
-	int in_fd = node->infile;
-	int out_fd = node->outfile;
 
 	// just for now
 	// check for builtins exit
@@ -33,15 +30,15 @@ void	exec_cmd(t_list *node, char **env) {
 			node->pid = fork();
 			if (node->pid == 0)
 			{
-				if (in_fd != STDIN_FILENO)
+				if (node->infile != STDIN_FILENO)
 				{
-					dup2(in_fd, STDIN_FILENO);
-					close(in_fd);
+					dup2(node->infile, STDIN_FILENO);
+					close(node->infile);
 				}
-				if (out_fd != STDOUT_FILENO)
+				if (node->outfile != STDOUT_FILENO)
 				{
-					dup2(out_fd, STDOUT_FILENO);
-					close(out_fd);
+					dup2(node->outfile, STDOUT_FILENO);
+					close(node->outfile);
 				}
 				if (execve(cmd_full_path, node->commandes, env) == -1)
 				{

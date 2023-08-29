@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:36:42 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/28 19:08:19 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/29 15:04:12 by melhadou         ###   ########.fr       */
 /*   Updated: 2023/08/23 15:45:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -296,8 +296,8 @@ t_list	**parsing(t_read *readline, char **env)
 		add_spaces_in_the_input(readline);
 		fill_the_arr(readline);
 		clean_d_quotes(readline);
-		// sepe = check_syntax_error(readline);
-		// if (sepe != -1)
+		sepe = check_syntax_error(readline);
+		if (sepe != -1)
 			node = sep_files(readline, sep);
 	}
 	return (node);              
