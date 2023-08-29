@@ -42,7 +42,7 @@ SILENT = @
 all: $(NAME)
 
 $(NAME): libft $(O_FILES)
-	$(SILENT) $(CC) -lreadline $(CFLAGS) $(ALL_FILES) $(LIBS) -o $(NAME)
+	$(SILENT) $(CC) $(CFLAGS) $(ALL_FILES) $(LIBS) -lreadline -o $(NAME)
 
 libft:
 	$(SILENT)	cd $(LIBFT) && make
@@ -55,7 +55,7 @@ execution: libft $(EXECUTION_OBJ)
 
 
 %.o: %.c
-	$(SILENT) $(CC) $(CFLAGS) -c $< -o $@
+	$(SILENT) $(CC) $(CFLAGS) -lreadline -c $< -o $@
 
 clean : 
 	$(SILENT) cd $(LIBFT) && make clean
