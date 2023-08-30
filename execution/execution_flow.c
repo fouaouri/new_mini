@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 15:47:16 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/29 22:34:29 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/29 23:16:15 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ int	execute(t_list *node,char **env)
 
 	if (node->next != NULL)
 	{
-		pipe(pipe_fd);
+		if (pipe(pipe_fd) == -1)
+		{
+			perror("pipe");
+			return (ERROR);
+    }
 		node->next->infile = pipe_fd[0];  // Set next command's input
 		node->outfile = pipe_fd[1]; // Set this command to write to pipe;
 	}
@@ -36,8 +40,13 @@ int	execute(t_list *node,char **env)
 	}
 
 	exec_cmd(node, env);
-
-	if (node->next != NULL)
-		close(pipe_fd[1]); // Close current pipe's write end
+	
+	if (node->next)
+	{
+		close(pipe_fd[1]);
+	}
+	if (node->outfile != STDOUT_FILENO)
+		close(0);
+	close_fd(node->infile, node->outfile);
 	return (SUCCESS);
 }

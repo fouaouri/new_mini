@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/29 22:34:08 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/29 23:13:34 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,8 @@ void	exec_cmd(t_list *node, char **env) {
 					dup2(node->infile, STDIN_FILENO);
 				if (node->outfile != STDOUT_FILENO)
 					dup2(node->outfile, STDOUT_FILENO);
-
 				// close in and out fds
 				close_fd(node->infile, node->outfile);
-
 				if (execve(cmd_full_path, node->commandes, env) == -1)
 				{
 					perror("execve");
