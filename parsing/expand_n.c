@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:42:08 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/30 19:36:31 by marvin           ###   ########.fr       */
+/*   Updated: 2023/08/31 16:14:49 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	call_env(t_read *readline, char *str, char **env, t_variables *var)
 	}
 	var->len = ft_strlen(var->str1) + 1;
 	var->str1 = ft_strjoin(var->str1, "=");
+	printf("str : %s\n", var->str1);
 	var->i = 0;
 	while (env[var->i])
 	{
@@ -55,7 +56,9 @@ void	call_env(t_read *readline, char *str, char **env, t_variables *var)
 		}
 		var->i++;
 	}
+	var->i = 0;
 	var->len = ft_strlen(str) + 1;
+	printf("e : %d\nk : %d\n", var->e, var->k);
 	if (var->k == 1)
 		while (var->j < var->len - 1)
 			readline->exp = ft_strjoin_char(readline->exp, str[var->j++]);
@@ -87,8 +90,10 @@ void	expand_arr(t_read *readline, char **env)
 	int i = 0;
 	int count = 0;
 	var->k = 0;
+	var->e = 0;
 	var->s_d = 0;
 	int sc = 0;
+	char *exit0;
 	readline->exp = calloc(1, 1);
 	readline->new_input = calloc(1, 1);
 	while (readline->input[i])
@@ -143,6 +148,14 @@ void	expand_arr(t_read *readline, char **env)
 							{
 								if (readline->input[i - 1] == '$' && readline->input[i] == '+')
 									readline->exp = ft_strjoin_char(readline->exp, readline->input[i - 1]);
+								else if (readline->input[i - 1] == '$' && readline->input[i] == '?')
+								{
+									exit0 = ft_itoa(readline->exit_status);
+									readline->exp = ft_strjoin(readline->exp, exit0);
+									i += 1;
+									while (readline->input[i] && readline->input[i] != '\"' && check_special_char(readline->input[i]) == 1)
+										readline->exp = ft_strjoin_char(readline->exp, readline->input[i++]);
+								}
 								var->k = 1;	
 							}
 						}
@@ -184,11 +197,11 @@ void	expand_arr(t_read *readline, char **env)
 							readline->exp = ft_strjoin_char(readline->exp, readline->input[i - 1]);
 						else if (readline->input[i - 1] == '$' && readline->input[i] == '?')
 						{
-							char *exit0;
 							exit0 = ft_itoa(readline->exit_status);
 							readline->exp = ft_strjoin(readline->exp, exit0);
 							i += 1;
-							var->e = 1;
+							while (readline->input[i] && readline->input[i] != '\"' && check_special_char(readline->input[i]) == 1)
+								readline->exp = ft_strjoin_char(readline->exp, readline->input[i++]);
 						}
 						var->k = 1;
 					}
