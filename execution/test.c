@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/29 23:09:58 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/31 16:52:59 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	main(int ac, char **av, char **env) {
 
 	(void)av;
 	readline = malloc(sizeof(t_read));
-	while (ac == 1) {
+	while (ac == 1)
+	{
 		hold = parsing(readline, env);
 		(*hold)->outfile = STDOUT_FILENO;
 		(*hold)->infile = STDIN_FILENO;
@@ -26,7 +27,7 @@ int	main(int ac, char **av, char **env) {
 		t_list *current = *hold;
 		
 		// heredoc and handle it
-			handle_heredoc(current);
+		handle_heredoc(current);
 
 		while (current != NULL)
 		{

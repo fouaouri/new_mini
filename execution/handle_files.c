@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 15:38:48 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/28 22:39:18 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/30 17:47:24 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,38 +50,38 @@ int	handle_files(t_list *node)
 	int status;
 
 	i = 0;
-	while (node->type[i])
-	{
-		// check files and open it;
-		if (!ft_strcmp(node->type[i], "i"))
-		{
-			status = check_infile_acces(node->file_name[i]);
-			if (status < 0)
-				return (status);
-			node->infile = status;
-		}
-		else if (!ft_strcmp(node->type[i], "h"))
-		{
-			// status = check_file_acces(node->file_name[i]);
-			// if (status < 0)
-			// 	return (status);
-			node->infile = ft_atoi(node->file_name[i]);
-		}
-		else if (!ft_strcmp(node->type[i], "o"))
-		{
-			status = open(node->file_name[i], O_WRONLY | O_TRUNC | O_CREAT, 0644);
-			if (status < 0)
-				return (status);
-			node->outfile = status;
-		}
-		else if (!ft_strcmp(node->type[i], "a"))
-		{
-			status = open(node->file_name[i], O_WRONLY | O_APPEND | O_CREAT, 0644);
-			if (status < 0)
-				return (status);
-			node->outfile = status;
-		}
+	while (node->type[i] && node->type[i + 1] == NULL)
 		i++;
+
+	// check files and open it;
+	if (!ft_strcmp(node->type[i], "i"))
+	{
+		status = check_infile_acces(node->file_name[i]);
+		if (status < 0)
+			return (status);
+		node->infile = status;
 	}
+	else if (!ft_strcmp(node->type[i], "h"))
+	{
+		// status = check_file_acces(node->file_name[i]);
+		// if (status < 0)
+		// 	return (status);
+		node->infile = ft_atoi(node->file_name[i]);
+	}
+	else if (!ft_strcmp(node->type[i], "o"))
+	{
+		status = open(node->file_name[i], O_WRONLY | O_TRUNC | O_CREAT, 0644);
+		if (status < 0)
+			return (status);
+		node->outfile = status;
+	}
+	else if (!ft_strcmp(node->type[i], "a"))
+	{
+		status = open(node->file_name[i], O_WRONLY | O_APPEND | O_CREAT, 0644);
+		if (status < 0)
+			return (status);
+		node->outfile = status;
+	}
+	i++;
 	return (SUCCESS);
 }

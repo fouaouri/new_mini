@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 15:47:16 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/29 23:16:15 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/31 16:58:28 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,9 @@ int	execute(t_list *node,char **env)
 	}
 
 	exec_cmd(node, env);
-	
-	if (node->next)
-	{
-		close(pipe_fd[1]);
-	}
-	if (node->outfile != STDOUT_FILENO)
-		close(0);
-	close_fd(node->infile, node->outfile);
+
+	// if (node->next)
+	// 	close(pipe_fd[1]);
+
 	return (SUCCESS);
 }

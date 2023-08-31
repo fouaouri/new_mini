@@ -6,11 +6,12 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/29 23:13:34 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/31 16:57:27 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+#include <unistd.h>
 
 void	exec_cmd(t_list *node, char **env) {
 	char *cmd_full_path;
@@ -30,12 +31,17 @@ void	exec_cmd(t_list *node, char **env) {
 			node->pid = fork();
 			if (node->pid == 0)
 			{
-				if (node->infile != STDIN_FILENO)
-					dup2(node->infile, STDIN_FILENO);
-				if (node->outfile != STDOUT_FILENO)
-					dup2(node->outfile, STDOUT_FILENO);
-				// close in and out fds
-				close_fd(node->infile, node->outfile);
+				ft_dup2(node->infile, node->outfile);
+
+				// check if infile is 0. then close it
+				if (node->next)
+				{
+					if (node->next->infile != STDIN_FILENO)
+						close(node->next->infile);
+					if (node->next->outfile != STDOUT_FILENO)
+						close(node->next->outfile);
+				}
+
 				if (execve(cmd_full_path, node->commandes, env) == -1)
 				{
 					perror("execve");
@@ -43,7 +49,9 @@ void	exec_cmd(t_list *node, char **env) {
 				}
 			}
 			else if (node->pid != 0)
+			{
 				close_fd(node->infile, node->outfile);
+			}
 			else if (node->pid < 0)
 			{
 				perror("fork");

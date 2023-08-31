@@ -6,17 +6,26 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 16:19:28 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/29 22:29:46 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/31 16:49:47 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
-#include <sys/wait.h>
 
 void	close_fd(int in_fd, int out_fd)
 {
 	if (in_fd != STDIN_FILENO)
 		close(in_fd);
+	if (out_fd != STDOUT_FILENO)
+		close(out_fd);
+}
+
+void	ft_dup2(int in_fd, int out_fd)
+{
+	dup2(in_fd, STDIN_FILENO);
+	if (in_fd != STDIN_FILENO)
+		close(in_fd);
+	dup2(out_fd, STDOUT_FILENO);
 	if (out_fd != STDOUT_FILENO)
 		close(out_fd);
 }

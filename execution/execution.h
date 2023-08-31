@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:26:36 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/29 12:05:50 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/31 15:06:57 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ char	*check_cmd(char **path, char *cmd);
 
 // exec utils
 void	handle_heredoc(t_list *node);
-void	close_fd(int in_fd, int out_fd);
 int	wait_childs(t_list *node);
+void	close_fd(int in_fd, int out_fd);
+void	ft_dup2(int in_fd, int out_fd);
 
 // heredoc section
 int	ft_heredoc(char *dilimiter);
