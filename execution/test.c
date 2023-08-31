@@ -6,13 +6,13 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/31 17:10:20 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/31 20:18:01 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"execution.h"
 
-int exit_status;
+t_data	g_data;
 
 int	main(int ac, char **av, char **env) {
 	t_read	*readline;
@@ -22,6 +22,12 @@ int	main(int ac, char **av, char **env) {
 	readline = malloc(sizeof(t_read));
 	while (ac == 1)
 	{
+		// setting signals
+
+		signal(SIGINT, ctl_c_handler);
+		// ctr-/
+		signal(SIGQUIT, SIG_IGN);
+
 		hold = parsing(readline, env);
 		(*hold)->outfile = STDOUT_FILENO;
 		(*hold)->infile = STDIN_FILENO;
@@ -29,7 +35,12 @@ int	main(int ac, char **av, char **env) {
 		t_list *current = *hold;
 		
 		// heredoc and handle it
-		handle_heredoc(current);
+		if (handle_heredoc(current) == -1)
+		{
+			// set the right status code
+			g_data.exit_status = 130;
+			continue ;
+		}
 
 		while (current != NULL)
 		{

@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:26:36 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/31 15:06:57 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/31 20:11:11 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/wait.h>
+#include <signal.h>
 
 enum {
 	SUCCESS = 1,
@@ -35,7 +36,7 @@ char	**parse_path(char *path);
 char	*check_cmd(char **path, char *cmd);
 
 // exec utils
-void	handle_heredoc(t_list *node);
+int	handle_heredoc(t_list *node);
 int	wait_childs(t_list *node);
 void	close_fd(int in_fd, int out_fd);
 void	ft_dup2(int in_fd, int out_fd);
@@ -60,5 +61,9 @@ int	execute(t_list *node,char **env);
 
 // free utils
 void	free_list(t_list **node);
+
+
+// signla handlers
+void	ctl_c_handler(int sig);
 
 #endif

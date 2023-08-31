@@ -12,6 +12,7 @@ EXECUTION_SRC = execution/
 EXECUTION_FILES = check_cmd.c parse_path.c test.c heredoc.c \
 									handle_files.c ft_errors.c open_pipes.c \
 									exec_utils.c execution_flow.c free_utils.c \
+									signals_handlers.c
 
 BUILTINS_FILES = exit.c
 

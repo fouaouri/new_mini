@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:33:48 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/31 17:09:38 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/31 20:36:32 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@
 #	include <readline/history.h>
 // local includes
 # include "../libs/libft/libft.h"
-
-// golobal variable for exit status
-
-extern int exit_status;
 
 typedef struct s_variables
 {
@@ -92,11 +88,12 @@ typedef struct t_env
 typedef struct	t_data
 {
 	int		exit_status;
+	int		in_heredoc;
 	t_env	*env;
 }	t_data;
 
 // global variable for data
-// t_data g_data;
+extern t_data g_data;
 
 /* init env functions*/
 t_env	*init_env(char **env);

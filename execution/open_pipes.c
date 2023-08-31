@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/31 18:47:52 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/31 20:21:46 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	exec_cmd(t_list *node, char **env) {
 			node->pid = fork();
 			if (node->pid == 0)
 			{
+				signal(SIGQUIT, SIG_DFL);
 				ft_dup2(node->infile, node->outfile);
 
 				// check if infile is 0. then close it
@@ -48,6 +49,7 @@ void	exec_cmd(t_list *node, char **env) {
 			}
 			else if (node->pid != 0)
 			{
+				signal(SIGINT, SIG_IGN);
 				close_fd(node->infile, node->outfile);
 			}
 			else if (node->pid < 0)
