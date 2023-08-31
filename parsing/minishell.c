@@ -6,8 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:36:42 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/30 17:57:25 by melhadou         ###   ########.fr       */
-/*   Updated: 2023/08/23 15:45:43 by marvin           ###   ########.fr       */
+/*   Updated: 2023/08/31 17:06:22 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +20,25 @@ int	check_pipes(t_read *readline)
 		len = 0;
 	if(ft_strcmp(readline->arr[0], "|") == 0)
 	{
-		write(2, "Minishell: syntax error near unexpected token\n", 41);
+		write(2, "Minishell: syntax error near unexpected token\n", 46);
 		readline->exit_status = 258;
 		return (-1);
 	}
 	else if(ft_strcmp(readline->arr[len], "|") == 0)
 	{
-		write(2, "Minishell: syntax error near unexpected token\n", 41);
+		write(2, "Minishell: syntax error near unexpected token\n", 46);
 		readline->exit_status = 258;
 		return (-1);
 	}
 	else if(ft_strcmp(readline->arr[0], "&") == 0)
 	{
-		write(2, "Minishell: syntax error near unexpected token\n", 41);
+		write(2, "Minishell: syntax error near unexpected token\n", 46);
 		readline->exit_status = 258;
 		return (-1);
 	}
 	else if (ft_strcmp(readline->arr[0], ")") == 0)
 	{
-		write(2, "Minishell: syntax error near unexpected token\n", 41);
+		write(2, "Minishell: syntax error near unexpected token\n", 46);
 		readline->exit_status = 258;
 		return (-1);
 	}
@@ -59,7 +58,7 @@ int	check_pipes(t_read *readline)
 		}
 		else if(readline->string[i] == '|' && readline->string[i + 1] == '|')
 		{
-			write(2, "Minishell: syntax error near unexpected token\n", 41);
+			write(2, "Minishell: syntax error near unexpected token\n", 46);
 			readline->exit_status = 258;
 			return	(-1);
 			break;
@@ -69,7 +68,7 @@ int	check_pipes(t_read *readline)
 			|| (readline->input[i] == '<' && readline->input[i + 1] == ' '
 			&& readline->input[i + 2] == '|'))
 		{
-			write(2, "Minishell: syntax error near unexpected token\n", 41);
+			write(2, "Minishell: syntax error near unexpected token\n", 46);
 			readline->exit_status = 258;
 			return (-1);
 			break;
@@ -92,7 +91,7 @@ int	check_redirections(t_read *readline)
 	if (readline->arr[len] && ((ft_strcmp(readline->arr[len], ">") == 0 || ft_strcmp(readline->arr[len], "<") == 0)
 	|| (ft_strcmp(readline->arr[len], ">>") == 0 || ft_strcmp(readline->arr[len], "<<") == 0)))
 	{
-		write(2, "Minishell: syntax error near unexpected token\n", 41);
+		write(2, "Minishell: syntax error near unexpected token\n", 46);
 		readline->exit_status = 258;
 		return (-1);
 	}
@@ -100,7 +99,7 @@ int	check_redirections(t_read *readline)
 	// {
 	// 	if(readline->input[i] == '>' && readline->input[i + 1] == '<')
 	// 	{
-	// 		write(2, "Minishell: syntax error near unexpected token\n", 41);
+	// 		write(2, "Minishell: syntax error near unexpected token\n", 46);
 	// 		readline->exit_status = 258;
 	// 		return (-1);
 	// 		break;
@@ -114,7 +113,7 @@ int	check_redirections(t_read *readline)
 	// 	if(ft_strcmp(readline->arr[i], ">")
 	// 	&& (ft_strncmp(readline->arr[i + 1], "<", 1) || ft_strncmp(readline->arr[i + 1], ">", 1)))
 	// 	{
-	// 		write(2, "Minishell: syntax error near unexpected token\n", 41);
+	// 		write(2, "Minishell: syntax error near unexpected token\n", 46);
 	// 		readline->exit_status = 258;
 	// 		return (-1);
 	// 		break;
@@ -122,7 +121,7 @@ int	check_redirections(t_read *readline)
 	// 	else if(ft_strcmp(readline->arr[i], "<")
 	// 	&& (ft_strncmp(readline->arr[i + 1], "<", 1) || ft_strncmp(readline->arr[i + 1], ">", 1)))
 	// 	{
-	// 		write(2, "Minishell: syntax error near unexpected token\n", 41);
+	// 		write(2, "Minishell: syntax error near unexpected token\n", 46);
 	// 		readline->exit_status = 258;
 	// 		return (-1);
 	// 		break;
@@ -141,7 +140,7 @@ int	check_redi(t_read *readline)
 		i++;
 	if(i > 2)
 	{
-		write(2, "Minishell: syntax error near unexpected token\n", 41);
+		write(2, "Minishell: syntax error near unexpected token\n", 46);
 		readline->exit_status = 258;
 			return (-1);
 	}
@@ -150,7 +149,7 @@ int	check_redi(t_read *readline)
 		i++;
 	if(i > 2)
 	{
-		write(2, "Minishell: syntax error near unexpected token\n", 41);
+		write(2, "Minishell: syntax error near unexpected token\n", 46);
 		readline->exit_status = 258;
 			return (-1);
 	}
@@ -159,7 +158,7 @@ int	check_redi(t_read *readline)
 		i++;
 	if(i > 1)
 	{
-		write(2, "Minishell: syntax error near unexpected token\n", 41);
+		write(2, "Minishell: syntax error near unexpected token\n", 46);
 		readline->exit_status = 258;
 			return (-1);
 	}
@@ -169,9 +168,10 @@ int	check_redi(t_read *readline)
 int check_ands(t_read *readline)
 {
 	int i;
-	int len;
+	int len, len1;
 	
 	len = counter_arr(readline->put_zero) - 1;
+	len1 = ft_strlen(readline->input);
 	if(len >= 0)
 	{
 		i = 0;
@@ -179,18 +179,18 @@ int check_ands(t_read *readline)
 			i++;
 		if(i > 1)
 		{
-			write(2, "Minishell: syntax error near unexpected token\n", 41);
+			write(2, "Minishell: syntax error near unexpected token\n", 46);
 			{
 				readline->exit_status = 258;
 				return (-1);
 			}
 		}
 		i = 0;
-		while(readline->arr[len][i] && readline->arr[len][i] == '&')
+		while(readline->input[i] && readline->input[len1] == '&')
 			i++;
 		if(i > 2)
 		{
-			write(2, "Minishell: syntax error near unexpected token\n", 41);
+			write(2, "Minishell: syntax error near unexpected token\n", 46);
 			readline->exit_status = 258;
 				return (-1);
 		}
@@ -277,7 +277,7 @@ void	print_minishell(t_read *readln)
 
 t_list	**parsing(t_read *readline, char **env)
 {
-	t_list	**node;
+	// t_list	**node;
 	t_file	*sep;
 	int		sepe;
 
@@ -296,11 +296,11 @@ t_list	**parsing(t_read *readline, char **env)
 		add_spaces_in_the_input(readline);
 		fill_the_arr(readline);
 		clean_d_quotes(readline);
-		sepe = check_syntax_error(readline);
-		if (sepe != -1)
-			node = sep_files(readline, sep);
+		// sepe = check_syntax_error(readline);
+		// if (sepe != -1)
+			return(sep_files(readline, sep));
 	}
-	return (node);              
+	return (NULL);              
 }
 
 // int	main(int ac, char **av, char **env)
