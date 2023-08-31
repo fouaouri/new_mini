@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:36:42 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/31 17:06:22 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/31 18:54:54 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,7 +272,8 @@ void	print_minishell(t_read *readln)
 	readln->input = readline("\033[0;32mMinishell $> \033[0m");
 	add_history(readln->input);
 	if (readln->input == NULL)
-		readln->input = ft_calloc(1, 1);
+		exit(0);
+		// readln->input = ft_calloc(1, 1);
 }
 
 t_list	**parsing(t_read *readline, char **env)
