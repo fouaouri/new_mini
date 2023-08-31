@@ -6,11 +6,13 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/31 16:52:59 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/31 17:10:20 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include	"execution.h"
+
+int exit_status;
 
 int	main(int ac, char **av, char **env) {
 	t_read	*readline;
@@ -40,7 +42,6 @@ int	main(int ac, char **av, char **env) {
 		if (status == -1)
 			return (ERROR);
 
-		// Clean up linked list or move this to a separate function
 		free_list(hold);
 	}
 }

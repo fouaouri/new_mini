@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/31 16:57:27 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/31 18:47:52 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ void	exec_cmd(t_list *node, char **env) {
 				{
 					if (node->next->infile != STDIN_FILENO)
 						close(node->next->infile);
-					if (node->next->outfile != STDOUT_FILENO)
-						close(node->next->outfile);
 				}
 
 				if (execve(cmd_full_path, node->commandes, env) == -1)
