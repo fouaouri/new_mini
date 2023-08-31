@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:42:08 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/20 16:02:42 by marvin           ###   ########.fr       */
+/*   Updated: 2023/08/30 19:36:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,14 @@ void	expand_arr(t_read *readline, char **env)
 					{
 						if (readline->input[i - 1] == '$' && readline->input[i] == '+')
 							readline->exp = ft_strjoin_char(readline->exp, readline->input[i - 1]);
-						// else if (readline->input[i - 1] == '$' && readline->input[i] == '?')
+						else if (readline->input[i - 1] == '$' && readline->input[i] == '?')
+						{
+							char *exit0;
+							exit0 = ft_itoa(readline->exit_status);
+							readline->exp = ft_strjoin(readline->exp, exit0);
+							i += 1;
+							var->e = 1;
+						}
 						var->k = 1;
 					}
 					while (readline->input[i] && readline->input[i] != '\"' && check_special_char(readline->input[i]) == 1)
