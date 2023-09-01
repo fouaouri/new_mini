@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 21:32:31 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/01 18:55:48 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/01 21:17:21 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,18 @@ int	handle_heredoc(t_list *node)
 		i = 0;
 		while (node->type[i])
 		{
-			if (ft_strcmp(node->type[i], "h")) {
-				i++;
-				continue;
+			if (!ft_strcmp(node->type[i], "h"))
+			{
+				// FIX: handle err
+				if (node->file_name[i] == NULL)
+					return 0;
+				int fd = ft_heredoc(node->file_name[i]);
+				if (fd == -1)
+					return (fd); // error
+				free(node->file_name[i]);
+				node->file_name[i] = ft_itoa(fd);
 			}
-
-			// FIX: handle err
-			if (node->file_name[i] == NULL)
-				return 0;
-			int fd = ft_heredoc(node->file_name[i]);
-			// printf("recieved fd: %d\n", fd);
-			if (fd == -1)
-				return (fd); // error
-			free(node->file_name[i]);
-			node->file_name[i] = ft_itoa(fd);
+			i++;
 		}
 		node = node->next;
 	}

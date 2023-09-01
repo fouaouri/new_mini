@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 15:38:48 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/01 18:54:09 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/01 21:31:05 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,45 +44,94 @@ int	check_outfile_acces(char *file)
 		return (status);
 }
 
+int find_file_type(char **type, char *t) {
+	int i, last_index;
+
+	last_index = ERROR; // Initialize last_index to -1
+	i = 0;
+
+	while (type[i]) {
+		if (ft_strcmp(type[i], t) == 0)
+			last_index = i; // Update last_index to the current index
+		i++;
+	}
+
+	return last_index;
+}
+
 int	handle_files(t_list *node)
 {
 	int i;
 	int status;
 
 	i = 0;
-	while (node->type[i] && node->type[i + 1] == NULL)
-		i++;
 
 	// check files and open it;
-	if (!ft_strcmp(node->type[i], "i"))
+	i = find_file_type(node->type, "i");
+	if (i != ERROR)
 	{
 		status = check_infile_acces(node->file_name[i]);
 		if (status < 0)
 			return (status);
 		node->infile = status;
 	}
-	else if (!ft_strcmp(node->type[i], "h"))
-	{
-		// status = check_file_acces(node->file_name[i]);
-		// if (status < 0)
-		// 	return (status);
-		printf("fd handle_files -> file_name: %s\n", node->file_name[i]);
+	
+	i = find_file_type(node->type, "h");
+	if (i != ERROR)
 		node->infile = ft_atoi(node->file_name[i]);
-	}
-	else if (!ft_strcmp(node->type[i], "o"))
+
+	i = find_file_type(node->type, "o");
+	if (i != ERROR)
 	{
 		status = open(node->file_name[i], O_WRONLY | O_TRUNC | O_CREAT, 0644);
 		if (status < 0)
 			return (status);
 		node->outfile = status;
 	}
-	else if (!ft_strcmp(node->type[i], "a"))
+	
+	i = find_file_type(node->type, "a");
+	if (i != ERROR)
 	{
 		status = open(node->file_name[i], O_WRONLY | O_APPEND | O_CREAT, 0644);
 		if (status < 0)
 			return (status);
 		node->outfile = status;
 	}
-	i++;
 	return (SUCCESS);
 }
+
+// int	handle_files(t_list *node)
+// {
+// 	int i;
+// 	int status;
+
+// 	i = 0;
+// 	while (node->type[i] && node->type[i + 1] == NULL)
+// 		i++;
+
+// 	// check files and open it;
+// 	if (!ft_strcmp(node->type[i], "i"))
+// 	{
+// 		status = check_infile_acces(node->file_name[i]);
+// 		if (status < 0)
+// 			return (status);
+// 		node->infile = status;
+// 	}
+// 	else if (!ft_strcmp(node->type[i], "h"))
+// 		node->infile = ft_atoi(node->file_name[i]);
+// 	else if (!ft_strcmp(node->type[i], "o"))
+// 	{
+// 		status = open(node->file_name[i], O_WRONLY | O_TRUNC | O_CREAT, 0644);
+// 		if (status < 0)
+// 			return (status);
+// 		node->outfile = status;
+// 	}
+// 	else if (!ft_strcmp(node->type[i], "a"))
+// 	{
+// 		status = open(node->file_name[i], O_WRONLY | O_APPEND | O_CREAT, 0644);
+// 		if (status < 0)
+// 			return (status);
+// 		node->outfile = status;
+// 	}
+// 	return (SUCCESS);
+// }
