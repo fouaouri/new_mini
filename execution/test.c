@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/31 20:18:01 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/01 18:44:38 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	main(int ac, char **av, char **env) {
 		{
 			// set the right status code
 			g_data.exit_status = 130;
+			printf("heredoc error\n");
 			continue ;
 		}
 

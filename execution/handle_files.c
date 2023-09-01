@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 15:38:48 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/30 17:47:24 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/01 18:54:09 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	handle_files(t_list *node)
 		// status = check_file_acces(node->file_name[i]);
 		// if (status < 0)
 		// 	return (status);
+		printf("fd handle_files -> file_name: %s\n", node->file_name[i]);
 		node->infile = ft_atoi(node->file_name[i]);
 	}
 	else if (!ft_strcmp(node->type[i], "o"))
