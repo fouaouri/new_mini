@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/03 19:25:22 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/04 16:01:24 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,17 @@ void	exec_cmd(t_list *node, char **env, t_env **env_list)
 		ft_export(env_list, node->commandes);
 		return ;
 	}
+	if (node->commandes[0] && !ft_strcmp(node->commandes[0], "unset"))
+	{
+		ft_unset(env_list, node->commandes);
+		return ;
+	}
 
 	// FIX: just fix for now
 	if (node->commandes[0])
 	{
-		cmd_full_path = check_cmd(parse_path(getenv("PATH")), node->commandes[0]);
-
+		// cmd_full_path = check_cmd(parse_path(getenv("PATH")), node->commandes[0]);
+		cmd_full_path = check_cmd(parse_path(env_list), node->commandes[0]);
 		if (cmd_full_path)
 		{
 			node->pid = fork();
@@ -47,7 +52,6 @@ void	exec_cmd(t_list *node, char **env, t_env **env_list)
 					if (node->next->infile != STDIN_FILENO)
 						close(node->next->infile);
 				}
-
 				if (execve(cmd_full_path, node->commandes, env) == -1)
 				{
 					perror("execve");

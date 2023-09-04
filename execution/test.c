@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/03 19:25:42 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/04 15:52:21 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_data	g_data;
 int	main(int ac, char **av, char **env) {
 	t_read	*readline;
 	t_list	**hold;
-	t_env *env_list;
+	t_env	*env_list;
 
 	(void)av;
 	readline = malloc(sizeof(t_read));

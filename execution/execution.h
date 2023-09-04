@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:26:36 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/03 19:27:00 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/04 15:58:28 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ enum {
 };
 
 // execution
-char	**parse_path(char *path);
+char	**parse_path(t_env **env_list);
 char	*check_cmd(char **path, char *cmd);
 
 // exec utils

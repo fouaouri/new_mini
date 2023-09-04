@@ -1,6 +1,6 @@
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror #-g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
 
 LIBFT = libs/libft
 LIBS = $(addprefix $(LIBFT), /libft.a)
@@ -14,7 +14,7 @@ EXECUTION_FILES = check_cmd.c parse_path.c test.c heredoc.c \
 									exec_utils.c execution_flow.c free_utils.c \
 									signals_handlers.c
 
-BUILTINS_FILES = exit.c ft_export.c ft_env.c
+BUILTINS_FILES = exit.c ft_export.c ft_env.c ft_unset.c
 
 PARSING_FILES = parsing.c mini_utils.c minishell.c mini_utils_2.c \
 								sep_cmd.c counters.c expand_n.c ft_split.c \

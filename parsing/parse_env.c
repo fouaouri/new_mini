@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:53:55 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/03 22:11:31 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/04 15:40:31 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_env	*ft_new_env(char *str)
 		node->key = ft_strdup(str);
 		node->value = NULL;
 	}
+	node->next = NULL;
 	return (node);
 }
 
