@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:33:48 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/31 20:36:32 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/03 19:21:34 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ extern t_data g_data;
 
 /* init env functions*/
 t_env	*init_env(char **env);
+t_env	*ft_new_env(char *str);
+void	ft_add_back_env(t_env **lst, t_env *node);
 
 
 // int		ft_strlen(char *s);

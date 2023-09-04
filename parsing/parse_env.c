@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:53:55 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/27 16:55:47 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/03 22:11:31 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ t_env	*ft_new_env(char *str)
 
 	node = malloc(sizeof(t_env));
 	ptr = ft_strchr(str, '=');
-
 	if (ptr)
 	{
 		node->key = ft_substr(str, 0, ft_strlen(str) - ft_strlen(ptr));
@@ -30,7 +29,6 @@ t_env	*ft_new_env(char *str)
 		node->key = ft_strdup(str);
 		node->value = NULL;
 	}
-	
 	return (node);
 }
 

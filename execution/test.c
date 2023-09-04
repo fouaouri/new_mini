@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/01 18:44:38 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/03 19:25:42 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,13 @@ t_data	g_data;
 int	main(int ac, char **av, char **env) {
 	t_read	*readline;
 	t_list	**hold;
+	t_env *env_list;
 
 	(void)av;
 	readline = malloc(sizeof(t_read));
+
+	env_list = init_env(env);
+
 	while (ac == 1)
 	{
 		// setting signals
@@ -45,7 +49,7 @@ int	main(int ac, char **av, char **env) {
 
 		while (current != NULL)
 		{
-			execute(current, env);
+			execute(current, env, &env_list);
 			current = current->next;
 		}
 

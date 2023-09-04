@@ -6,20 +6,27 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/31 20:21:46 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/03 19:25:22 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 #include <unistd.h>
 
-void	exec_cmd(t_list *node, char **env) {
+void	exec_cmd(t_list *node, char **env, t_env **env_list)
+{
 	char *cmd_full_path;
 
 	// just for now
 	// check for builtins exit
 	if (node->commandes[0] && !ft_strcmp(node->commandes[0], "exit"))
 		ft_exit(node->commandes);
+	
+	if (node->commandes[0] && !ft_strcmp(node->commandes[0], "export"))
+	{
+		ft_export(env_list, node->commandes);
+		return ;
+	}
 
 	// FIX: just fix for now
 	if (node->commandes[0])

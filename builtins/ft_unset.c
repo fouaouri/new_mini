@@ -1,23 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/25 22:29:38 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/04 15:21:03 by melhadou         ###   ########.fr       */
+/*   Created: 2023/09/03 16:58:00 by melhadou          #+#    #+#             */
+/*   Updated: 2023/09/03 16:58:01 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
-# include "../libs/libft/libft.h"
-# include "../parsing/minishell.h"
-void	ft_exit(char **args);
-void	ft_export(t_env **env, char **cmds);
-
-t_env	*ft_search_for_key(t_env **env, char *key);
-t_env	*ft_add_new_env(char *str);
-void	ft_update_value(t_env *node, char *str);
-#endif
+#include "builtins.h"
