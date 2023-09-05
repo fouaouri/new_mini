@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:26:36 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/05 17:42:51 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/05 18:57:26 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "../builtins/builtins.h"
 
 #include <stdlib.h>
+#include <errno.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/wait.h>
@@ -40,6 +41,9 @@ int	handle_heredoc(t_list *node);
 int	wait_childs(t_list *node);
 void	close_fd(int in_fd, int out_fd);
 void	ft_dup2(int in_fd, int out_fd);
+char **create_env();
+char	*ft_concat(char *s1, char c, char *s2);
+int	ft_lst_size();
 
 // heredoc section
 int	ft_heredoc(char *dilimiter);
@@ -54,12 +58,10 @@ int	check_outfile_acces(char *file);
 int handle_files(t_list *node);
 
 // exec function
-void	exec_one_cmd(t_list *node);
 void	exec_cmd(t_list *node);
-// void	exec_cmd(t_list *node, char **env);
+void	execute_builtins(t_list *node, char *builtin);
 
 // exuction flow functions
-// int	execute(t_list *node,char **env);
 int	execute(t_list *node);
 
 // free utils
