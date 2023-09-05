@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:26:36 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/04 15:58:28 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/05 17:42:51 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ enum {
 };
 
 // execution
-char	**parse_path(t_env **env_list);
+char	**parse_path();
 char	*check_cmd(char **path, char *cmd);
 
 // exec utils
@@ -54,15 +54,16 @@ int	check_outfile_acces(char *file);
 int handle_files(t_list *node);
 
 // exec function
-void	exec_one_cmd(t_list *node, char **env);
-void	exec_cmd(t_list *node, char **env, t_env **env_list);
+void	exec_one_cmd(t_list *node);
+void	exec_cmd(t_list *node);
 // void	exec_cmd(t_list *node, char **env);
 
 // exuction flow functions
 // int	execute(t_list *node,char **env);
-int	execute(t_list *node,char **env, t_env **env_list);
+int	execute(t_list *node);
 
 // free utils
+void	ft_free(char **str);
 void	free_list(t_list **node);
 
 

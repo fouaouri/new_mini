@@ -6,11 +6,21 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 16:19:28 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/31 16:49:47 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/05 17:52:26 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+
+void	ft_free(char **str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+		free(str[i++]);
+	free(str);
+}
 
 void	close_fd(int in_fd, int out_fd)
 {

@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 16:57:54 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/04 15:47:08 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/05 17:19:08 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ t_env	*ft_add_new_env(char *str)
 	return (node);
 }
 
-t_env	*ft_search_for_key(t_env **env, char *key)
+t_env	*ft_search_for_key(char *key)
 {
 	t_env *node;
-	node = *env;
+	node = g_data.l_env;
 
 	while(node)
 	{
@@ -70,8 +70,11 @@ int	ft_validate_key(char *key)
 	return (1);
 }
 
-void	ft_print_env(t_env *env)
+void	ft_print_env()
 {
+	t_env	*env;
+
+	env = g_data.l_env;
 	while (env)
 	{
 		printf("declare -x ");
@@ -95,7 +98,7 @@ void	ft_update_value(t_env *node, char *str)
 		node->value = ft_strdup(ptr + 1);
 }
 
-void	ft_export(t_env **env, char **cmds)
+void	ft_export(char **cmds)
 {
 	int i;
 	char *key;
@@ -103,7 +106,7 @@ void	ft_export(t_env **env, char **cmds)
 
 	if (!cmds[1])
 	{
-		ft_print_env(*env);
+		ft_print_env();
 		return ;
 	}
 	i = 1;
@@ -116,13 +119,13 @@ void	ft_export(t_env **env, char **cmds)
 			key = ft_strdup(cmds[i]);
 		if (ft_validate_key(key))
 		{
-			node = ft_search_for_key(env, key);
+			node = ft_search_for_key(key);
 			if (node)
 				ft_update_value(node, cmds[i]);
 			else
 			{
 				node = ft_add_new_env(cmds[i]);
-				ft_add_back_env(env, node);
+				ft_add_back_env(&g_data.l_env, node);
 			}
 		}
 		free(key);
