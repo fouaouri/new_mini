@@ -6,12 +6,11 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/04 16:01:24 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/05 11:53:53 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
-#include <unistd.h>
 
 void	exec_cmd(t_list *node, char **env, t_env **env_list)
 {
@@ -30,6 +29,11 @@ void	exec_cmd(t_list *node, char **env, t_env **env_list)
 	if (node->commandes[0] && !ft_strcmp(node->commandes[0], "unset"))
 	{
 		ft_unset(env_list, node->commandes);
+		return ;
+	}
+	if (node->commandes[0] && !ft_strcmp(node->commandes[0], "env"))
+	{
+		ft_env(env_list);
 		return ;
 	}
 
