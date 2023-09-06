@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_count_quotes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 02:25:10 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/23 15:41:34 by marvin           ###   ########.fr       */
+/*   Updated: 2023/09/04 18:29:10 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,67 +68,34 @@ void	data_clean(char *str, t_variables *var)
 
 char	*ft_clean_d_quotes(char *str)
 {
-	t_variables	*var;
+	t_variables	var;
 
-	var = malloc(sizeof(t_variables));
-	data_clean(str, var);
-	while (var->i < var->len)
+	data_clean(str, &var);
+	while (var.i < var.len)
 	{
-		if (str[var->i] == '\'')
+		if (str[var.i] == '\'')
 		{
-			var->i++;
-			while (str[var->i] != '\'')
-				var->str1[var->k++] = str[var->i++];
+			var.i++;
+			while (str[var.i] != '\'')
+				var.str1[var.k++] = str[var.i++];
 		}
-		else if (str[var->i] == '\"')
+		else if (str[var.i] == '\"')
 		{
-			var->i++;
-			while (str[var->i] != '\"')
-				var->str1[var->k++] = str[var->i++];
+			var.i++;
+			while (str[var.i] != '\"')
+				var.str1[var.k++] = str[var.i++];
 		}
 		else
-			var->str1[var->k++] = str[var->i];
-		var->i++;
+			var.str1[var.k++] = str[var.i];
+		var.i++;
 	}
-	var->str1[var->k] = 0;
-	return (var->str1);
+	var.str1[var.k] = 0;
+	return (var.str1);
 }
 
-// char	*ft_clean_d_quotes(char *str)
-// {
-// 	int i = 0;
-// 	int alloc = ft_count_d_quotes(str);
-// 	int k = 0;
-// 	char *str1 = malloc(alloc + 1);
-// 	int len = ft_strlen(str);
-// 	while(i < len)
-// 	{
-// 		if(str[i] == '\'')
-// 		{
-// 			i++;
-// 			while(str[i] != '\'')
-// 			{
-// 				str1[k++] = str[i];
-// 				i++;
-// 			}
-// 			i++;
-// 		}
-// 		else if(str[i] == '\"')
-// 		{
-// 			i++;
-// 			while(str[i] != '\"')
-// 			{
-// 				str1[k++] = str[i];
-// 				i++;
-// 			}
-// 			i++;
-// 		}
-// 		else
-// 		{
-// 			str1[k++] = str[i];
-// 			i++;
-// 		}
-// 	}
-// 	str1[k] = 0;
-// 	return (str1);
-// }
+int	errors(t_read *readline)
+{
+	write(2, "Minishell: syntax error near unexpected token\n", 46);
+	readline->exit_status = 258;
+	return (-1);
+}

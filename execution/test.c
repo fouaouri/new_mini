@@ -3,64 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/05 18:25:23 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/04 15:04:09 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"execution.h"
-
-t_data	g_data;
+#include "execution.h"
 
 int	main(int ac, char **av, char **env) {
-	t_read	*readline;
-	t_list	**hold;
+	t_read *readline;
+	t_list **hold;
 
 	(void)av;
 	readline = malloc(sizeof(t_read));
-	g_data.l_env = init_env(env);
-
-	while (ac == 1)
-	{
-		// setting signals
-		signal(SIGINT, ctl_c_handler);
-		// ctr-/
-		signal(SIGQUIT, SIG_IGN);
-
+	while (ac == 1) {
 		hold = parsing(readline, env);
-		if (hold)
+	// system("leaks minishell");
+		if(hold)
 		{
-
 			(*hold)->outfile = STDOUT_FILENO;
 			(*hold)->infile = STDIN_FILENO;
 
 			t_list *current = *hold;
 			
 			// heredoc and handle it
-			if (handle_heredoc(current) == -1)
-			{
-				// set the right status code
-				g_data.exit_status = 130;
-				printf("heredoc error\n");
-				continue ;
-			}
+				handle_heredoc(current);
+
 			while (current != NULL)
 			{
-				execute(current);
+				execute(current, env);
 				current = current->next;
 			}
 
-			// need to wait for all childs
-			int status = wait_childs(*hold);
-			if (status == -1)
-				return (ERROR);
-
+			// Clean up linked list or move this to a separate function
+			// if (current->infile != STDIN_FILENO)
+			// 	close(current->infile);
+			// if (current->outfile != STDOUT_FILENO)
+			// 	close(current->outfile);
 			free_list(hold);
+			
 		}
-		else
-			continue ;
 	}
-	return 0;
 }

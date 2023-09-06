@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:26:36 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/05 17:42:51 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/28 22:39:14 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/wait.h>
-#include <signal.h>
 
 enum {
 	SUCCESS = 1,
@@ -32,14 +31,12 @@ enum {
 };
 
 // execution
-char	**parse_path();
+char	**parse_path(char *path);
 char	*check_cmd(char **path, char *cmd);
 
 // exec utils
-int	handle_heredoc(t_list *node);
-int	wait_childs(t_list *node);
+void	handle_heredoc(t_list *node);
 void	close_fd(int in_fd, int out_fd);
-void	ft_dup2(int in_fd, int out_fd);
 
 // heredoc section
 int	ft_heredoc(char *dilimiter);
@@ -48,26 +45,18 @@ int	ft_heredoc(char *dilimiter);
 int ft_error(int err_id, char *file_name);
 
 // files execution
-int	find_file_type(char **type, char *t);
 int	check_infile_acces(char *file);
 int	check_outfile_acces(char *file);
 int handle_files(t_list *node);
 
 // exec function
-void	exec_one_cmd(t_list *node);
-void	exec_cmd(t_list *node);
-// void	exec_cmd(t_list *node, char **env);
+void	exec_one_cmd(t_list *node, char **env);
+void	exec_cmd(t_list *node, char **env);
 
 // exuction flow functions
-// int	execute(t_list *node,char **env);
-int	execute(t_list *node);
+int	execute(t_list *node,char **env);
 
 // free utils
-void	ft_free(char **str);
 void	free_list(t_list **node);
-
-
-// signla handlers
-void	ctl_c_handler(int sig);
 
 #endif

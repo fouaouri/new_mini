@@ -6,21 +6,17 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:27:02 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/05 17:19:57 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/08/24 19:50:36 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"execution.h"
 
-char	**parse_path()
+char	**parse_path(char *path)
 {
-	char	**res;
-	t_env	*path;
+	char **res;
 
-	res = NULL;
-	path = ft_search_for_key("PATH");
-	if (path)
-		res = ft_split(path->value, ':');
-	// free(path);
+	res = ft_split(path, ':');
+
 	return (res);
 }

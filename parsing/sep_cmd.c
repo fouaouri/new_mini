@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sep_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 21:29:00 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/28 18:52:33 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/06 15:45:02 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	index_pipe(t_read *readline)
-{
-	int	i;
-
-	i = 0;
-	while (readline->arr1[i])
-	{
-		if (ft_strcmp(readline->arr1[i], "|") == 0)
-			return (i);
-		i++;
-	}
-	return (-1);
-}
 
 void	sep_fill_commands_files(t_read *readline, t_file *sep)
 {
@@ -41,21 +27,28 @@ void	null_function(t_file *sep, t_variables *var)
 	sep->commandes[var->k] = NULL;
 }
 
-void	fill_commands_files(t_read *readline, t_file *sep,
-	int pipe_index, t_variables	*var)
+void	init_fill(t_read *readline, t_variables *var,
+		t_file *sep, int pipe_index)
 {
 	var->i = 0;
 	var->k = 0;
-	 var->j = 0;
+	var->j = 0;
 	sep_fill_commands_files(readline, sep);
 	if (pipe_index == -1)
 		sep->sum = counter_arr(readline->put_zero);
+}
+
+void	fill_commands_files(t_read *readline, t_file *sep,
+	int pipe_index, t_variables	*var)
+{
+	init_fill(readline, var, sep, pipe_index);
 	while (readline->arr1[var->i] && var->i < sep->sum)
 	{
 		if ((ft_strcmp(readline->arr1[var->i], "<") == 0
-				|| ft_strcmp(readline->arr1[var->i], ">") == 0 || ft_strcmp(readline->arr1[var->i], "<<") == 0 || ft_strcmp(readline->arr1[var->i], ">>") == 0))
+				|| ft_strcmp(readline->arr1[var->i], ">") == 0
+				|| ft_strcmp(readline->arr1[var->i], "<<") == 0
+				|| ft_strcmp(readline->arr1[var->i], ">>") == 0))
 		{
-			// printf("here\n");
 			if (ft_strcmp(readline->arr1[var->i], "<") == 0)
 				sep->type[var->j] = ft_strdup("i");
 			else if (ft_strcmp(readline->arr1[var->i], ">") == 0)
@@ -78,8 +71,9 @@ t_list	**sep_files(t_read *readline, t_file *sep)
 {
 	int			pipe_index;
 	t_variables	*var;
-	t_list **node = malloc(sizeof(t_list));
+	t_list		**node;
 
+	node = malloc(sizeof(t_list));
 	var = malloc(sizeof(t_variables));
 	pipe_index = index_pipe(readline);
 	fill_commands_files(readline, sep, pipe_index, var);
@@ -91,5 +85,5 @@ t_list	**sep_files(t_read *readline, t_file *sep)
 		ft_lst_add_back(node, sep->file_name, sep->commandes, sep->type);
 		pipe_index = index_pipe(readline);
 	}
-	return (node);
+	return (free(var), free(sep), node);
 }
