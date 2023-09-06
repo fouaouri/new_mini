@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/06 16:10:50 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/06 16:42:27 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,40 +30,40 @@ int	execute_builtins(t_list *node, char *builtin)
 	// 	ft_cd(node->commandes);
 	// else if (!ft_strcmp(builtin, "pwd"))
 	// 	ft_pwd();
+	g_data.exit_status = 0;
 	return 1;
 }
 
-void	exec_cmd(t_list *node)
+int	exec_cmd(t_list *node)
 {
 	char	*cmd_full_path;
 	char	**env;
 
 	if (!node->commandes[0])
-		return ;
+		return (ERROR);
 	env = create_env();
 	if (execute_builtins(node, node->commandes[0]))
-		return ;
+		return (ERROR);
 	cmd_full_path = check_cmd(parse_path(), node->commandes[0]);
-	
 	if (!cmd_full_path)
 	{
 		if (ft_strchr(node->commandes[0], '/'))
 			printf("minishell: %s: no such file or directory\n", node->commandes[0]);
 		else
 			printf("minishell: %s: command not found\n", node->commandes[0]);
-		return ;
+		g_data.exit_status = 127;
+		return (ERROR);
 	}
 	node->pid = fork();
 	if (node->pid < 0)
 	{
 		perror(strerror(errno));
-		exit(0);
+		exit(EXIT_FAILURE);
 	}
 	if (node->pid == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
 		ft_dup2(node->infile, node->outfile);
-
 		// check if infile is 0. then close it
 		if (node->next)
 		{
@@ -81,4 +81,5 @@ void	exec_cmd(t_list *node)
 		signal(SIGINT, SIG_IGN);
 	}
 	ft_free(env);
+	return (SUCCESS);
 }

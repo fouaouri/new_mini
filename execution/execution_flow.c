@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 15:47:16 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/06 15:21:43 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/06 16:44:40 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 	 BUG:
 	 => I need to close infile for first cmd: like => cat | ls. ls should print then cat
 */
-void	execute(t_list *node)
+int	execute(t_list *node)
 {
 	int pipe_fd[2];
 
@@ -26,20 +26,25 @@ void	execute(t_list *node)
 		if (pipe(pipe_fd) == -1)
 		{
 			perror("Minishell: pipe error");
-			return ;
+			g_data.exit_status = 1;
+			return (ERROR);
     }
 		node->next->infile = pipe_fd[0];  // Set next command's input
 		node->outfile = pipe_fd[1]; // Set this command to write to pipe;
 	}
 	else
 		node->outfile = STDOUT_FILENO; // Set last command's output to terminal
-
 	if (node->type)
 	{
 		if (handle_files(node) < 0)
-			return ;
+		{
+			g_data.exit_status = 1;
+			return (ERROR);
+		}
 	}
-	
-	exec_cmd(node);
+	if (exec_cmd(node) == ERROR)
+		return (ERROR);
+		
 	close_fd(node->infile, node->outfile);
+	return (SUCCESS);
 }

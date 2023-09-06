@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/06 15:20:40 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/06 16:45:16 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ int	main(int ac, char **av, char **env) {
 
 			while (current != NULL)
 			{
-				execute(current);
+				if (execute(current) == SUCCESS)
+					g_data.exit_status = 0;
+				printf("exit_status: %d\n", g_data.exit_status);
 				current = current->next;
 			}
 
