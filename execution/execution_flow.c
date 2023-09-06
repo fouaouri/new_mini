@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 15:47:16 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/05 17:13:49 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/06 12:22:11 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 	 BUG:
 	 => I need to close infile for first cmd: like => cat | ls. ls should print then cat
 */
-int	execute(t_list *node)
+void	execute(t_list *node)
 {
 	int pipe_fd[2];
 
@@ -25,7 +25,7 @@ int	execute(t_list *node)
 		if (pipe(pipe_fd) == -1)
 		{
 			perror("pipe");
-			return (ERROR);
+			return ;
     }
 		node->next->infile = pipe_fd[0];  // Set next command's input
 		node->outfile = pipe_fd[1]; // Set this command to write to pipe;
@@ -36,13 +36,8 @@ int	execute(t_list *node)
 	if (node->type)
 	{
 		if (handle_files(node) < 0)
-			return (ERROR);
+			return ;
 	}
 
 	exec_cmd(node);
-
-	// if (node->next)
-	// 	close(pipe_fd[1]);
-
-	return (SUCCESS);
 }

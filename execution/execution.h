@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:26:36 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/05 18:57:26 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/06 12:17:54 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void	exec_cmd(t_list *node);
 void	execute_builtins(t_list *node, char *builtin);
 
 // exuction flow functions
-int	execute(t_list *node);
+// int	execute(t_list *node);
+void	execute(t_list *node);
 
 // free utils
 void	ft_free(char **str);

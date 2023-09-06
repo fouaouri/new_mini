@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:33:48 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/05 17:16:11 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/06 12:24:05 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct t_env
 typedef struct	t_data
 {
 	int		exit_status;
+	int error;
 	t_env	*l_env;
 }	t_data;
 

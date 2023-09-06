@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/05 19:03:01 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/06 12:35:55 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,14 @@ void	exec_cmd(t_list *node)
 			printf("minishell: %s: no such file or directory\n", node->commandes[0]);
 		else
 			printf("minishell: %s: command not found\n", node->commandes[0]);
+		// g_data.error = 1;
+		node->pid = 0;
 		return ;
 	}
+	// else
+	// {
+
+	// }
 	node->pid = fork();
 	if (node->pid < 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/05 18:25:23 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/06 12:36:33 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_data	g_data;
 int	main(int ac, char **av, char **env) {
 	t_read	*readline;
 	t_list	**hold;
+	int status;
 
 	(void)av;
 	readline = malloc(sizeof(t_read));
@@ -46,6 +47,7 @@ int	main(int ac, char **av, char **env) {
 				printf("heredoc error\n");
 				continue ;
 			}
+
 			while (current != NULL)
 			{
 				execute(current);
@@ -53,9 +55,12 @@ int	main(int ac, char **av, char **env) {
 			}
 
 			// need to wait for all childs
-			int status = wait_childs(*hold);
+			// if (!g_data.error)
+			// {
+			status = wait_childs(*hold);
 			if (status == -1)
 				return (ERROR);
+			// }
 
 			free_list(hold);
 		}
