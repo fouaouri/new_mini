@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/06 15:08:01 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/06 15:20:40 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	main(int ac, char **av, char **env) {
 
 	(void)av;
 	readline = malloc(sizeof(t_read));
+	if (!readline)
+		return (ERROR);
 	g_data.l_env = init_env(env);
 
 	while (ac == 1)

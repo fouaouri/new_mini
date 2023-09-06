@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 15:47:16 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/06 15:12:12 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/06 15:21:43 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	execute(t_list *node)
 	{
 		if (pipe(pipe_fd) == -1)
 		{
-			perror("pipe");
+			perror("Minishell: pipe error");
 			return ;
     }
 		node->next->infile = pipe_fd[0];  // Set next command's input
@@ -39,6 +39,7 @@ void	execute(t_list *node)
 		if (handle_files(node) < 0)
 			return ;
 	}
+	
 	exec_cmd(node);
 	close_fd(node->infile, node->outfile);
 }

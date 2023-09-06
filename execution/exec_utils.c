@@ -6,12 +6,11 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 16:19:28 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/06 12:34:33 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/06 15:22:53 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
-#include <stdio.h>
 
 int	ft_lst_size()
 {
@@ -119,10 +118,7 @@ int	wait_childs(t_list *node)
 		if (node->pid != 0)
 		{
 			if (waitpid(node->pid, &status, 0) == -1)
-			{
-				dprintf(2,"Minishell: %s pid = %d",strerror(errno), node->pid);
 				return (ERROR);
-			}
 			if (WIFEXITED(status))
 				g_exit_status = WEXITSTATUS(status);
 			if (WIFSIGNALED(status))
