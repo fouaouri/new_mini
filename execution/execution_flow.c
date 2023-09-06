@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 15:47:16 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/06 12:22:11 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/06 15:12:12 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	execute(t_list *node)
 {
 	int pipe_fd[2];
 
+	node->pid = 0;
 	if (node->next != NULL)
 	{
 		if (pipe(pipe_fd) == -1)
@@ -38,6 +39,6 @@ void	execute(t_list *node)
 		if (handle_files(node) < 0)
 			return ;
 	}
-
 	exec_cmd(node);
+	close_fd(node->infile, node->outfile);
 }
