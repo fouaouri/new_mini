@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/06 16:42:27 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/06 21:45:10 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int	execute_builtins(t_list *node, char *builtin)
 		ft_env();
 	else if (!ft_strcmp(builtin, "exit"))
 		ft_exit(node->commandes);
+	else if (!ft_strcmp(builtin, "cd"))
+		ft_cd(node->commandes);
 	else
 		return 0;
 	// else if (!ft_strcmp(builtin, "echo"))
 	// 	ft_echo(node->commandes);
-	// else if (!ft_strcmp(builtin, "cd"))
-	// 	ft_cd(node->commandes);
 	// else if (!ft_strcmp(builtin, "pwd"))
 	// 	ft_pwd();
 	g_data.exit_status = 0;
