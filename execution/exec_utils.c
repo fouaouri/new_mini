@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 16:19:28 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/06 15:22:53 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/07 16:19:04 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ void	ft_dup2(int in_fd, int out_fd)
 {
 	if (dup2(in_fd, STDIN_FILENO) == -1)
 	{
+		printf("9\n");
+
 		perror(strerror(errno));
 		exit(EXIT_FAILURE);
 	}
@@ -100,6 +102,8 @@ void	ft_dup2(int in_fd, int out_fd)
 	dup2(out_fd, STDOUT_FILENO);
 	if (dup2(out_fd, STDOUT_FILENO) == -1)
 	{
+		printf("8\n");
+
 		perror(strerror(errno));
 		exit(EXIT_FAILURE);
 	}
