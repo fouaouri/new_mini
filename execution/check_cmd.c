@@ -6,7 +6,7 @@
 /*   By: melhadou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 13:17:31 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/07 16:26:30 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:18:05 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,23 @@ char	*check_cmd(char **path, char *cmd)
 	/* NOTE: checking for valid cmd */
 	if (!cmd)
 		return NULL;
-	if (
-		!ft_strcmp(cmd, "//")
-		|| !ft_strcmp(cmd, "/..")
-		|| !ft_strcmp(cmd, "/.")
-		|| !ft_strcmp(cmd, "~") 
-		|| !ft_strcmp(cmd, "~/")
-		)
-		return ("d");
-	ret = access(cmd, F_OK);
-	if (!ret)
-		return (cmd);
-	else if (ft_strchr(cmd, '/'))
-		return (NULL);
 
+	// checking for valid path => ./cmd or /bin/cmd
+	if (cmd[0] == '.' || cmd[0] == '/')
+	{
+		ret = access(cmd, F_OK);
+		if (!ret)
+			return (cmd);
+		else
+			return (NULL);
+	}
+	// ret = access(cmd + 1, X_OK);
+	// if (!ret)
+	// 	return (cmd);
+	// else if (ft_strchr(cmd, '/'))
+	// 	return (NULL);
+
+	// checking for valid path => path + cmd
 	if (!path)
 		return (NULL);
 	while (*path)
@@ -41,7 +44,7 @@ char	*check_cmd(char **path, char *cmd)
 		tmp = ft_strjoin(*path, "/");
 		tmp = ft_strjoin(tmp, cmd);
 		// leaks
-		ret = access(tmp, F_OK);
+		ret = access(tmp, X_OK);
 		if (!ret)
 			return (tmp);
 		free(tmp);
@@ -49,47 +52,3 @@ char	*check_cmd(char **path, char *cmd)
 	}
 	return (NULL);
 }
-
-// char	*check_cmd(char **path, char *cmd)
-// {
-// 	char	*tmp;
-// 	int		ret;
-
-// 	if (!cmd)
-// 		return (NULL);
-// 	/* NOTE: checking for valid cmd */
-// 	
-	// if (!ft_strcmp(cmd, ".") || !ft_strcmp(cmd, ".."))
-	// 	return (NULL);
-	// if (!ft_strcmp(cmd, "./") || !ft_strcmp(cmd, "../"))
-	// 	return (NULL);
-	// if (!ft_strcmp(cmd, "/") || !ft_strcmp(cmd, "//") || !ft_strcmp(cmd, "/.") || !ft_strcmp(cmd, "/.."))
-	// 	return ("d");
-	// if (!ft_strcmp(cmd, "~") || !ft_strcmp(cmd, "~/"))
-	// 	return (NULL);
-	// if(!ft_strcmp(cmd, " "))
-	// 	return (NULL);
-	// if (!ft_strcmp(cmd, ""))
-	// 	return (NULL);
-// 	
-// 	ret = access(cmd, F_OK);
-// 	if (!ret)
-// 		return (cmd);
-// 	else if (ft_strchr(cmd, '/'))
-// 		return (NULL);
-
-// 	// if (!path)
-// 	// 	return (NULL);
-// 	while (*path)
-// 	{
-// 		tmp = ft_strjoin(*path, "/");
-// 		tmp = ft_strjoin(tmp, cmd);
-// 		// leaks
-// 		ret = access(tmp, F_OK);
-// 		if (!ret)
-// 			return (tmp);
-// 		free(tmp);
-// 		path++;
-// 	}
-// 	return (NULL);
-// }
