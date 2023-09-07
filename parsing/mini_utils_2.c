@@ -6,21 +6,11 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 17:34:28 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/06 22:21:41 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:25:54 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// int	ft_strlen(char *s)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (s[i])
-// 		i++;
-// 	return (i);
-// }
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
@@ -46,7 +36,7 @@ t_list	*ft_lstnew(char **file_name, char **commandes, char **type)
 {
 	t_list	*new_node;
 
-	new_node = (t_list *)malloc(sizeof(t_list));
+	new_node = (t_list *)my_malloc(sizeof(t_list));
 	if (new_node == NULL)
 		return (NULL);
 	new_node->file_name = file_name;

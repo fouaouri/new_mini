@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:33:48 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/07 17:32:03 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/07 21:20:31 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,9 @@ typedef struct s_read
 	char	*put_zero;
 	char	*add_spaces;
 	char	*string;
-	char	**split;
 	char	**arr;
 	char	*exp;
-	char	**split_arr;
 	char	**arr1;
-	int		exit_status;
 }	t_read;
 
 typedef struct s_file
@@ -96,7 +93,7 @@ typedef struct t_data
 	t_env	*l_env;
 }	t_data;
 
-// global variable for data
+// global variable for datafree(readline->input),
 extern t_data	g_data;
 
 /* init env functions*/

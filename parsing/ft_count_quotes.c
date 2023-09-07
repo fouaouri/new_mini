@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 02:25:10 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/07 17:36:42 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:29:23 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,12 @@ void	data_clean(char *str, t_variables *var)
 	var->i = 0;
 	var->alloc = ft_count_d_quotes(str);
 	var->k = 0;
-	var->str1 = malloc(var->alloc + 1);
+	var->str1 = my_malloc(var->alloc + 1);
 	if (str)
+	{
 		var->len = ft_strlen(str);
+		
+	}
 }
 
 char	*ft_clean_d_quotes(char *str)

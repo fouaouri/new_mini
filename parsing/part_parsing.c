@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 23:24:24 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/07 16:58:22 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:18:59 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	clean_d_quotes(t_read *readline)
 
 	i = 0;
 	len = counter_arr(readline->put_zero);
-	readline->arr1 = malloc(sizeof(char *) * (len + 1));
+	readline->arr1 = my_malloc(sizeof(char *) * (len + 1));
 	while (i < len)
 	{
 		readline->arr1[i] = ft_clean_d_quotes(readline->arr[i]);
@@ -91,7 +91,7 @@ void	fill_the_arr(t_read *readline)
 	var.k = 0;
 	var.count = 0;
 	var.len = counter_arr(readline->put_zero) + 1;
-	readline->arr = malloc(sizeof(char *) * var.len);
+	readline->arr = my_malloc(sizeof(char *) * var.len);
 	while (readline->put_zero[var.j])
 	{
 		if (readline->put_zero[var.j] != '0')

@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 21:29:00 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/07 17:28:31 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:18:59 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	sep_fill_commands_files(t_read *readline, t_file *sep)
 {
-	sep->file_name = malloc(sizeof(char *) * (count_files(readline) + 1));
-	sep->type = malloc(sizeof(char *) * (count_files(readline) + 1));
-	sep->commandes = malloc(sizeof(char *) * (count_commande(readline) + 1));
+	sep->file_name = my_malloc(sizeof(char *) * (count_files(readline) + 1));
+	sep->type = my_malloc(sizeof(char *) * (count_files(readline) + 1));
+	sep->commandes = my_malloc(sizeof(char *) * (count_commande(readline) + 1));
 	sep->sum = (count_files(readline) * 2) + count_commande(readline);
 }
 
@@ -76,8 +76,8 @@ t_list	**sep_files(t_read *readline, t_file *sep)
 	t_variables	*var;
 	t_list		**node;
 
-	node = malloc(sizeof(t_list));
-	var = malloc(sizeof(t_variables));
+	node = my_malloc(sizeof(t_list));
+	var = my_malloc(sizeof(t_variables));
 	pipe_index = index_pipe(readline);
 	fill_commands_files(readline, sep, pipe_index, var);
 	*node = ft_lstnew(sep->file_name, sep->commandes, sep->type);
@@ -88,5 +88,6 @@ t_list	**sep_files(t_read *readline, t_file *sep)
 		ft_lst_add_back(node, sep->file_name, sep->commandes, sep->type);
 		pipe_index = index_pipe(readline);
 	}
+	// free(readline->arr1);
 	return (free(var), free(sep), node);
 }

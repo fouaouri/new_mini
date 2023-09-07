@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:36:42 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/07 16:44:41 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:18:59 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,14 @@ void	print_minishell(t_read *readln)
 		readln->input = ft_calloc(1, 1);
 }
 
+
 t_list	**parsing(t_read *readline, t_env *l_env)
 {
 	t_file	*sep;
 	int		sepe;
+	int i = 0;
 
-	sep = malloc(sizeof(t_file));
+	sep = my_malloc(sizeof(t_file));
 	print_minishell(readline);
 	expand_arr(readline, l_env);
 	sepe = check_d_quotes(readline);
@@ -49,9 +51,23 @@ t_list	**parsing(t_read *readline, t_env *l_env)
 		fill_the_arr(readline);
 		clean_d_quotes(readline);
 		sepe = check_syntax_error(readline);
-		free(readline->arr);
-		free(readline->string);
-		free(readline->replace);
+			if(readline->new_input)
+				free(readline->new_input);
+			// if(readline->input)
+			// 	free(readline->input);
+			if(readline->replace)
+				free(readline->replace);
+			// if(readline->put_zero)
+			// 	free(readline->put_zero);
+			if(readline->add_spaces)
+				free(readline->add_spaces);
+			if(readline->string)
+				free(readline->string);
+			if(readline->exp)
+				free(readline->exp);
+			i=0;
+			while(readline->arr[i])
+				free(readline->arr[i++]);
 		if (sepe != -1)
 			return (sep_files(readline, sep));
 	}

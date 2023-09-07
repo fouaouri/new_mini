@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 19:27:15 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/06 22:22:14 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:18:59 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	replace_char(t_read *readline)
 	t_variables	var;
 
 	var.i = 0;
-	readline->replace = malloc(ft_strlen(readline->exp) + 1);
+	readline->replace = my_malloc(ft_strlen(readline->exp) + 1);
 	while (readline->exp[var.i])
 	{
 		if (readline->exp[var.i] == '\"' || readline->exp[var.i] == '\'')
@@ -70,7 +70,7 @@ void	skip_spaces_in_the_input(t_read *readline)
 	var.i = 0;
 	var.j = 0;
 	var.len = ft_strlen(readline->replace);
-	readline->string = malloc(count_words(readline->replace) + 1);
+	readline->string = my_malloc(count_words(readline->replace) + 1);
 	while (var.i < var.len)
 	{
 		if (readline->exp[var.i] != ' ' && readline->exp[var.i] != '\t')
@@ -98,7 +98,7 @@ void	sep_by_spaces(t_read *readline)
 	var.j = 0;
 	var.len = ft_strlen(readline->replace);
 	var.count = counter(readline->replace);
-	readline->put_zero = malloc(sizeof(char) * (var.len + var.count + 1));
+	readline->put_zero = my_malloc(sizeof(char) * (var.len + var.count + 1));
 	while (var.i < var.len)
 	{
 		if (readline->replace[var.i] != readline->replace[var.i + 1])
@@ -129,7 +129,7 @@ void	add_spaces_in_the_input(t_read *readline)
 	j = 0;
 	k = 0;
 	len = ft_strlen(readline->put_zero) + 1;
-	readline->add_spaces = malloc(len);
+	readline->add_spaces = my_malloc(len);
 	if (!readline->add_spaces)
 		return ;
 	while (readline->put_zero[i])
