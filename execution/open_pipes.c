@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/06 21:45:10 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/07 16:22:33 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,12 @@ int	exec_cmd(t_list *node)
 			printf("minishell: %s: no such file or directory\n", node->commandes[0]);
 		else
 			printf("minishell: %s: command not found\n", node->commandes[0]);
+		g_data.exit_status = 127;
+		return (ERROR);
+	}
+	else if (!ft_strcmp(cmd_full_path, "d"))
+	{
+		printf("minishell: %s: is a directory\n", node->commandes[0]);
 		g_data.exit_status = 127;
 		return (ERROR);
 	}

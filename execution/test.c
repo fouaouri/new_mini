@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/06 16:45:16 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/07 14:51:39 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int ac, char **av, char **env) {
 		hold = parsing(readline, env);
 		if (hold)
 		{
-
+			printf("exit_status: %d\n", g_data.exit_status);
 			(*hold)->outfile = STDOUT_FILENO;
 			(*hold)->infile = STDIN_FILENO;
 
@@ -54,7 +54,6 @@ int	main(int ac, char **av, char **env) {
 			{
 				if (execute(current) == SUCCESS)
 					g_data.exit_status = 0;
-				printf("exit_status: %d\n", g_data.exit_status);
 				current = current->next;
 			}
 

@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:27:02 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/05 17:19:57 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/07 14:37:20 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,5 @@ char	**parse_path()
 	path = ft_search_for_key("PATH");
 	if (path)
 		res = ft_split(path->value, ':');
-	// free(path);
 	return (res);
 }
