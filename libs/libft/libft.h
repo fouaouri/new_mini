@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:18:09 by melhadou          #+#    #+#             */
-/*   Updated: 2023/08/27 18:49:55 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:01:23 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ int			ft_strncmp(const char *s1, const char *s2, size_t n);
 void		ft_bzero(void *s, size_t n);
 void		ft_putchar_fd(char c, int fd);
 void		ft_putendl_fd(char *s, int fd);
-void		ft_putstr_fd(char *s, int fd);
-void		ft_putnbr_fd(int n, int fd);
+// void		ft_putstr_fd(char *s, int fd);
+int	ft_putstr_fd(char *s, int fd);
+// void		ft_putnbr_fd(int n, int fd);
 void		*ft_memset(void *b, int c, size_t len);
 void		*ft_memcpy(void *dst, const void *src, size_t n);
 void		*ft_memmove(void *dst, const void *src, size_t len);

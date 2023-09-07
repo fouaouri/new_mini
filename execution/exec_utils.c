@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 16:19:28 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/06 15:22:53 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:08:00 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	ft_dup2(int in_fd, int out_fd)
 {
 	if (dup2(in_fd, STDIN_FILENO) == -1)
 	{
-		perror(strerror(errno));
+		ft_dprintf(2, "minishell: dup2: %s\n", strerror(errno));
 		exit(EXIT_FAILURE);
 	}
 	if (in_fd != STDIN_FILENO)
@@ -100,7 +100,7 @@ void	ft_dup2(int in_fd, int out_fd)
 	dup2(out_fd, STDOUT_FILENO);
 	if (dup2(out_fd, STDOUT_FILENO) == -1)
 	{
-		perror(strerror(errno));
+		ft_dprintf(2, "minishell: dup2: %s\n", strerror(errno));
 		exit(EXIT_FAILURE);
 	}
 	if (out_fd != STDOUT_FILENO)

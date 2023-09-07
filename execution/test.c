@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/07 14:51:39 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:08:17 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	main(int ac, char **av, char **env) {
 			{
 				// set the right status code
 				g_data.exit_status = 130;
-				printf("heredoc error\n");
+				ft_dprintf(2, "minishell: heredoc: %s\n", strerror(errno));
 				continue ;
 			}
 
@@ -63,6 +63,8 @@ int	main(int ac, char **av, char **env) {
 			status = wait_childs(*hold);
 			if (status == -1)
 				return (ERROR);
+			else
+				g_data.exit_status = status;
 			// }
 
 			free_list(hold);

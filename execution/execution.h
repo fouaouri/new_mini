@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:26:36 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/06 16:44:19 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:01:16 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include <fcntl.h>
 #include <sys/wait.h>
 #include <signal.h>
+#include <stdarg.h>
 
 enum {
 	SUCCESS = 1,
@@ -37,6 +38,8 @@ char	**parse_path();
 char	*check_cmd(char **path, char *cmd);
 
 // exec utils
+int	ft_dprintf(int fd, const char *s, ...);
+// int	ft_putstr_fd(char *s, int fd);
 int	handle_heredoc(t_list *node);
 int	wait_childs(t_list *node);
 void	close_fd(int in_fd, int out_fd);
@@ -50,6 +53,7 @@ int	ft_heredoc(char *dilimiter);
 
 // error section
 int ft_error(int err_id, char *file_name);
+void	ft_perror(char *filename);
 
 // files execution
 int	find_file_type(char **type, char *t);

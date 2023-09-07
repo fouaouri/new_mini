@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 15:47:16 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/06 16:44:40 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:04:02 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	execute(t_list *node)
 	{
 		if (pipe(pipe_fd) == -1)
 		{
-			perror("Minishell: pipe error");
+			ft_dprintf(2, "minishell: pipe: %s\n", strerror(errno));
 			g_data.exit_status = 1;
 			return (ERROR);
     }

@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 22:29:38 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/06 21:44:42 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:59:53 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define BUILTINS_H
 # include "../libs/libft/libft.h"
 # include "../parsing/minishell.h"
+
 void	ft_exit(char **args);
 void	ft_export(char **cmds);
 void	ft_update_value(t_env *node, char *str);

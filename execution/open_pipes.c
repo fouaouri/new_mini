@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/07 16:22:33 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:04:24 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,22 @@ int	exec_cmd(t_list *node)
 	if (!cmd_full_path)
 	{
 		if (ft_strchr(node->commandes[0], '/'))
-			printf("minishell: %s: no such file or directory\n", node->commandes[0]);
+			ft_dprintf(2,"minishell: %s: no such file or directory\n", node->commandes[0]);
 		else
-			printf("minishell: %s: command not found\n", node->commandes[0]);
+			ft_dprintf(2,"minishell: %s: command not found\n", node->commandes[0]);
 		g_data.exit_status = 127;
 		return (ERROR);
 	}
-	else if (!ft_strcmp(cmd_full_path, "d"))
+	else if (!ft_strcmp(cmd_full_path, "p"))
 	{
-		printf("minishell: %s: is a directory\n", node->commandes[0]);
+		ft_dprintf(2,"minishell: %s: Permission denied\n", node->commandes[0]);
 		g_data.exit_status = 127;
 		return (ERROR);
 	}
 	node->pid = fork();
 	if (node->pid < 0)
 	{
-		perror(strerror(errno));
+		ft_dprintf(2,"minishell: fork: %s\n", strerror(errno));
 		exit(EXIT_FAILURE);
 	}
 	if (node->pid == 0)
@@ -78,7 +78,8 @@ int	exec_cmd(t_list *node)
 		}
 		if (execve(cmd_full_path, node->commandes, env) == -1)
 		{
-			perror(strerror(errno));
+			// ft_dprintf(2,"minishell: %s: ", node->commandes[0]);
+			ft_dprintf(2,"minishell: %s: %s\n", node->commandes[0], strerror(errno));
 			exit(EXIT_FAILURE);
 		}
 	}

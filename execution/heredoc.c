@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 21:32:31 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/01 21:17:21 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:05:10 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	ft_heredoc(char *dilimiter)
 		signal(SIGINT, SIG_IGN);
 		if (waitpid(pid, &g_data.exit_status, 0) == -1)
 		{
-			perror("waitpid");
+			ft_dprintf(2, "minishell: waitpid: %s\n", strerror(errno));
 			return -1;
 		}
 		if (WIFSIGNALED(g_data.exit_status))
