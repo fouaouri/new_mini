@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 21:32:31 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/07 19:05:10 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/08 21:07:30 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	handle_heredoc(t_list *node)
 {
 	int	i;
+	int fd;
 
 	while (node != NULL)
 	{
@@ -26,7 +27,7 @@ int	handle_heredoc(t_list *node)
 				// FIX: handle err
 				if (node->file_name[i] == NULL)
 					return 0;
-				int fd = ft_heredoc(node->file_name[i]);
+				fd = ft_heredoc(node->file_name[i]);
 				if (fd == -1)
 					return (fd); // error
 				free(node->file_name[i]);
@@ -60,7 +61,13 @@ int	ft_heredoc(char *dilimiter)
 		while (1)
 		{
 			line = readline("> ");
-			if (!line || !ft_strcmp(line, dilimiter))
+			if (!line)
+			{
+				ft_dprintf(2, "Minishell: warning: heredoc error: (wanted delemter'%s')", strerror(errno), dilimiter);
+				close(p_fd[1]);
+				exit(0);
+			}
+			if (!ft_strcmp(line, dilimiter))
 			{
 				close(p_fd[1]);
 				exit(0);
@@ -83,8 +90,5 @@ int	ft_heredoc(char *dilimiter)
 				return -1;
 		signal(SIGINT, ctl_c_handler);
 	}
-	// char *data = malloc(1000);
-	// read(p_fd[0], data, 1000);
-	// printf("%s \n", data);
 	return (p_fd[0]);
 }

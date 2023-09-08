@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 16:19:28 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/08 16:59:42 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/08 21:01:42 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ int	wait_childs(t_list *node)
 			if (WIFSIGNALED(status))
 				g_exit_status = WTERMSIG(status) + 128;
 		}
+		close_fd(node->infile, node->outfile);
 		node = node->next;
 	}
 	return (g_exit_status);
