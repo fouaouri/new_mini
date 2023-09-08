@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 15:47:16 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/07 19:04:02 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/08 21:21:53 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@
 int	execute(t_list *node)
 {
 	int pipe_fd[2];
+	int err;
 
+	// if (node->commandes[0])
+	// 	return (ERROR);
 	node->pid = 0;
 	if (node->next != NULL)
 	{
@@ -36,10 +39,11 @@ int	execute(t_list *node)
 		node->outfile = STDOUT_FILENO; // Set last command's output to terminal
 	if (node->type)
 	{
-		if (handle_files(node) < 0)
+		err = handle_files(node);
+		if (err < 0)
 		{
 			g_data.exit_status = 1;
-			return (ERROR);
+			return (err);
 		}
 	}
 	if (exec_cmd(node) == ERROR)

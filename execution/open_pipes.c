@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/08 17:02:02 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/08 21:32:55 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	execute_builtins(t_list *node, char *builtin)
 	// 	ft_echo(node->commandes);
 	// else if (!ft_strcmp(builtin, "pwd"))
 	// 	ft_pwd();
-	// g_data.exit_status = 0;
 	return 1;
 }
 
@@ -39,12 +38,20 @@ int	exec_cmd(t_list *node)
 	char	*cmd_full_path;
 	char	**env;
 
-	if (!node->commandes[0])
+	if(!node->commandes[0]) 
 		return (ERROR);
+	if (!node->commandes[0][0])
+	{
+		ft_dprintf(2, "minishell: %s: command not found\n", node->commandes[0]);
+		return (ERROR);
+	}
 	env = create_env();
+
+	// check if builtin should be executed on child or not
 	if (execute_builtins(node, node->commandes[0]))
-		return (ERROR);
+		return (SUCCESS);
 	cmd_full_path = check_cmd(parse_path(), node->commandes[0]);
+
 	if (!cmd_full_path)
 	{
 		if (ft_strchr(node->commandes[0], '/'))
