@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:16:02 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/06 21:52:02 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/08 16:58:19 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,69 +14,72 @@
 
 void	ft_cd(char **args)
 {
-	t_env *home;
-	int status;
+	t_env	*home;
+	char	*pwd;
+	int		status;
+	int		changed_dir;
+
 	// check for multiple args
-	if (args[2])
+	if (args[1] && args[2])
 	{
-		ft_putstr_fd("Minishell: cd: too many arguments\n", 2);
+		ft_dprintf(2,"minishell: cd: too many arguments\n", 2);
+		g_data.exit_status = 1;
 		return ;
 	}
-	// check arg for home
+	// check if the args is empty. so i should go to the home dir
 	if (!args[1])
 	{
 		home = ft_search_for_key("HOME");
-		if (home->value)
+		if (home)
 		{
-			// check acces for home
-			status = access(home->value, F_OK);
-			if (status == 0)
+			changed_dir = chdir(home->value);
+			if(changed_dir)
 			{
-				// check acces for home
-				status = access(home->value, R_OK);
-				if (status == 0)
-				{
-					// change dir
-					status = chdir(home->value);
-					if (status == 0)
-					{
-						// update pwd
-						t_env *pwd = ft_search_for_key("PWD");
-						pwd->value = getcwd(NULL, 0);
-					}
-					else
-						ft_putstr_fd("Minishell: cd: permission denied\n", 2);
-				}
-				else
-					ft_putstr_fd("Minishell: cd: permission denied\n", 2);
+				ft_dprintf(2,"minishell: cd: %s: not a directory\n", home->value);
+				g_data.exit_status = 1;
+				return ;
 			}
-			else
-				ft_putstr_fd("Minishell: cd: no such file or directory\n", 2);
+			return ;
 		}
 		else
 		{
-			ft_putstr_fd("Minishell: cd: HOME not set\n", 2);
+			ft_dprintf(2,"minishell: cd: HOME not set\n");
+			g_data.exit_status = 1;
 			return ;
 		}
 	}
-	else
+	// check if the is accessable
+	status = access(args[1], F_OK);
+	if (!status)
 	{
-		// check acces to args[1]
-		status = access(args[1], F_OK);
-		if (status == 0)
+		// try to acces this dir using chdir
+		// check for getcwd
+		pwd = getcwd(NULL, 0);
+		if (!pwd)
 		{
-			// change dir
-			status = chdir(args[1]);
-			if (status == 0)
-			{
-				// update pwd
-				t_env *pwd = ft_search_for_key("PWD");
-				pwd->value = getcwd(NULL, 0);
-			}
-			else
-				ft_putstr_fd("Minishell: cd: permission denied\n", 2);
+			ft_dprintf(2,"minishell: cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n");
+			// g_data.exit_status = 1;
 		}
 		else
-			ft_putstr_fd("Minishell: cd: permission denied\n", 2);
+		{
+			// should change the pwd env var
+		}
+		changed_dir = chdir(args[1]);
+		if (!changed_dir)
+			return ;
+		else
+		{
+			// if i can't access this dir. i should print an error msg
+			ft_dprintf(2,"minishell: cd: %s: not a directory\n", args[1]);
+			g_data.exit_status = 1;
+			return ;
+		}
+		// after succes. i should update the env var OLDPWD adn pwd
+	}
+	else
+	{
+		ft_dprintf(2,"minishell: cd: : No such file or directory\n");
+		g_data.exit_status = 1;
+		return ;
 	}
 }

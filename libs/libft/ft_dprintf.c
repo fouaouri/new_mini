@@ -6,11 +6,11 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:22:17 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/07 19:01:27 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/08 16:24:08 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "libft.h"
 
 int	ft_putnbr_fd(int n, int fd)
 {

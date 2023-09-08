@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/07 19:04:24 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/08 17:02:02 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	execute_builtins(t_list *node, char *builtin)
 	// 	ft_echo(node->commandes);
 	// else if (!ft_strcmp(builtin, "pwd"))
 	// 	ft_pwd();
-	g_data.exit_status = 0;
+	// g_data.exit_status = 0;
 	return 1;
 }
 
@@ -80,6 +80,7 @@ int	exec_cmd(t_list *node)
 		{
 			// ft_dprintf(2,"minishell: %s: ", node->commandes[0]);
 			ft_dprintf(2,"minishell: %s: %s\n", node->commandes[0], strerror(errno));
+			g_data.exit_status = 127;
 			exit(EXIT_FAILURE);
 		}
 	}
