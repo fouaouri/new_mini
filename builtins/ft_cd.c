@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:16:02 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/08 16:58:19 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/08 18:44:08 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void	ft_cd(char **args)
 	char	*pwd;
 	int		status;
 	int		changed_dir;
+	char	*oldpwd;
+	t_env	*pwd_env;
 
+	oldpwd = getcwd(NULL, 0);
 	// check for multiple args
 	if (args[1] && args[2])
 	{
@@ -38,6 +41,22 @@ void	ft_cd(char **args)
 				ft_dprintf(2,"minishell: cd: %s: not a directory\n", home->value);
 				g_data.exit_status = 1;
 				return ;
+			}
+			else
+			{
+				// should be a standalone function
+				pwd_env = ft_search_for_key("PWD");
+				if (pwd_env)
+				{
+					free(pwd_env->value);
+					pwd_env->value = ft_strdup(getcwd(NULL, 0));
+				}
+				pwd_env = ft_search_for_key("OLDPWD");
+				if (pwd_env)
+				{
+					free(pwd_env->value);
+					pwd_env->value = ft_strdup(oldpwd);
+				}
 			}
 			return ;
 		}
@@ -66,7 +85,21 @@ void	ft_cd(char **args)
 		}
 		changed_dir = chdir(args[1]);
 		if (!changed_dir)
-			return ;
+		{
+			pwd_env = ft_search_for_key("PWD");
+			if (pwd_env)
+			{
+				free(pwd_env->value);
+				pwd_env->value = ft_strdup(getcwd(NULL, 0));
+				printf("pwd_env->value: %s\n", pwd_env->value);
+			}
+			pwd_env = ft_search_for_key("OLDPWD");
+			if (pwd_env)
+			{
+				free(pwd_env->value);
+				pwd_env->value = ft_strdup(oldpwd);
+			}
+		}
 		else
 		{
 			// if i can't access this dir. i should print an error msg
@@ -78,8 +111,9 @@ void	ft_cd(char **args)
 	}
 	else
 	{
-		ft_dprintf(2,"minishell: cd: : No such file or directory\n");
+		ft_dprintf(2,"minishell: cd: %s: No such file or directory\n", args[1]);
 		g_data.exit_status = 1;
 		return ;
 	}
+	// so if all got runned. so i should update the env var OLDPWD and pwd
 }
