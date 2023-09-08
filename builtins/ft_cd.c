@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:16:02 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/08 18:44:08 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/08 20:25:22 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ void	ft_cd(char **args)
 			ft_dprintf(2,"minishell: cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n");
 			// g_data.exit_status = 1;
 		}
-		else
-		{
-			// should change the pwd env var
-		}
+		// else
+		// {
+		// 	// should change the pwd env var
+		// }
 		changed_dir = chdir(args[1]);
 		if (!changed_dir)
 		{
@@ -91,7 +91,6 @@ void	ft_cd(char **args)
 			{
 				free(pwd_env->value);
 				pwd_env->value = ft_strdup(getcwd(NULL, 0));
-				printf("pwd_env->value: %s\n", pwd_env->value);
 			}
 			pwd_env = ft_search_for_key("OLDPWD");
 			if (pwd_env)
