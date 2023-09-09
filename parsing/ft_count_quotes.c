@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 02:25:10 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/09 21:37:43 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/10 00:48:27 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	data_clean(char *str, t_variables *var)
 	var->alloc = ft_count_d_quotes(str);
 	var->k = 0;
 	var->str1 = my_malloc(var->alloc + 1);
+	printf("str1 = %d\n", var->alloc + 1);
 	if (str)
 		var->len = ft_strlen(str);
 }
@@ -76,17 +77,29 @@ char	*ft_clean_d_quotes(char *str)
 	data_clean(str, &var);
 	if (str)
 	{
-		while (var.i < var.len)
+		// printf("str : %s\n", str);
+		// printf("str1 : %d\n",var.i);
+		while (var.i < (int)ft_strlen(str))
 		{
+			// printf("str : %c\n", str[var.i]);
 			if (str[var.i] == '\'')
+			{
 				ft_clean_s(str, &var);
+				printf("%d\n", var.i);
+				printf("%s\n", var.str1);
+				printf("%c\n", str[var.i]);
+				//printf("%d\n", var.i);
+
+			}
 			else if (str[var.i] == '\"')
 				ft_clean_d(str, &var);
-			else
-				var.str1[var.k++] = str[var.i];
-			var.i++;
+			else if (str[var.i])
+			{
+				printf("->> %d\n",var.k);
+				var.str1[var.k++] = str[var.i++];
+			}
 		}
-		var.str1[var.k] = 0;
+		var.str1[var.k] = '\0';
 		return (var.str1);
 	}
 	return (NULL);
