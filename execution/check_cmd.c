@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melhadou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 13:17:31 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/07 19:01:53 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/09 22:27:40 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@ char	*check_cmd(char **path, char *cmd)
 	// checking for valid path => path + cmd
 	if (!path)
 		return (NULL);
+	/* NOTE: checking for valid cmd */
+	if (!cmd[0])
+		return NULL;
+	// ret = access(cmd, F_OK); //file
+	ret = access(cmd, X_OK);//executable
+	if (!ret)
+		return (cmd);
+	else if (ft_strchr(cmd, '/'))
+		return NULL;
 	while (*path)
 	{
 		tmp = ft_strjoin(*path, "/");
@@ -46,7 +55,9 @@ char	*check_cmd(char **path, char *cmd)
 		// leaks
 		ret = access(tmp, X_OK);
 		if (!ret)
+		{
 			return (tmp);
+		}
 		free(tmp);
 		path++;
 	}

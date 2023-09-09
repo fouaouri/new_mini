@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:53:55 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/05 17:18:46 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:18:59 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 t_env	*ft_new_env(char *str)
 {
-	t_env *node;
-	char *ptr;
+	t_env	*node;
+	char	*ptr;
 
-	node = malloc(sizeof(t_env));
+	node = my_malloc(sizeof(t_env));
 	ptr = ft_strchr(str, '=');
 	if (ptr)
 	{
@@ -35,16 +35,14 @@ t_env	*ft_new_env(char *str)
 
 void	ft_add_back_env(t_env **lst, t_env *node)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	tmp = *lst;
-
 	if (*lst == NULL)
 	{
 		*lst = node;
 		return ;
- 	}
-
+	}
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = node;
@@ -52,19 +50,17 @@ void	ft_add_back_env(t_env **lst, t_env *node)
 
 t_env	*init_env(char **env)
 {
-	t_env *ret;
-	t_env *node;
-	int i;
+	t_env	*ret;
+	t_env	*node;
+	int		i;
 
 	i = 0;
 	ret = NULL;
 	while (env[i])
 	{
-		// string => Key=value
 		node = ft_new_env(env[i]);
 		ft_add_back_env(&ret, node);
 		i++;
 	}
-
 	return (ret);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_pipes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/09 21:27:42 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/09 22:28:11 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,12 @@ int	execute_builtins(t_list *node, char *builtin)
 		ft_env();
 	else if (!ft_strcmp(builtin, "exit"))
 		ft_exit(node->commandes);
-	else if (!ft_strcmp(builtin, "cd"))
-		ft_cd(node->commandes);
+	else if (!ft_strcmp(builtin, "pwd"))
+		ft_pwd();
+	else if (!ft_strcmp(builtin, "echo"))
+		ft_echo(node);
 	else
 		return 0;
-	// else if (!ft_strcmp(builtin, "echo"))
-	// 	ft_echo(node->commandes);
-	// else if (!ft_strcmp(builtin, "pwd"))
-	// 	ft_pwd();
 	return 1;
 }
 

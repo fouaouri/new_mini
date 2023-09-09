@@ -1,27 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/12 21:05:42 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/09 22:09:24 by fouaouri         ###   ########.fr       */
+/*   Created: 2023/09/09 17:18:34 by fouaouri          #+#    #+#             */
+/*   Updated: 2023/09/09 17:39:57 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "builtins.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void    ft_pwd()
 {
-	void	*t_mem;
+    char *cwd;
+    char str[1024];
+    char *string;
+    char *path;
 
-	t_mem = NULL;
-	if (size && nmemb >= SIZE_MAX / size)
-		return (NULL);
-	t_mem = my_malloc(size * nmemb);
-	if (t_mem == NULL)
-		return (t_mem);
-	ft_bzero(t_mem, (size * nmemb));
-	return (t_mem);
+    cwd = getcwd(str, sizeof(str));
+    if(cwd)
+    {
+        string = ft_strdup(cwd);
+        printf("%s\n", string);
+    }
+    else
+    {
+        printf("titiim\n");
+        path = getenv("PWD");
+        if(path)
+            printf("%s\n", path);
+        else
+            return ;
+    }
 }

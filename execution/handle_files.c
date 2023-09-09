@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_files.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 15:38:48 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/08 21:11:08 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/09 22:28:26 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,19 @@ int	check_infile_acces(char *file)
 	
 	status = access(file, F_OK);
 	if (status == -1)
+	{
+		printf("3\n");
 		return (ft_error(FILE_NOT_EXIST, file));
+	}
 	else {
 		// premision denied
 		status = open(file, O_RDONLY);
 		if (status == -1)
+		{
+		printf("2\n");
+
 			return (ft_error(PERSMISSION_DENIED, file));
+		}
 		else 
 			return (status);
 	}
@@ -39,7 +46,10 @@ int	check_outfile_acces(char *file)
 		// premision denied
 	status = open(file, O_WRONLY | O_APPEND | O_CREAT, 0644);
 	if (status == -1)
+	{
+		printf("1\n");
 		return (ft_error(PERSMISSION_DENIED, file));
+	}
 	else 
 		return (status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/08 21:01:11 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/09 22:25:03 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int ac, char **av, char **env) {
 	t_read	*readline;
 	t_list	**hold;
 	int status;
+	g_data.exit_status = 0;
 
 	(void)av;
 	readline = malloc(sizeof(t_read));
@@ -31,8 +32,8 @@ int	main(int ac, char **av, char **env) {
 		signal(SIGINT, ctl_c_handler);
 		// ctr-/
 		signal(SIGQUIT, SIG_IGN);
-
-		hold = parsing(readline, env);
+		
+		hold = parsing(readline, g_data.l_env);
 		if (hold)
 		{
 			printf("exit_status: %d\n", g_data.exit_status);
@@ -70,6 +71,7 @@ int	main(int ac, char **av, char **env) {
 		}
 		else
 			continue ;
+		
 	}
 	return 0;
 }

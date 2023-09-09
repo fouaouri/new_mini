@@ -13,11 +13,11 @@ EXECUTION_FILES = check_cmd.c parse_path.c test.c heredoc.c \
 									exec_utils.c execution_flow.c free_utils.c \
 									signals_handlers.c
 
-BUILTINS_FILES = ft_exit.c ft_export.c ft_env.c ft_unset.c ft_cd.c
+BUILTINS_FILES = ft_exit.c ft_export.c ft_env.c ft_unset.c ft_pwd.c ft_echo.c
 
-PARSING_FILES = parsing.c mini_utils.c minishell.c mini_utils_2.c \
-								sep_cmd.c counters.c expand_n.c ft_split.c \
-								ft_count_quotes.c mini_utils_3.c help_clean.c part_parsing.c parse_env.c \
+PARSING_FILES = parsing.c mini_utils.c minishell.c mini_utils_2.c syntax_err1.c syntax_err.c syntax_err2.c \
+								sep_cmd.c counters.c expand_n.c expand.c if_expand.c init_quotes.c\
+								ft_count_quotes.c help_clean.c part_parsing.c parse_env.c \
 
 # echo.c env.c libft_bonus.c redirections.c 
 

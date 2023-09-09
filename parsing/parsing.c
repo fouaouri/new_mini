@@ -3,59 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fouaouri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 19:27:15 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/17 12:19:46 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:44:21 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// int	check_d_quotes(t_read *readline)
-// {
-// 	int i = 0;
-// 	int count = 0;
-// 	int count1 = 0;
-// 	while(readline->input[i])
-// 	{
-// 		if(readline->input[i] == '\"' || readline->input[i] == '\'')
-// 			count += 1;
-// 		i++;
-// 	}
-// 	i = 0;
-// 	while(readline->input[i])
-// 	{
-// 		if(readline->input[i] == '\'')
-// 			count1 += 1;
-// 		i++;
-// 	}
-// 	if(count % 2 != 0 || count1 % 2 != 0)
-// 	{
-// 		write(2, "bash: syntax error near unexpected token `dquote'\n", 51);
-// 		return (-1);
-// 	}
-// 	return(0);
-// }
-
 void	sep_replace(t_read *readline, t_variables *var)
 {
-	if (readline->exp[var->i] == '\'')
+	if (readline->exp && readline->exp[var->i] == '\'')
 	{
 		readline->replace[var->i] = '1';
 		var->i += 1;
-		while (readline->exp[var->i] != '\'')
+		while (readline->exp[var->i] && readline->exp[var->i] != '\'')
 		{
 			readline->replace[var->i] = '1';
 			var->i++;
 		}
 		readline->replace[var->i] = '1';
 	}
-	else if (readline->exp[var->i] == '\"')
+	else if (readline->exp && readline->exp[var->i] == '\"')
 	{
 		readline->replace[var->i] = '1';
 		var->i += 1;
-		while (readline->exp[var->i] != '\"')
+		while (readline->exp[var->i] && readline->exp[var->i] != '\"')
 		{
 			readline->replace[var->i] = '1';
 			var->i++;
@@ -66,85 +40,85 @@ void	sep_replace(t_read *readline, t_variables *var)
 
 void	replace_char(t_read *readline)
 {
-	t_variables	*var;
+	t_variables	var;
 
-	var = malloc(sizeof(t_variables));
-	var->i = 0;
-	readline->replace = malloc(ft_strlen(readline->exp) + 1);
-	while (readline->exp[var->i])
-	{
-		if (readline->exp[var->i] == '\"' || readline->exp[var->i] == '\'')
-			sep_replace(readline, var);
-		else if (readline->exp[var->i] == '>')
-			readline->replace[var->i] = '2';
-		else if (readline->exp[var->i] == '<')
-			readline->replace[var->i] = '5';
-		else if (readline->exp[var->i] == '|')
-			readline->replace[var->i] = '3';
-		else if (readline->exp[var->i] == ' ' || readline->exp[var->i] == '\t')
-			readline->replace[var->i] = '0';
-		else
-			readline->replace[var->i] = '1';
-		var->i++;
-	}
-	readline->replace[var->i] = '\0';
+	var.i = 0;
+	var.len = ft_strlen(readline->exp);
+	readline->replace = my_malloc(ft_strlen(readline->exp) + 1);
+		while (var.i < var.len)
+		{
+			if (readline->exp[var.i] == '\"' || readline->exp[var.i] == '\'')
+				sep_replace(readline, &var);
+			else if (readline->exp[var.i] == '>')
+				readline->replace[var.i] = '2';
+			else if (readline->exp[var.i] == '<')
+				readline->replace[var.i] = '5';
+			else if (readline->exp[var.i] == '|')
+				readline->replace[var.i] = '3';
+			else if (readline->exp[var.i] == ' ' || readline->exp[var.i] == '\t')
+				readline->replace[var.i] = '0';
+			else
+				readline->replace[var.i] = '1';
+			var.i++;
+		}
+		readline->replace[var.i] = '\0';
 }
 
 void	skip_spaces_in_the_input(t_read *readline)
 {
-	t_variables	*var;
+	t_variables	var;
 
-	var = malloc(sizeof(t_variables));
-	var->i = 0;
-	var->j = 0;
-	var->len = ft_strlen(readline->replace);
-	readline->string = malloc(count_words(readline->replace) + 1);
-	while (var->i < var->len)
+	init_quote(readline, &var);
+	while (var.i < var.len)
 	{
-		if (readline->exp[var->i] != ' ' && readline->exp[var->i] != '\t')
+		if (readline->exp[var.i] != ' ' && readline->exp[var.i] != '\t')
 		{
-			if (readline->exp[var->i] == 34 || readline->exp[var->i] == 39)
+			if (readline->exp[var.i] == 34)
 			{
-				readline->string[var->j++] = readline->exp[var->i++];
-				while (readline->exp[var->i] != 34
-					&& readline->exp[var->i] != 39)
-					readline->string[var->j++] = readline->exp[var->i++];
+				readline->string[var.j++] = readline->exp[var.i++];
+				while (readline->exp[var.i] != 34)
+					readline->string[var.j++] = readline->exp[var.i++];
 			}
-			readline->string[var->j] = readline->exp[var->i];
-			var->j++;
+			else if (readline->exp[var.i] == 39)
+			{
+				readline->string[var.j++] = readline->exp[var.i++];
+				while (readline->exp[var.i] != 39)
+					readline->string[var.j++] = readline->exp[var.i++];
+			}
+			readline->string[var.j] = readline->exp[var.i];
+			var.j++;
 		}
-		var->i++;
+		var.i++;
 	}
-	readline->string[var->j] = '\0';
+	readline->string[var.j] = '\0';
 }
 
 void	sep_by_spaces(t_read *readline)
 {
-	t_variables	*var;
+	t_variables	var;
 
-	var = malloc(sizeof(t_variables));
-	var->i = 0;
-	var->j = 0;
-	var->len = ft_strlen(readline->replace);
-	var->count = counter(readline->replace);
-	readline->put_zero = malloc(sizeof(char) * (var->len + var->count + 1));
-	while (var->i < var->len)
+	var.i = 0;
+	var.j = 0;
+	var.len = ft_strlen(readline->replace);
+	var.count = counter(readline->replace);
+	readline->put_zero = my_malloc(sizeof(char) * (var.len + var.count + 1));
+	while (var.i < var.len)
 	{
-		if (readline->replace[var->i] != readline->replace[var->i + 1])
+		if (readline->replace[var.i] != readline->replace[var.i + 1])
 		{
-			readline->put_zero[var->j] = readline->replace[var->i];
-			var->j++;
-			readline->put_zero[var->j] = '0';
-			var->j++;
+			readline->put_zero[var.j] = readline->replace[var.i];
+			var.j++;
+			readline->put_zero[var.j] = '0';
+			var.j++;
 		}
 		else
 		{
-			readline->put_zero[var->j] = readline->replace[var->i];
-			var->j++;
+			readline->put_zero[var.j] = readline->replace[var.i];
+			var.j++;
 		}
-		var->i++;
+		var.i++;
 	}
-	readline->put_zero[var->j] = '\0';
+	readline->put_zero[var.j] = '\0';
 }
 
 void	add_spaces_in_the_input(t_read *readline)
@@ -158,7 +132,7 @@ void	add_spaces_in_the_input(t_read *readline)
 	j = 0;
 	k = 0;
 	len = ft_strlen(readline->put_zero) + 1;
-	readline->add_spaces = malloc(len);
+	readline->add_spaces = my_malloc(len);
 	if (!readline->add_spaces)
 		return ;
 	while (readline->put_zero[i])

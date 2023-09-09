@@ -3,69 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   sep_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 21:29:00 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/08/28 18:52:33 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/09 20:52:25 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	index_pipe(t_read *readline)
-{
-	int	i;
-
-	i = 0;
-	while (readline->arr1[i])
-	{
-		if (ft_strcmp(readline->arr1[i], "|") == 0)
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
 void	sep_fill_commands_files(t_read *readline, t_file *sep)
 {
-	sep->file_name = malloc(sizeof(char *) * (count_files(readline) + 1));
-	sep->type = malloc(sizeof(char *) * (count_files(readline) + 1));
-	sep->commandes = malloc(sizeof(char *) * (count_commande(readline) + 1));
+	sep->file_name = my_malloc(sizeof(char *) * (count_files(readline) + 1));
+	sep->type = my_malloc(sizeof(char *) * (count_files(readline) + 1));
+	sep->commandes = my_malloc(sizeof(char *) * (count_commande(readline) + 1));
 	sep->sum = (count_files(readline) * 2) + count_commande(readline);
 }
 
-void	null_function(t_file *sep, t_variables *var)
+void	init_fill(t_read *readline, t_variables *var,
+		t_file *sep, int pipe_index)
 {
-	sep->file_name[var->j] = NULL;
-	sep->type[var->j] = NULL;
-	sep->commandes[var->k] = NULL;
+	var->i = 0;
+	var->k = 0;
+	var->j = 0;
+	sep_fill_commands_files(readline, sep);
+	if (pipe_index == -1)
+		sep->sum = counter_arr(readline->put_zero);
+}
+
+char	*cmd_files(char *str1)
+{
+	char	*str2;
+
+	if (ft_strcmp(str1, "<") == 0)
+		str2 = ft_strdup("i");
+	else if (ft_strcmp(str1, ">") == 0)
+		str2 = ft_strdup("o");
+	else if (ft_strcmp(str1, ">>") == 0)
+		str2 = ft_strdup("a");
+	else if (ft_strcmp(str1, "<<") == 0)
+		str2 = ft_strdup("h");
+	return (str2);
 }
 
 void	fill_commands_files(t_read *readline, t_file *sep,
 	int pipe_index, t_variables	*var)
 {
-	var->i = 0;
-	var->k = 0;
-	 var->j = 0;
-	sep_fill_commands_files(readline, sep);
-	if (pipe_index == -1)
-		sep->sum = counter_arr(readline->put_zero);
+	init_fill(readline, var, sep, pipe_index);
 	while (readline->arr1[var->i] && var->i < sep->sum)
 	{
-		if ((ft_strcmp(readline->arr1[var->i], "<") == 0
-				|| ft_strcmp(readline->arr1[var->i], ">") == 0 || ft_strcmp(readline->arr1[var->i], "<<") == 0 || ft_strcmp(readline->arr1[var->i], ">>") == 0))
+		if (redi_check(readline->arr1[var->i]) == 1)
 		{
-			// printf("here\n");
-			if (ft_strcmp(readline->arr1[var->i], "<") == 0)
-				sep->type[var->j] = ft_strdup("i");
-			else if (ft_strcmp(readline->arr1[var->i], ">") == 0)
-				sep->type[var->j] = ft_strdup("o");
-			else if (ft_strcmp(readline->arr1[var->i], ">>") == 0)
-				sep->type[var->j] = ft_strdup("a");
-			else if (ft_strcmp(readline->arr1[var->i], "<<") == 0)
-				sep->type[var->j] = ft_strdup("h");
-			sep->file_name[var->j] = ft_strdup(readline->arr1[var->i + 1]);
-			var->i += 2;
+			sep->type[var->j] = cmd_files(readline->arr1[var->i]);
+			if (readline->arr1[var->i + 1] != NULL)
+			{
+				sep->file_name[var->j] = ft_strdup(readline->arr1[var->i + 1]);
+				var->i += 2;
+			}
+			else
+				sep->commandes[var->k++] = ft_strdup(readline->arr1[var->i++]);
 			var->j++;
 		}
 		else
@@ -78,9 +74,10 @@ t_list	**sep_files(t_read *readline, t_file *sep)
 {
 	int			pipe_index;
 	t_variables	*var;
-	t_list **node = malloc(sizeof(t_list));
+	t_list		**node;
 
-	var = malloc(sizeof(t_variables));
+	node = my_malloc(sizeof(t_list));
+	var = my_malloc(sizeof(t_variables));
 	pipe_index = index_pipe(readline);
 	fill_commands_files(readline, sep, pipe_index, var);
 	*node = ft_lstnew(sep->file_name, sep->commandes, sep->type);
@@ -91,5 +88,5 @@ t_list	**sep_files(t_read *readline, t_file *sep)
 		ft_lst_add_back(node, sep->file_name, sep->commandes, sep->type);
 		pipe_index = index_pipe(readline);
 	}
-	return (node);
+	return (free(var), free(sep), node);
 }

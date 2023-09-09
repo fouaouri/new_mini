@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   counters.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fouaouri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:39:51 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/07/26 18:02:59 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/07 16:51:12 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,9 @@ int	count_files(t_read *readline)
 	while (readline->arr1[i] && ft_strcmp(readline->arr1[i], "|") != 0)
 	{
 		if (ft_strcmp(readline->arr1[i], "<\0") == 0
-			|| ft_strcmp(readline->arr1[i], ">\0") == 0 || ft_strcmp(readline->arr1[i], "<<\0") == 0 || ft_strcmp(readline->arr1[i], ">>\0") == 0)
+			|| ft_strcmp(readline->arr1[i], ">\0") == 0
+			|| ft_strcmp(readline->arr1[i], "<<\0") == 0
+			|| ft_strcmp(readline->arr1[i], ">>\0") == 0)
 			count++;
 		i++;
 	}
@@ -102,8 +104,11 @@ int	count_commande(t_read *readline)
 			count += 1;
 			break ;
 		}
-		else if (ft_strcmp(readline->arr1[i], "<") == 0
-			|| ft_strcmp(readline->arr1[i], ">") == 0 || ft_strcmp(readline->arr1[i], "<<\0") == 0 || ft_strcmp(readline->arr1[i], ">>\0") == 0)
+		else if (readline->arr1[i + 1]
+			&& (ft_strcmp(readline->arr1[i], "<") == 0
+				|| ft_strcmp(readline->arr1[i], ">") == 0
+				|| ft_strcmp(readline->arr1[i], "<<\0") == 0
+				|| ft_strcmp(readline->arr1[i], ">>\0") == 0))
 			i += 2;
 		else
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:18:09 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/08 16:24:17 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/09 22:22:44 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,19 @@
 # include <stdint.h>
 # include <unistd.h>
 #include <stdarg.h>
+
+typedef struct s_mal
+{
+	int			pos;
+	uintptr_t	*ptr;
+	int			len;
+}				t_mal;
+
+void			*my_malloc(size_t size);
+void			my_free(void *address);
+void			my_free_all(void);
+void			ft_memory_set(void *pointer, int c, size_t len);
+void			*ft_memory_copy(void *destination, void *source, size_t len);
 
 // Mandatory Part
 size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);

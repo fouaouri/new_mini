@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   help_clean.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fouaouri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 03:31:57 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/07/16 03:35:15 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:36:19 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,14 @@ int	count_dquotes(t_read *readline)
 		i++;
 	}
 	return (count);
+}
+
+int	redi_check(char *str)
+{
+	if ((ft_strcmp(str, "<") == 0
+			|| ft_strcmp(str, ">") == 0
+			|| ft_strcmp(str, "<<") == 0
+			|| ft_strcmp(str, ">>") == 0))
+		return (1);
+	return (0);
 }
