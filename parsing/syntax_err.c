@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:41:10 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/07 17:35:44 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/09 22:34:13 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 void	norm_syn(t_read *readline, t_variables *var)
 {
-	if (var->i <= (int)ft_strlen(readline->string)
-		&& readline->string[var->i] != '\0')
+	if (var->i <= (int)ft_strlen(readline->input)
+		&& readline->input[var->i] != '\0')
 	{
-		if (readline->string[var->i] == '\'')
+		if (readline->input[var->i] == '\'')
 		{
 			var->i++;
-			while (readline->string[var->i] != '\0'
-				&& readline->string[var->i] != '\'')
+			while (readline->input[var->i] != '\0'
+				&& readline->input[var->i] != '\'')
 				var->i++;
 		}
-		else if (readline->string[var->i] == '\"')
+		else if (readline->input[var->i] == '\"')
 		{
 			var->i++;
-			while (readline->string[var->i] != '\0'
-				&& readline->string[var->i] != '\"')
+			while (readline->input[var->i] != '\0'
+				&& readline->input[var->i] != '\"')
 				var->i++;
 		}
 	}
@@ -80,25 +80,30 @@ int	check_pipes(t_read *readline)
 	int	len;
 	int	sep;
 	int	err;
+	int i;
 
 	err = 0;
-	sep = 0;
-	len = counter_arr(readline->put_zero) - 1;
+	i = 0;
+	len = ft_strlen(readline->input) - 1;
 	sep = while_pipes(readline);
 	if (len < 0)
 		len = 0;
-	if (ft_strcmp(readline->arr[0], "|") == 0)
+	while(readline->input && (readline->input[i] == ' '
+		|| readline->input[i] == '\t'))
+		i++;
+	if (readline->input[i] == '|')
 		err = -1;
-	else if (ft_strcmp(readline->arr[len], "|") == 0)
+	else if (readline->input[len] == '|')
 		err = -1;
-	else if (ft_strcmp(readline->arr[0], "&") == 0)
+	else if (readline->input[i] == '&')
 		err = -1;
-	else if (ft_strcmp(readline->arr[0], ")") == 0)
+	else if (readline->input[len] == '&')
+		err = -1;
+	else if (readline->input[i] == '(')
+		err = -1;
+	else if (readline->input[len] == ')')
 		err = -1;
 	if (err == -1 || sep == -1)
-	{
-		errors();
 		return (-1);
-	}
 	return (0);
 }

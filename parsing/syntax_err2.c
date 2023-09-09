@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 16:09:27 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/07 02:17:07 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/09 22:29:29 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	while_redi(t_read *readline)
 	{
 		if (readline->input[i] == '>' && readline->input[i + 1] == '<')
 		{
-			errors();
+			return (-1);
 			break ;
 		}
 		else
@@ -40,13 +40,13 @@ int	while_redi1(t_read *readline)
 		if (readline->input[i] == '>' && readline->input[i + 1] == ' '
 			&& readline->input[i + 2] == '>')
 		{
-			errors();
+			return (-1);
 			break ;
 		}
 		else if (readline->input[i] == '<' && readline->input[i + 1] == ' '
 			&& readline->input[i + 2] == '<')
 		{
-			errors();
+			return (-1);
 			break ;
 		}
 		else
@@ -59,14 +59,11 @@ int	check_redirections(t_read *readline)
 {
 	int	len;
 
-	len = counter_arr(readline->put_zero) - 1;
+	len = counter_arr(readline->input) - 1;
 	if (len < 0)
 		len = 0;
-	if (readline->arr[len] && ((ft_strcmp(readline->arr[len], ">") == 0
-				|| ft_strcmp(readline->arr[len], "<") == 0)
-			|| (ft_strcmp(readline->arr[len], ">>") == 0
-				|| ft_strcmp(readline->arr[len], "<<") == 0)))
-		errors();
+	if (readline->input && readline->input[len] == '<' || readline->input[len] == '>')
+		return (-1);
 	len = while_redi1(readline);
 	len = while_redi(readline);
 	if (len == -1)
