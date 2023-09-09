@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:36:42 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/09 22:41:46 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/09 23:52:25 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ t_list	**parsing(t_read *readline, t_env *l_env)
 	print_minishell(readline);
 	expand_arr(readline, l_env);
 	sepe = check_syntax_error(readline);
-	// sepe = check_d_quotes(readline);
 	if (sepe != -1)
 	{
 		replace_char(readline);
@@ -58,9 +57,7 @@ t_list	**parsing(t_read *readline, t_env *l_env)
 		add_spaces_in_the_input(readline);
 		fill_the_arr(readline);
 		clean_d_quotes(readline);
-		// sepe = check_syntax_error(readline);
-		// if (sepe != -1)
-			return (sep_files(readline, sep));
+		return (sep_files(readline, sep));
 	}
 	return (NULL);
 }

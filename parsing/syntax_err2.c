@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 16:09:27 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/09 22:29:29 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/09 23:48:56 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ int	check_redirections(t_read *readline)
 {
 	int	len;
 
-	len = counter_arr(readline->input) - 1;
+	len = ft_strlen(readline->input) - 1;
 	if (len < 0)
 		len = 0;
-	if (readline->input && readline->input[len] == '<' || readline->input[len] == '>')
+	if ((readline->input && readline->input[len] == '<') || readline->input[len] == '>')
 		return (-1);
 	len = while_redi1(readline);
 	len = while_redi(readline);

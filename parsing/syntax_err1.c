@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 16:09:42 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/09 22:28:57 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/09 23:43:38 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,6 @@ int	check_ands(t_read *readline)
 	int	len1;
 
 	len1 = ft_strlen(readline->input);
-	if (readline->input[len1] == '&' || readline->input[0] == '&')
-	{
-		return (-1);
-		return (-1);
-	}
 	if (len1 >= 0)
 	{
 		i = 0;
