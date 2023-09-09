@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 19:27:15 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/09 21:08:56 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:18:30 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,7 @@ void	skip_spaces_in_the_input(t_read *readline)
 {
 	t_variables	var;
 
-	var.i = 0;
-	var.j = 0;
-	var.len = ft_strlen(readline->replace);
-	readline->string = my_malloc(count_words(readline->replace) + 1);
+	init_quote(readline, &var);
 	while (var.i < var.len)
 	{
 		if (readline->exp[var.i] != ' ' && readline->exp[var.i] != '\t')
