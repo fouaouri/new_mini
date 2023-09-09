@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 21:29:00 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/07 22:18:59 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/09 20:52:25 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,5 @@ t_list	**sep_files(t_read *readline, t_file *sep)
 		ft_lst_add_back(node, sep->file_name, sep->commandes, sep->type);
 		pipe_index = index_pipe(readline);
 	}
-	// free(readline->arr1);
 	return (free(var), free(sep), node);
 }

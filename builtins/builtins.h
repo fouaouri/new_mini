@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 22:29:38 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/06 14:55:01 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/09 19:03:26 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,7 @@ void	ft_unset(char **keys);
 void	ft_env();
 t_env	*ft_search_for_key(char *key);
 t_env	*ft_add_new_env(char *str);
-int	ft_validate_key(char *key);
+int		ft_validate_key(char *key);
+void	ft_pwd();
+void	ft_echo(t_list *hold);
 #endif

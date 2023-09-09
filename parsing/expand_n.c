@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:42:08 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/07 21:23:44 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/09 20:51:04 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,27 +120,4 @@ void	expand_arr(t_read *readline, t_env *l_env)
 		else
 			else_expand(readline, &var, l_env);
 	}
-	// free (readline->new_input);
 }
-
-// echo 'ssss'"$USER"
-
-// echo " <|> '"''
-
-// echo "'$USER'"
-
-// echo ""'"$USER"'
-
-// echo $+ //(*)
-
-// echo $USER?
-
-// 'l'"s"
-// echo "$USER'"
-
-// echo "$USER $PWD"
-
-// echo "$USER-*/"'+.,;#?<|>:"
-
-// echo ''""
-// """'$USER $HOME'"""$USER'$USER' //(*)

@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 19:27:15 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/07 22:18:59 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:08:56 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,16 @@ void	skip_spaces_in_the_input(t_read *readline)
 	{
 		if (readline->exp[var.i] != ' ' && readline->exp[var.i] != '\t')
 		{
-			if (readline->exp[var.i] == 34 || readline->exp[var.i] == 39)
+			if (readline->exp[var.i] == 34)
 			{
 				readline->string[var.j++] = readline->exp[var.i++];
-				while (readline->exp[var.i] != 34
-					&& readline->exp[var.i] != 39)
+				while (readline->exp[var.i] != 34)
+					readline->string[var.j++] = readline->exp[var.i++];
+			}
+			else if (readline->exp[var.i] == 39)
+			{
+				readline->string[var.j++] = readline->exp[var.i++];
+				while (readline->exp[var.i] != 39)
 					readline->string[var.j++] = readline->exp[var.i++];
 			}
 			readline->string[var.j] = readline->exp[var.i];

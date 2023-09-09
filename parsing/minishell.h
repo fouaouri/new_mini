@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:33:48 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/07 21:20:31 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/09 20:53:49 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,5 +164,7 @@ int		check_d_quotes(t_read *readline);
 int		check_redirections(t_read *readline);
 int		redi_check(char *str);
 void	null_function(t_file *sep, t_variables *var);
+char	*ft_clean_d_quotes1(char *str);
+int		check_special_char1(char *str);
 
 #endif
