@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 14:40:33 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/07 16:53:05 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:38:54 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	if_else_expand(t_read *readline, t_variables *var, t_env *l_env)
 				readline->input[var->i++]);
 	if (var->k == 1)
 		call_env(readline, readline->new_input, l_env, var);
-	readline->new_input = calloc(1, 1);
+	readline->new_input = ft_calloc(1, 1);
 }
 
 void	else_expand(t_read *readline, t_variables *var, t_env *l_env)

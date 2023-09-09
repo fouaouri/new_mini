@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 15:45:11 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/07 22:24:55 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/09 22:10:36 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_itoa(int n)
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
 	len = nlen(n);
-	ret = malloc(len + 1);
+	ret = my_malloc(len + 1);
 	if (!ret)
 		return (NULL);
 	*(ret + len--) = '\0';

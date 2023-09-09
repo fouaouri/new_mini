@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:42:08 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/09 20:51:04 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:38:24 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ void	expand_arr(t_read *readline, t_env *l_env)
 	var.e = 0;
 	var.s_d = 0;
 	var.s_c = 0;
-	readline->exp = calloc(1, 1);
-	readline->new_input = calloc(1, 1);
+	readline->exp = ft_calloc(1, 1);
+	readline->new_input = ft_calloc(1, 1);
 	while (readline->input[var.i])
 	{
 		if (readline->input[var.i] == '\'' && var.s_d == 0)

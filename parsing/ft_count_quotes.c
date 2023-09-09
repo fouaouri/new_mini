@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 02:25:10 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/09 21:21:27 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:37:43 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	help_count(char *str, int i, int count, int len)
 {
 	while (i < len)
 	{
-		if (str[i] == '\'')
+		if (str && str[i] == '\'')
 		{
 			i++;
 			while (str[i] != '\'')
@@ -25,7 +25,7 @@ int	help_count(char *str, int i, int count, int len)
 				i++;
 			}
 		}
-		else if (str[i] == '\"')
+		else if (str && str[i] == '\"')
 		{
 			i++;
 			while (str[i] != '\"')

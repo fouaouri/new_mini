@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 17:34:28 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/09 20:54:59 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:37:14 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,14 @@ int	check_special_char1(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i])
+	if (str)
 	{
-		if (str[i] == '|' || str[i] == '>' || str[i] == '<')
-			return (1);
-		i++;
+		while (str[i])
+		{
+			if (str[i] == '|' || str[i] == '>' || str[i] == '<')
+				return (1);
+			i++;
+		}	
 	}
 	return (0);
 }

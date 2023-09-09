@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 19:27:15 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/09 21:18:30 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:44:21 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 void	sep_replace(t_read *readline, t_variables *var)
 {
-	if (readline->exp[var->i] == '\'')
+	if (readline->exp && readline->exp[var->i] == '\'')
 	{
 		readline->replace[var->i] = '1';
 		var->i += 1;
-		while (readline->exp[var->i] != '\'')
+		while (readline->exp[var->i] && readline->exp[var->i] != '\'')
 		{
 			readline->replace[var->i] = '1';
 			var->i++;
 		}
 		readline->replace[var->i] = '1';
 	}
-	else if (readline->exp[var->i] == '\"')
+	else if (readline->exp && readline->exp[var->i] == '\"')
 	{
 		readline->replace[var->i] = '1';
 		var->i += 1;
-		while (readline->exp[var->i] != '\"')
+		while (readline->exp[var->i] && readline->exp[var->i] != '\"')
 		{
 			readline->replace[var->i] = '1';
 			var->i++;
@@ -43,24 +43,25 @@ void	replace_char(t_read *readline)
 	t_variables	var;
 
 	var.i = 0;
+	var.len = ft_strlen(readline->exp);
 	readline->replace = my_malloc(ft_strlen(readline->exp) + 1);
-	while (readline->exp[var.i])
-	{
-		if (readline->exp[var.i] == '\"' || readline->exp[var.i] == '\'')
-			sep_replace(readline, &var);
-		else if (readline->exp[var.i] == '>')
-			readline->replace[var.i] = '2';
-		else if (readline->exp[var.i] == '<')
-			readline->replace[var.i] = '5';
-		else if (readline->exp[var.i] == '|')
-			readline->replace[var.i] = '3';
-		else if (readline->exp[var.i] == ' ' || readline->exp[var.i] == '\t')
-			readline->replace[var.i] = '0';
-		else
-			readline->replace[var.i] = '1';
-		var.i++;
-	}
-	readline->replace[var.i] = '\0';
+		while (var.i < var.len)
+		{
+			if (readline->exp[var.i] == '\"' || readline->exp[var.i] == '\'')
+				sep_replace(readline, &var);
+			else if (readline->exp[var.i] == '>')
+				readline->replace[var.i] = '2';
+			else if (readline->exp[var.i] == '<')
+				readline->replace[var.i] = '5';
+			else if (readline->exp[var.i] == '|')
+				readline->replace[var.i] = '3';
+			else if (readline->exp[var.i] == ' ' || readline->exp[var.i] == '\t')
+				readline->replace[var.i] = '0';
+			else
+				readline->replace[var.i] = '1';
+			var.i++;
+		}
+		readline->replace[var.i] = '\0';
 }
 
 void	skip_spaces_in_the_input(t_read *readline)

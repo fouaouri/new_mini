@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 16:09:42 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/09 20:52:02 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:45:10 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,9 @@ int	check_d_quotes(t_read *readline)
 		i++;
 	}
 	if (count % 2 != 0 || count1 % 2 != 0)
+	{
 		errors();
+		return (-1);
+	}
 	return (0);
 }
