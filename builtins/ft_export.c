@@ -6,11 +6,16 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 16:57:54 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/05 17:19:08 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/09 19:14:10 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+
+/* ************* TODO ******************
+ * NOTE; check for => export key+=valu,
+ * should update the value
+ * ******* TODO ****************** */
 
 t_env	*ft_add_new_env(char *str)
 {
@@ -54,7 +59,7 @@ int	ft_validate_key(char *key)
 	i = 0;
 	if (key[i] != '_' && !ft_isalpha(key[i]))
 	{
-		printf(":Minishell: export: `%s': not a valid identifier\n", key);
+		ft_dprintf(2, "Minishell: export: `%s': not a valid identifier\n", key);
 		return (0);
 	}
 	i++;
@@ -62,7 +67,7 @@ int	ft_validate_key(char *key)
 	{
 		if (!ft_isalnum(key[i]) && key[i] != '_')
 		{
-			printf(":Minishell: export: `%s': not a valid identifier\n", key);
+			ft_dprintf(2, "Minishell: export: `%s': not a valid identifier\n", key);
 			return (0);
 		}
 		i++;
@@ -103,6 +108,8 @@ void	ft_export(char **cmds)
 	int i;
 	char *key;
 	t_env *node;
+	char *pluse_key;
+	char *new_value;
 
 	if (!cmds[1])
 	{
@@ -117,9 +124,20 @@ void	ft_export(char **cmds)
 			key = ft_substr(cmds[i], 0, ft_strlen(cmds[i]) - ft_strlen(key));
 		else
 			key = ft_strdup(cmds[i]);
+		pluse_key = ft_strchr(key, '+');
+		if (pluse_key && ft_strlen(pluse_key) == 1)
+			key = ft_substr(key, 0, ft_strlen(key) - ft_strlen(pluse_key));
 		if (ft_validate_key(key))
 		{
 			node = ft_search_for_key(key);
+			if (pluse_key && node)
+			{
+				new_value = ft_strjoin(ft_strdup(key + 1), node->value);
+				printf("new value: %s\n", new_value);
+				cmds[i] = ft_strjoin(key, "=");
+				cmds[i] = ft_strjoin(cmds[i], new_value);
+				// printf("new value: %s\n", cmds[i]);
+			}
 			if (node)
 				ft_update_value(node, cmds[i]);
 			else
