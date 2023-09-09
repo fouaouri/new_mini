@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:16:02 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/09 22:24:06 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/09 23:01:52 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	ft_cd(char **args)
 		g_data.exit_status = 1;
 		return ;
 	}
-	// check if the args is empty. so i should go to the home dir
 	if (!args[1])
 	{
 		home = ft_search_for_key("HOME");
@@ -44,7 +43,6 @@ void	ft_cd(char **args)
 			}
 			else
 			{
-				// should be a standalone function
 				pwd_env = ft_search_for_key("PWD");
 				if (pwd_env)
 				{
@@ -72,22 +70,15 @@ void	ft_cd(char **args)
 			return ;
 		}
 	}
-	// check if the is accessable
 	status = access(args[1], F_OK);
 	if (!status)
 	{
-		// try to acces this dir using chdir
-		// check for getcwd
 		pwd = getcwd(NULL, 0);
 		if (!pwd)
 		{
 			ft_dprintf(2,"minishell: cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n");
-			// g_data.exit_status = 1;
+			g_data.exit_status = 1;
 		}
-		// else
-		// {
-		// 	// should change the pwd env var
-		// }
 		changed_dir = chdir(args[1]);
 		if (!changed_dir)
 		{
@@ -106,12 +97,10 @@ void	ft_cd(char **args)
 		}
 		else
 		{
-			// if i can't access this dir. i should print an error msg
 			ft_dprintf(2,"minishell: cd: %s: not a directory\n", args[1]);
 			g_data.exit_status = 1;
 			return ;
 		}
-		// after succes. i should update the env var OLDPWD adn pwd
 	}
 	else
 	{
@@ -119,5 +108,4 @@ void	ft_cd(char **args)
 		g_data.exit_status = 1;
 		return ;
 	}
-	// so if all got runned. so i should update the env var OLDPWD and pwd
 }
