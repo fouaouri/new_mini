@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:16:02 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/08 20:25:22 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:30:06 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,19 @@ void	ft_cd(char **args)
 				pwd_env = ft_search_for_key("PWD");
 				if (pwd_env)
 				{
+					pwd = getcwd(NULL, 0);
+					if (!pwd)
+						return ;
 					free(pwd_env->value);
-					pwd_env->value = ft_strdup(getcwd(NULL, 0));
+					pwd_env->value = pwd;
 				}
 				pwd_env = ft_search_for_key("OLDPWD");
 				if (pwd_env)
 				{
+					if (!oldpwd)
+						return ;
 					free(pwd_env->value);
-					pwd_env->value = ft_strdup(oldpwd);
+					pwd_env->value = oldpwd;
 				}
 			}
 			return ;

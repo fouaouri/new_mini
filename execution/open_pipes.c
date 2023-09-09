@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/08 21:32:55 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/09 21:27:42 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	exec_cmd(t_list *node)
 		ft_dprintf(2, "minishell: %s: command not found\n", node->commandes[0]);
 		return (ERROR);
 	}
+
 	env = create_env();
 
 	// check if builtin should be executed on child or not
