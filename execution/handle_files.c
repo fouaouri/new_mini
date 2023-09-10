@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 15:38:48 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/10 15:55:53 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/10 21:25:00 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int find_file_type(char **type, char *t) {
 
 	last_index = ERROR; // Initialize last_index to -1
 	i = 0;
-
 	while (type[i]) {
 		if (ft_strcmp(type[i], t) == 0)
 			last_index = i; // Update last_index to the current index
@@ -66,6 +65,8 @@ int	handle_files(t_list *node)
 	i = 0;
 	while (node->type[i])
 	{
+		printf("type: %s\n", node->type[i]);
+		printf("file_name: %s\n", node->file_name[i]);
 		// check files and open it;
 		if (!ft_strcmp(node->type[i], "i"))
 		{

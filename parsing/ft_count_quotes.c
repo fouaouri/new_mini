@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 02:25:10 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/09 21:37:43 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/10 17:40:32 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,16 @@ char	*ft_clean_d_quotes(char *str)
 	data_clean(str, &var);
 	if (str)
 	{
-		while (var.i < var.len)
+		while (var.i < (int)ft_strlen(str))
 		{
 			if (str[var.i] == '\'')
 				ft_clean_s(str, &var);
 			else if (str[var.i] == '\"')
 				ft_clean_d(str, &var);
-			else
-				var.str1[var.k++] = str[var.i];
-			var.i++;
+			else if (str[var.i])
+				var.str1[var.k++] = str[var.i++];
 		}
-		var.str1[var.k] = 0;
+		var.str1[var.k] = '\0';
 		return (var.str1);
 	}
 	return (NULL);

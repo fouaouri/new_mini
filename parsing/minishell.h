@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:33:48 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/09 21:20:23 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/10 18:25:54 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,5 +169,7 @@ int		check_special_char1(char *str);
 void	init_quote(t_read *readline, t_variables *var);
 void	ft_clean_s(char *str, t_variables *var);
 void	ft_clean_d(char *str, t_variables *var);
+t_env	*ft_search_for_key(char *key);
+int		help_count(char *str, int i, int count, int len);
 
 #endif

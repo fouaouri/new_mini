@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:41:10 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/09 22:34:13 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/10 18:49:41 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	pipe_err1(t_read *readline, t_variables *var)
 			&& readline->input[var->i + 1] == '|')
 		|| (readline->input[var->i] == '<'
 			&& readline->input[var->i + 1] == ' '
+			&& readline->input[var->i + 2] == '|')
+		|| (readline->input[var->i] == '>' && readline->input[var->i + 1] == '>'
 			&& readline->input[var->i + 2] == '|'))
 		return (-1);
 	return (0);
@@ -80,7 +82,7 @@ int	check_pipes(t_read *readline)
 	int	len;
 	int	sep;
 	int	err;
-	int i;
+	int	i;
 
 	err = 0;
 	i = 0;
@@ -88,20 +90,15 @@ int	check_pipes(t_read *readline)
 	sep = while_pipes(readline);
 	if (len < 0)
 		len = 0;
-	while(readline->input && (readline->input[i] == ' '
-		|| readline->input[i] == '\t'))
+	while (readline->input && (readline->input[i] == ' '
+			|| readline->input[i] == '\t'))
 		i++;
-	if (readline->input[i] == '|')
+	if (readline->input[i] == '|' || readline->input[len] == '|')
 		err = -1;
-	else if (readline->input[len] == '|')
+	else if (readline->input[i] == '&' || readline->input[len] == '&')
 		err = -1;
-	else if (readline->input[i] == '&')
-		err = -1;
-	else if (readline->input[len] == '&')
-		err = -1;
-	else if (readline->input[i] == '(')
-		err = -1;
-	else if (readline->input[len] == ')')
+	else if (readline->input[i] == '(' || readline->input[len] == '('
+		|| readline->input[i] == ')' || readline->input[len] == ')')
 		err = -1;
 	if (err == -1 || sep == -1)
 		return (-1);

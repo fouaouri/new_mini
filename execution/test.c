@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/10 16:12:55 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/10 21:43:09 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	main(int ac, char **av, char **env) {
 		hold = parsing(readline, g_data.l_env);
 		if (hold)
 		{
-			printf("exit_status: %d\n", g_data.exit_status);
 			(*hold)->outfile = STDOUT_FILENO;
 			(*hold)->infile = STDIN_FILENO;
 
@@ -53,6 +52,13 @@ int	main(int ac, char **av, char **env) {
 				continue ;
 			}
 
+			if (current->next == NULL)
+			{
+				if (execute_builtins(current, current->commandes[0]))
+					continue ;
+				else
+					close_fd(current->infile, current->outfile);
+			}
 			while (current != NULL)
 			{
 				if (execute(current) == SUCCESS)
