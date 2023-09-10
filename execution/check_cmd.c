@@ -6,22 +6,16 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 13:17:31 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/09 22:27:40 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/10 15:55:15 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"execution.h"
 
-char	*check_cmd(char **path, char *cmd)
+char	*check_valid_path(char *cmd)
 {
-	char	*tmp;
-	int		ret;
+	int ret;
 
-	/* NOTE: checking for valid cmd */
-	if (!cmd)
-		return NULL;
-
-	// checking for valid path => ./cmd or /bin/cmd
 	if (cmd[0] == '.' || cmd[0] == '/')
 	{
 		ret = access(cmd, F_OK);
@@ -33,17 +27,22 @@ char	*check_cmd(char **path, char *cmd)
 			else
 				return ("p");
 		}
-		else
-			return (NULL);
 	}
-	// checking for valid path => path + cmd
+	return (NULL);
+}
+
+char	*check_cmd(char **path, char *cmd)
+{
+	char	*tmp;
+	int		ret;
+
+	if (!cmd || !cmd[0])
+		return NULL;
+	if (check_valid_path(cmd))
+		return (cmd);
 	if (!path)
 		return (NULL);
-	/* NOTE: checking for valid cmd */
-	if (!cmd[0])
-		return NULL;
-	// ret = access(cmd, F_OK); //file
-	ret = access(cmd, X_OK);//executable
+	ret = access(cmd, X_OK);
 	if (!ret)
 		return (cmd);
 	else if (ft_strchr(cmd, '/'))
@@ -52,12 +51,9 @@ char	*check_cmd(char **path, char *cmd)
 	{
 		tmp = ft_strjoin(*path, "/");
 		tmp = ft_strjoin(tmp, cmd);
-		// leaks
 		ret = access(tmp, X_OK);
 		if (!ret)
-		{
 			return (tmp);
-		}
 		free(tmp);
 		path++;
 	}

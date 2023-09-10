@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/09 22:25:03 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/10 16:12:55 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int	main(int ac, char **av, char **env) {
 			{
 				if (execute(current) == SUCCESS)
 					g_data.exit_status = 0;
+				else
+					close_fd(current->infile, current->outfile);
 				current = current->next;
 			}
 

@@ -1,6 +1,6 @@
 NAME = minishell
 CC = gcc
-CFLAGS = -g3 -fsanitize=address
+CFLAGS = #-Wall -Werror -Wextra #-g3 -fsanitize=address
 LIBFT = libs/libft
 LIBS = $(addprefix $(LIBFT), /libft.a)
 
