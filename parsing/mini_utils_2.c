@@ -6,30 +6,51 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 17:34:28 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/09 21:37:14 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/10 18:42:23 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	find_count(char *str)
 {
-	size_t			i;
-	unsigned char	*str1;
-	unsigned char	*str2;
+	int	i;
 
 	i = 0;
-	if (!s1 || !s2)
-		return (-1);
-	str1 = (unsigned char *)s1;
-	str2 = (unsigned char *)s2;
-	while ((str1[i] || str2[i]))
+	while (str[i])
 	{
-		if (str1[i] != str2[i])
-			return (str1[i] - str2[i]);
+		if (str[i] == '\'' || str[i] == '\"')
+			return (1);
 		i++;
 	}
 	return (0);
+}
+
+void	lst_quote(char **file_name, char **commandes, char **type)
+{
+	int	i;
+
+	i = 0;
+	while (commandes[i])
+	{
+		if (find_count(commandes[i]))
+			commandes[i] = ft_clean_d_quotes1(commandes[i]);
+		i++;
+	}
+	i = 0;
+	while (file_name[i])
+	{
+		if (find_count(file_name[i]))
+			file_name[i] = ft_clean_d_quotes1(file_name[i]);
+		i++;
+	}
+	i = 0;
+	while (type[i])
+	{
+		if (find_count(type[i]))
+			type[i] = ft_clean_d_quotes1(type[i]);
+		i++;
+	}
 }
 
 t_list	*ft_lstnew(char **file_name, char **commandes, char **type)
@@ -39,6 +60,7 @@ t_list	*ft_lstnew(char **file_name, char **commandes, char **type)
 	new_node = (t_list *)my_malloc(sizeof(t_list));
 	if (new_node == NULL)
 		return (NULL);
+	lst_quote(file_name, commandes, type);
 	new_node->file_name = file_name;
 	new_node->commandes = commandes;
 	new_node->type = type;
@@ -78,7 +100,7 @@ int	check_special_char1(char *str)
 			if (str[i] == '|' || str[i] == '>' || str[i] == '<')
 				return (1);
 			i++;
-		}	
+		}
 	}
 	return (0);
 }
