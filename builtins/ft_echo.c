@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 17:45:54 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/09 19:05:36 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/10 18:11:27 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,22 @@ void    ft_cases(t_list *hold, t_variables *var)
 		ft_putstr_fd("\n", 1);
 }
 
+int	check_first_arg(char *str)
+{
+	int	i;
+	int	len;
+	
+	len = ft_strlen(str);
+	i = 0;
+	if (str[0] == '-')
+		i += 1;
+	while (str[i] && str[i] == 'n')
+		i++;
+	if (i == len)
+		return (1);
+	return (0);
+}
+
 void    ft_echo(t_list *hold)
 {
 	t_variables var;
@@ -61,6 +77,8 @@ void    ft_echo(t_list *hold)
 	var.check = 0;
 	if(!hold->commandes[1])
 		printf("\n");
+	else if (check_first_arg(hold->commandes[1]) && !hold->commandes[2])
+		return ;
 	else
 		ft_cases(hold, &var);
 }
