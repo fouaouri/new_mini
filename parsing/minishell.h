@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:33:48 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/10 18:25:54 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/10 23:44:34 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ typedef struct s_variables
 	int		space;
 	int		s_d;
 	int		s_c;
+	int		sc;
+	int		dc;
 	int		len;
 	char	*str1;
 	char	*exit0;
@@ -89,6 +91,7 @@ typedef struct t_env
 typedef struct t_data
 {
 	int		exit_status;
+	int		if_export;
 	int		in_heredoc;
 	t_env	*l_env;
 }	t_data;
@@ -127,7 +130,7 @@ int		count_commande(t_read *readline);
 void	exit_function(t_read *readline);
 void	clean_d_quotes(t_read *readline);
 char	*ft_clean_d_quotes(char *str);
-int		check_d_quotes(t_read *readline);
+int		check_d_quotes(t_read *readline, t_variables var);
 void	expand_arr(t_read *readline, t_env *l_env);
 char	*ft_strjoin_char(char *s1, char c);
 void	split_into_arr(t_read *readline);
@@ -160,7 +163,6 @@ int		check_pipes(t_read *readline);
 int		check_redi(t_read *readline);
 int		check_ands(t_read *readline);
 int		check_parentheses(t_read *readline);
-int		check_d_quotes(t_read *readline);
 int		check_redirections(t_read *readline);
 int		redi_check(char *str);
 void	null_function(t_file *sep, t_variables *var);

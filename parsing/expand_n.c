@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:42:08 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/10 18:39:34 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/10 23:34:51 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	call_env(t_read *readline, char *str, t_env *l_env, t_variables *var)
 	var->len = ft_strlen(str) + 1;
 	var->e = 0;
 	l_env = ft_search_for_key(str);
-	if (l_env)
+	if (l_env && l_env->value)
 	{
 		readline->exp = ft_strjoin(readline->exp,
 				l_env->value);
