@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 16:24:44 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/07 22:18:59 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/10 20:11:06 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ int	index_pipe(t_read *readline)
 	i = 0;
 	while (readline->arr1[i])
 	{
-		if (ft_strcmp(readline->arr1[i], "|") == 0)
+		if (ft_strcmp(readline->arr1[i], ">") == 0
+			&& ft_strcmp(readline->arr1[i + 1], "|") == 0)
+			return (-1);
+		else if (ft_strcmp(readline->arr1[i], "|") == 0)
 			return (i);
 		i++;
 	}
@@ -54,4 +57,24 @@ void	null_function(t_file *sep, t_variables *var)
 	sep->file_name[var->j] = NULL;
 	sep->type[var->j] = NULL;
 	sep->commandes[var->k] = NULL;
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t			i;
+	unsigned char	*str1;
+	unsigned char	*str2;
+
+	i = 0;
+	if (!s1 || !s2)
+		return (-1);
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	while ((str1[i] || str2[i]))
+	{
+		if (str1[i] != str2[i])
+			return (str1[i] - str2[i]);
+		i++;
+	}
+	return (0);
 }

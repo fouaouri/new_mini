@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:42:08 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/10 18:00:45 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/10 18:39:34 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	call_env(t_read *readline, char *str, t_env *l_env, t_variables *var)
 	if (l_env)
 	{
 		readline->exp = ft_strjoin(readline->exp,
-					l_env->value);
+				l_env->value);
 		var->k = 1;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 19:27:15 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/09 21:44:21 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/10 18:39:18 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,23 +45,23 @@ void	replace_char(t_read *readline)
 	var.i = 0;
 	var.len = ft_strlen(readline->exp);
 	readline->replace = my_malloc(ft_strlen(readline->exp) + 1);
-		while (var.i < var.len)
-		{
-			if (readline->exp[var.i] == '\"' || readline->exp[var.i] == '\'')
-				sep_replace(readline, &var);
-			else if (readline->exp[var.i] == '>')
-				readline->replace[var.i] = '2';
-			else if (readline->exp[var.i] == '<')
-				readline->replace[var.i] = '5';
-			else if (readline->exp[var.i] == '|')
-				readline->replace[var.i] = '3';
-			else if (readline->exp[var.i] == ' ' || readline->exp[var.i] == '\t')
-				readline->replace[var.i] = '0';
-			else
-				readline->replace[var.i] = '1';
-			var.i++;
-		}
-		readline->replace[var.i] = '\0';
+	while (var.i < var.len)
+	{
+		if (readline->exp[var.i] == '\"' || readline->exp[var.i] == '\'')
+			sep_replace(readline, &var);
+		else if (readline->exp[var.i] == '>')
+			readline->replace[var.i] = '2';
+		else if (readline->exp[var.i] == '<')
+			readline->replace[var.i] = '5';
+		else if (readline->exp[var.i] == '|')
+			readline->replace[var.i] = '3';
+		else if (readline->exp[var.i] == ' ' || readline->exp[var.i] == '\t')
+			readline->replace[var.i] = '0';
+		else
+			readline->replace[var.i] = '1';
+		var.i++;
+	}
+	readline->replace[var.i] = '\0';
 }
 
 void	skip_spaces_in_the_input(t_read *readline)

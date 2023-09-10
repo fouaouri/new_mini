@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 21:29:00 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/09 20:52:25 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/10 20:22:57 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,12 @@ void	fill_commands_files(t_read *readline, t_file *sep,
 			sep->type[var->j] = cmd_files(readline->arr1[var->i]);
 			if (readline->arr1[var->i + 1] != NULL)
 			{
-				sep->file_name[var->j] = ft_strdup(readline->arr1[var->i + 1]);
+				if (ft_strcmp(readline->arr1[var->i + 1], "|") == 0)
+					sep->file_name[var->j]
+						= ft_strdup(readline->arr1[var->i + 2]);
+				else
+					sep->file_name[var->j]
+						= ft_strdup(readline->arr1[var->i + 1]);
 				var->i += 2;
 			}
 			else
