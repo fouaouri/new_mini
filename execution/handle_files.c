@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 15:38:48 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/11 17:30:27 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/11 22:24:42 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,6 @@ int	handle_files(t_list *node)
 	i = 0;
 	while (node->type[i])
 	{
-		printf("type: %s\n", node->type[i]);
-		printf("file_name: %s\n", node->file_name[i]);
-		// check files and open it;
 		if (!ft_strcmp(node->type[i], "i"))
 		{
 			status = check_infile_acces(node->file_name[i]);
@@ -98,7 +95,7 @@ int	handle_files(t_list *node)
 		{
 			status = open(node->file_name[i], O_WRONLY | O_APPEND | O_CREAT, 0644);
 			if (status < 0)
-				return (status);
+				return (ft_error(FILE_NOT_EXIST, node->file_name[i]));
 			if (node->outfile != STDOUT_FILENO)
 				close(node->outfile);
 			node->outfile = status;
