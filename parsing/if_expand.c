@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 21:16:57 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/09 21:39:03 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/11 18:14:54 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	if_if_exp(t_read *readline, t_variables *var)
 		&& readline->input[var->i] == '\"')
 		readline->exp = ft_strjoin_char(readline->exp,
 				readline->input[var->i++]);
-	readline->new_input = ft_calloc(1, 1);
+	readline->new_input = calloc(1, 1);
 }
 
 void	if_if_exp_2(t_read *readline, t_variables *var)
@@ -35,6 +35,15 @@ void	initial_env(t_variables *var)
 {
 	var->str1 = ft_calloc(1, 1);
 	var->j = 0;
-	var->e = 0;
 	var->count = 0;
+}
+
+void	init_expand(t_variables *var)
+{
+	var->i = 0;
+	var->count = 0;
+	var->k = 0;
+	var->e = 0;
+	var->s_d = 0;
+	var->s_c = 0;
 }

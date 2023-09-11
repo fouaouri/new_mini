@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 16:09:27 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/10 18:42:55 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/11 12:17:15 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,18 @@ int	check_redirections(t_read *readline)
 	if (len == -1)
 		return (-1);
 	return (0);
+}
+
+int	check_last_char(char c)
+{
+	int	err;
+
+	err = 0;
+	if (c == '|')
+		err = -1;
+	else if (c == '&')
+		err = -1;
+	else if (c == '(' || c == ')')
+		err = -1;
+	return (err);
 }

@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 14:40:33 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/09 21:38:54 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/11 14:42:08 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	if_else_expand(t_read *readline, t_variables *var, t_env *l_env)
 		&& check_special_char(readline->input[var->i]) == 1)
 		readline->new_input = ft_strjoin_char(readline->new_input,
 				readline->input[var->i++]);
-	if (var->k == 1)
+	if (var->k == 1 && var->e == 0)
 		call_env(readline, readline->new_input, l_env, var);
 	readline->new_input = ft_calloc(1, 1);
 }
@@ -70,7 +70,7 @@ void	if_else_expand(t_read *readline, t_variables *var, t_env *l_env)
 void	else_expand(t_read *readline, t_variables *var, t_env *l_env)
 {
 	var->count = 0;
-	if (readline->input[var->i] == '$')
+	if (readline->input[var->i] == '$' && var->e == 0)
 		if_else_expand(readline, var, l_env);
 	else
 		readline->exp = ft_strjoin_char(readline->exp,

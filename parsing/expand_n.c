@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:42:08 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/10 23:34:51 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/11 18:15:06 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void	call_env(t_read *readline, char *str, t_env *l_env, t_variables *var)
 {
 	initial_env(var);
 	var->len = ft_strlen(str) + 1;
-	var->e = 0;
 	l_env = ft_search_for_key(str);
 	if (l_env && l_env->value)
 	{
 		readline->exp = ft_strjoin(readline->exp,
 				l_env->value);
 		var->k = 1;
+		g_data.if_export = 1;
 	}
 }
 
@@ -99,19 +99,22 @@ void	expand_arr(t_read *readline, t_env *l_env)
 {
 	t_variables	var;
 
-	var.i = 0;
-	var.count = 0;
-	var.k = 0;
-	var.e = 0;
-	var.s_d = 0;
-	var.s_c = 0;
+	init_expand(&var);
 	readline->exp = ft_calloc(1, 1);
 	readline->new_input = ft_calloc(1, 1);
+	while (readline->input && readline->input[var.i])
+	{
+		if (readline->input && readline->input[var.i] == '<'
+			&& readline->input[var.i + 1] == '<')
+			var.e = 1;
+		var.i++;
+	}
+	var.i = 0;
 	while (readline->input[var.i])
 	{
 		if (readline->input[var.i] == '\'' && var.s_d == 0)
 			expand_s_c(readline, &var);
-		else if (readline->input[var.i] == '\"' && var.s_c == 0)
+		else if (readline->input[var.i] == '\"' && var.s_c == 0 && var.e == 0)
 			expand_d_c(readline, &var, l_env);
 		else
 			else_expand(readline, &var, l_env);
