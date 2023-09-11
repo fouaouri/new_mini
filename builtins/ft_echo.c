@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 17:45:54 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/10 18:11:27 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/11 21:20:33 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void    ft_cases(t_list *hold, t_variables *var)
 	while (hold->commandes[var->i])
 	{
 		ft_putstr_fd(hold->commandes[var->i], 1);
-		if (hold->commandes[var->i] + 1)
+		if (hold->commandes[var->i + 1])
 			ft_putstr_fd(" ", 1);
 		var->i++;
 	}
