@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 21:32:31 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/09 22:25:28 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/11 17:28:50 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	handle_heredoc(t_list *node)
 				fd = ft_heredoc(node->file_name[i]);
 				if (fd == -1)
 					return (fd); // error
+				free(node->type[i]);
+				node->type[i] = ft_strdup("H");
 				free(node->file_name[i]);
 				node->file_name[i] = ft_itoa(fd);
 			}
@@ -87,7 +89,10 @@ int	ft_heredoc(char *dilimiter)
 			return -1;
 		}
 		if (WIFSIGNALED(g_data.exit_status))
-				return -1;
+		{
+			close(p_fd[0]);
+			return -1;
+		}
 		signal(SIGINT, ctl_c_handler);
 	}
 	return (p_fd[0]);
