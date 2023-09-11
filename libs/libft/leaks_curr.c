@@ -1,32 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   leaks_curr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/11 18:18:14 by fouaouri          #+#    #+#             */
+/*   Updated: 2023/09/11 18:53:20 by fouaouri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-// first thing to put in mind
-// memory leaks means allocating
-// space in heap and losing its address
-
-// static varibale are stored in data segment in memory
-// data segment is the last space that get freed in memory when main exit
-
-// when main is exiting and find that there is a static variable pointing
-// on a memory on the heap, its frees it
-
-t_mal	*head(void)
+t_alloc	*head(void)
 {
-	static t_mal	curr;
+	static t_alloc	curr;
 
 	if (curr.ptr == NULL)
 	{
 		curr.len = 10;
-		curr.ptr = malloc(curr.len * sizeof(uintptr_t));
+		curr.ptr = malloc(curr.len * sizeof(long));
 	}
 	return (&curr);
 }
 
-// in case you freed a pointer before
-// I use the same pointer to save the new allocate space
-int	get_available_pos(void)
+int	get_pos(void)
 {
-	t_mal	*curr;
+	t_alloc	*curr;
 	int		pos;
 
 	pos = 0;
@@ -42,22 +42,22 @@ int	get_available_pos(void)
 
 void	*my_malloc(size_t size)
 {
-	t_mal		*curr;
+	t_alloc		*curr;
 	void		*new;
-	uintptr_t	*ptr;
+	long		*ptr;
 	int			pos;
 
 	new = malloc(size);
-	ft_memory_set(new, 0, size);
-	pos = get_available_pos();
+	new = ft_memset(new, 0, size);
+	pos = get_pos();
 	curr = head();
-	curr->ptr[pos] = (uintptr_t) new;
+	curr->ptr[pos] = (long) new;
 	if (pos == curr->pos)
 		curr->pos++;
 	if (curr->pos + 2 >= curr->len)
 	{
-		ptr = malloc(curr->len * 2 * sizeof(uintptr_t));
-		ft_memory_copy(ptr, curr->ptr, curr->len * sizeof(uintptr_t));
+		ptr = malloc(curr->len * 2 * sizeof(long));
+		ft_memcpy(ptr, curr->ptr, curr->len * sizeof(long));
 		free(curr->ptr);
 		curr->ptr = ptr;
 		curr->len *= 2;
@@ -65,33 +65,17 @@ void	*my_malloc(size_t size)
 	return (new);
 }
 
-// void	my_free(void *address)
+// void	my_free_all(void)
 // {
-// 	t_mal	*curr;
+// 	t_alloc	*curr;
 // 	int		i;
 
 // 	curr = head();
 // 	i = 0;
-// 	while (i < curr->pos && curr->ptr[i] != (uintptr_t)address)
-// 		i++;
-// 	if (curr->ptr[i] == (uintptr_t)address)
+// 	while (i < curr->pos)
 // 	{
 // 		free((void *)curr->ptr[i]);
 // 		curr->ptr[i] = 0;
+// 		i++;
 // 	}
 // }
-
-void	my_free_all(void)
-{
-	t_mal	*curr;
-	int		i;
-
-	curr = head();
-	i = 0;
-	while (i < curr->pos)
-	{
-		free((void *)curr->ptr[i]);
-		curr->ptr[i] = 0;
-		i++;
-	}
-}
