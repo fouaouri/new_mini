@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:41:10 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/10 18:49:41 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/11 18:12:23 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,26 +79,26 @@ int	while_pipes(t_read *readline)
 
 int	check_pipes(t_read *readline)
 {
-	int	len;
 	int	sep;
 	int	err;
 	int	i;
 
 	err = 0;
 	i = 0;
-	len = ft_strlen(readline->input) - 1;
 	sep = while_pipes(readline);
-	if (len < 0)
-		len = 0;
-	while (readline->input && (readline->input[i] == ' '
+	while (readline->input[i] && (readline->input[i] == ' '
 			|| readline->input[i] == '\t'))
 		i++;
-	if (readline->input[i] == '|' || readline->input[len] == '|')
+	if (check_last_char(readline->input[i]) == -1)
 		err = -1;
-	else if (readline->input[i] == '&' || readline->input[len] == '&')
-		err = -1;
-	else if (readline->input[i] == '(' || readline->input[len] == '('
-		|| readline->input[i] == ')' || readline->input[len] == ')')
+	i = 0;
+	while (readline->input[i])
+		i++;
+	i -= 1;
+	while (i > 0 && (readline->input[i] == ' '
+			|| readline->input[i] == '\t'))
+		i--;
+	if (check_last_char(readline->input[i]) == -1)
 		err = -1;
 	if (err == -1 || sep == -1)
 		return (-1);

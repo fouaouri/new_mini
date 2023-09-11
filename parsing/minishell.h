@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:33:48 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/11 21:15:23 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/11 21:16:01 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,5 +173,7 @@ void	ft_clean_s(char *str, t_variables *var);
 void	ft_clean_d(char *str, t_variables *var);
 t_env	*ft_search_for_key(char *key);
 int		help_count(char *str, int i, int count, int len);
+int		check_last_char(char c);
+void	init_expand(t_variables *var);
 
 #endif

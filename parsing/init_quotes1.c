@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:31 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/10 23:33:10 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/11 18:15:24 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_clean_s1(char *str, t_variables *var)
 		while (str[var->i] && str[var->i] != '\'')
 			var->str1[var->k++] = str[var->i++];
 		if (str[var->i])
-			var->str1[var->k++] = str[var->i++]; 
+			var->str1[var->k++] = str[var->i++];
 	}
 }
 
