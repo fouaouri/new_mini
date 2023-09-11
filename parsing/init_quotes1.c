@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 18:33:31 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/10 18:41:00 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/10 23:33:10 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,13 @@ void	ft_clean_s1(char *str, t_variables *var)
 			var->str1[var->k++] = str[var->i++];
 		var->i++;
 	}
-	else if (check_special_char1(str) != 1)
+	else
 	{
 		var->str1[var->k++] = str[var->i++];
-		while (str[var->i] != '\'')
+		while (str[var->i] && str[var->i] != '\'')
 			var->str1[var->k++] = str[var->i++];
-		var->str1[var->k++] = str[var->i++];
+		if (str[var->i])
+			var->str1[var->k++] = str[var->i++]; 
 	}
 }
 
@@ -67,12 +68,13 @@ void	ft_clean_d1(char *str, t_variables *var)
 			var->str1[var->k++] = str[var->i++];
 		var->i++;
 	}
-	else if (check_special_char1(str) != 1)
+	else
 	{
 		var->str1[var->k++] = str[var->i++];
-		while (str[var->i] != '\"')
+		while (str[var->i] && str[var->i] != '\"')
 			var->str1[var->k++] = str[var->i++];
-		var->str1[var->k++] = str[var->i++];
+		if (str[var->i])
+			var->str1[var->k++] = str[var->i++];
 	}
 }
 

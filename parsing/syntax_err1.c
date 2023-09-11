@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 16:09:42 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/09 23:43:38 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/10 23:47:47 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,29 +56,41 @@ int	check_ands(t_read *readline)
 	return (0);
 }
 
-int	check_d_quotes(t_read *readline)
+void	var_d(t_read *readline, t_variables *var)
 {
-	int	i;
-	int	count;
-	int	count1;
+	var->dc = 1;
+	var->i += 1;
+	while (readline->input[var->i] && readline->input[var->i] != '\"')
+		var->i++;
+	if (readline->input[var->i] == '\"')
+		var->dc = 0;
+}
 
-	i = 0;
-	count = 0;
-	count1 = 0;
-	while (readline->input[i])
+void	var_s(t_read *readline, t_variables *var)
+{
+	var->sc = 1;
+	var->i += 1;
+	while (readline->input[var->i] && readline->input[var->i] != '\'')
+		var->i++;
+	if (readline->input[var->i] == '\'')
+		var->sc = 0;
+}
+
+int	check_d_quotes(t_read *readline, t_variables var)
+{
+	var.i = 0;
+	var.len = ft_strlen(readline->input);
+	var.dc = 0;
+	var.sc = 0;
+	while (var.i < var.len)
 	{
-		if (readline->input[i] == '\"' || readline->input[i] == '\'')
-			count += 1;
-		i++;
+		if (readline->input[var.i] == '\"')
+			var_d(readline, &var);
+		else if (readline->input[var.i] == '\'')
+			var_s(readline, &var);
+		var.i++;
 	}
-	i = 0;
-	while (readline->input[i])
-	{
-		if (readline->input[i] == '\'')
-			count1 += 1;
-		i++;
-	}
-	if (count % 2 != 0 || count1 % 2 != 0)
+	if (var.sc == 1 || var.dc == 1)
 		return (-1);
 	return (0);
 }
