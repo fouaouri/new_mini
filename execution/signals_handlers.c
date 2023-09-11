@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 19:09:48 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/08 20:42:43 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/11 17:03:10 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,3 @@ void	ctl_c_handler(int sig)
 	rl_on_new_line();
 	rl_redisplay();
 }
-

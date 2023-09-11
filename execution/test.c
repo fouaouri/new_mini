@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/10 21:43:09 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/11 17:32:02 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ t_data	g_data;
 int	main(int ac, char **av, char **env) {
 	t_read	*readline;
 	t_list	**hold;
+	t_list *current;
+	t_list *tmp;
+	int i;
 	int status;
 	g_data.exit_status = 0;
 
@@ -34,21 +37,42 @@ int	main(int ac, char **av, char **env) {
 		signal(SIGQUIT, SIG_IGN);
 		
 		hold = parsing(readline, g_data.l_env);
+		// int i;
+		// 	i = 0;
+		// 	while((*hold)->commandes && (*hold)->commandes[i])
+		// 		printf("commandes :%s\n", (*hold)->commandes[i++]);
+		// 	i = 0;
+		// 	 while((*hold)->file_name && (*hold)->file_name[i])
+		// 	 	printf("file_name : %s\n", (*hold)->file_name[i++]);
+		// 	i = 0;
+		// 	while ((*hold)->type && (*hold)->type[i])
+		// 		printf("type : %s\n", (*hold)->type[i++]);
 		if (hold)
 		{
 			(*hold)->outfile = STDOUT_FILENO;
 			(*hold)->infile = STDIN_FILENO;
 
-			t_list *current = *hold;
-			
+			current = *hold;
 			// heredoc and handle it
 			if (handle_heredoc(current) == -1)
 			{
+				tmp = *hold;
 				// close fds
 				close_fd(current->infile, current->outfile);
 				// set the right status code
 				g_data.exit_status = 130;
-				ft_dprintf(2, "minishell: heredoc: %s\n", strerror(errno));
+				// while nodes
+				while(tmp)
+				{
+					i = 0;
+					while(tmp->type[i])
+					{
+						if (!ft_strcmp(tmp->type[i], "H"))
+							close(ft_atoi(tmp->file_name[i]));
+						i++;
+					}
+					tmp = tmp->next;
+				}
 				continue ;
 			}
 
@@ -68,18 +92,14 @@ int	main(int ac, char **av, char **env) {
 				current = current->next;
 			}
 
-			// need to wait for all childs
-			// if (!g_data.error)
-			// {
 			status = wait_childs(*hold);
 			if (status == -1)
 				return (ERROR);
 			// }
-			free_list(hold);
 		}
 		else
 			continue ;
-		
+		free_list(hold);
 	}
 	return 0;
 }

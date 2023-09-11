@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 15:38:48 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/10 21:25:00 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/11 17:30:27 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	handle_files(t_list *node)
 				close(node->infile);
 			node->infile = status;
 		}
-		else if (!ft_strcmp(node->type[i], "h"))
+		else if (!ft_strcmp(node->type[i], "H"))
 		{
 			if (node->infile != STDIN_FILENO)
 				close(node->infile);
