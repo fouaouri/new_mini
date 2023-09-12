@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:18:09 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/11 19:00:24 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/12 10:12:11 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 
 typedef struct s_alloc
 {
-	int			pos;
-	long		*ptr;
-	int			len;
+	int				pos;
+	uintptr_t		*ptr;
+	int				len;
 }				t_alloc;
 
 void	*my_malloc(size_t size);
