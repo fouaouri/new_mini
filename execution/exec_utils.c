@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 16:19:28 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/09 22:28:56 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:51:49 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,19 +112,18 @@ void	ft_dup2(int in_fd, int out_fd)
 int	wait_childs(t_list *node)
 {
 	int g_exit_status;
-	int status;
 
 	g_exit_status = 0;
 	while (node)
 	{
 		if (node->pid != 0)
 		{
-			if (waitpid(node->pid, &status, 0) == -1)
+			if (waitpid(node->pid, &g_data.exit_status, 0) == -1)
 				return (ERROR);
-			if (WIFEXITED(status))
-				g_exit_status = WEXITSTATUS(status);
-			if (WIFSIGNALED(status))
-				g_exit_status = WTERMSIG(status) + 128;
+			if (WIFEXITED(g_data.exit_status))
+				g_exit_status = WEXITSTATUS(g_data.exit_status);
+			if (WIFSIGNALED(g_data.exit_status))
+				g_exit_status = WTERMSIG(g_data.exit_status) + 128;
 		}
 		close_fd(node->infile, node->outfile);
 		node = node->next;

@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/12 16:16:54 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:49:53 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	main(int ac, char **av, char **env) {
 			status = wait_childs(*hold);
 			if (status == -1)
 				return (ERROR);
-			// }
+			g_data.exit_status = status;
 		}
 		else
 			continue ;
