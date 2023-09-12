@@ -6,34 +6,33 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:18:14 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/11 18:53:20 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/12 10:15:35 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
 t_alloc	*head(void)
 {
-	static t_alloc	curr;
+	static t_alloc	alloc;
 
-	if (curr.ptr == NULL)
+	if (alloc.ptr == NULL)
 	{
-		curr.len = 10;
-		curr.ptr = malloc(curr.len * sizeof(long));
+		alloc.len = 10;
+		alloc.ptr = malloc(alloc.len * sizeof(uintptr_t));
 	}
-	return (&curr);
+	return (&alloc);
 }
 
 int	get_pos(void)
 {
-	t_alloc	*curr;
+	t_alloc	*alloc;
 	int		pos;
 
 	pos = 0;
-	curr = head();
-	while (pos < curr->pos)
+	alloc = head();
+	while (pos < alloc->pos)
 	{
-		if (curr->ptr[pos] == 0)
+		if (alloc->ptr[pos] == 0)
 			break ;
 		pos++;
 	}
@@ -42,25 +41,25 @@ int	get_pos(void)
 
 void	*my_malloc(size_t size)
 {
-	t_alloc		*curr;
-	void		*new;
-	long		*ptr;
-	int			pos;
+	t_alloc			*alloc;
+	void			*new;
+	uintptr_t		*ptr;
+	int				pos;
 
 	new = malloc(size);
 	new = ft_memset(new, 0, size);
 	pos = get_pos();
-	curr = head();
-	curr->ptr[pos] = (long) new;
-	if (pos == curr->pos)
-		curr->pos++;
-	if (curr->pos + 2 >= curr->len)
+	alloc = head();
+	alloc->ptr[pos] = (uintptr_t) new;
+	if (pos == alloc->pos)
+		alloc->pos++;
+	if (alloc->pos + 2 >= alloc->len)
 	{
-		ptr = malloc(curr->len * 2 * sizeof(long));
-		ft_memcpy(ptr, curr->ptr, curr->len * sizeof(long));
-		free(curr->ptr);
-		curr->ptr = ptr;
-		curr->len *= 2;
+		ptr = malloc(alloc->len * 2 * sizeof(uintptr_t));
+		ft_memcpy(ptr, alloc->ptr, alloc->len * sizeof(uintptr_t));
+		free(alloc->ptr);
+		alloc->ptr = ptr;
+		alloc->len *= 2;
 	}
 	return (new);
 }

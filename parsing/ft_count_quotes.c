@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 02:25:10 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/10 17:40:32 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/12 10:16:34 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,6 @@ char	*ft_clean_d_quotes(char *str)
 int	errors(void)
 {
 	write(2, "Minishell: syntax error near unexpected token\n", 46);
-	g_data.exit_status = 258;
+	g_data.exit_status = 2;
 	return (-1);
 }
