@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:16:02 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/11 22:37:35 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/12 16:10:39 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,15 @@ void	ft_cd(char **args)
 			return ;
 		}
 	}
-	
-	status = access(args[1], F_OK);
 
-	if (!status)
+	status = access(args[1], F_OK);
+	if (status)
+	{
+		g_data.exit_status = 1;
+		ft_dprintf(2,"minishell: cd: %s: cd No such file or directory\n", args[1]);
+		return ;
+	}
+	else
 	{
 		pwd = getcwd(NULL, 0);
 		if (!pwd)
@@ -83,14 +88,17 @@ void	ft_cd(char **args)
 			g_data.exit_status = 1;
 		}
 		changed_dir = chdir(args[1]);
-		if (!changed_dir)
+		if (changed_dir)
+		{
+			g_data.exit_status = 1;
+			ft_dprintf(2,"minishell: cd: %s: not a directory\n", args[1]);
+			return ;
+		}
+		else
 		{
 			pwd_env = ft_search_for_key("PWD");
 			if (pwd_env)
 			{
-				pwd = getcwd(NULL, 0);
-				if (!pwd)
-					return ;
 				free(pwd_env->value);
 				pwd_env->value = pwd;
 			}
@@ -103,17 +111,5 @@ void	ft_cd(char **args)
 				pwd_env->value = oldpwd;
 			}
 		}
-		else
-		{
-			ft_dprintf(2,"minishell: cd: %s: not a directory\n", args[1]);
-			g_data.exit_status = 1;
-			return ;
-		}
-	}
-	else
-	{
-		ft_dprintf(2,"minishell: cd: %s: No such file or directory\n", args[1]);
-		g_data.exit_status = 1;
-		return ;
 	}
 }

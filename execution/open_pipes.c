@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/11 22:33:56 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/12 16:22:22 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ int	execute_builtins(t_list *node, char *builtin)
 		ft_pwd();
 	else if (!ft_strcmp(builtin, "echo"))
 		ft_echo(node);
-	return 0;
+	else
+		return 0;
+	return 1;
 }
 
 int	is_builtins(char *builtin)
@@ -103,7 +105,6 @@ int	exec_cmd(t_list *node)
 		// execute builtin
 		if (is_builtins(node->commandes[0]))
 		{
-			ft_free(env);
 			if (execute_builtins(node, node->commandes[0]))
 				exit(EXIT_SUCCESS);
 			else

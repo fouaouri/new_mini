@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/12 12:19:12 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/12 16:16:54 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,11 @@ int	main(int ac, char **av, char **env) {
 			if (current->next == NULL)
 			{
 				if (execute_builtins(current, current->commandes[0]))
-					continue ;
+					continue;
 				else
 					close_fd(current->infile, current->outfile);
 			}
-			while (current != NULL)
+			while (current)
 			{
 				if (execute(current) == SUCCESS)
 					g_data.exit_status = 0;
