@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 17:18:34 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/09 22:52:17 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/11 21:49:04 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void    ft_pwd()
 	}
 	else
 	{
-		printf("titiim\n");
+		// printf("titiim\n");
 		// should work with our env struct
 		node = ft_search_for_key("PWD");
 		if (node)

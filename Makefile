@@ -21,7 +21,6 @@ PARSING_FILES = parsing.c mini_utils.c minishell.c mini_utils_2.c syntax_err1.c 
 
 # echo.c env.c libft_bonus.c redirections.c 
 
-
 PARSING_F_FILES = $(addprefix $(PARSING_SRC), $(PARSING_FILES))
 BUILTINS_F_FILES = $(addprefix $(BUILTINS_SRC), $(BUILTINS_FILES))
 EXECUTION_F_FILES	= $(addprefix $(EXECUTION_SRC), $(EXECUTION_FILES))
@@ -39,27 +38,20 @@ O_FILES += $(BUILTINS_F_FILES:%.c=%.o)
 
 SILENT = @
 
-all: $(NAME)
+all: libft $(NAME)
 
-$(NAME): libft $(O_FILES)
+$(NAME): $(O_FILES)
 	$(SILENT) $(CC) $(CFLAGS) $(ALL_FILES) $(LIBS) -lreadline -o $(NAME)
 
 libft:
 	$(SILENT)	cd $(LIBFT) && make
-
-parsing: libft $(PARSING_OBJ)
-	$(SILENT) $(CC) -lreadline $(CFLAGS) $(PARSING_OBJ) $(LIBS) -o pars
-
-execution: libft $(EXECUTION_OBJ)
-	$(SILENT) $(CC) $(CFLAGS) $(EXECUTION_OBJ) $(LIBS) -o exec
-
 
 %.o: %.c
 	$(SILENT) $(CC) $(CFLAGS) -lreadline -c $< -o $@
 
 clean : 
 	$(SILENT) cd $(LIBFT) && make clean
-	$(SILENT) rm -rf $(PARSING_OBJ) $(EXECUTION_OBJ) $(O_FILES)
+	$(SILENT) rm -rf $(O_FILES)
 
 fclean : clean
 	$(SILENT) cd $(LIBFT) && make fclean

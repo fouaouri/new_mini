@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 16:57:54 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/10 17:31:01 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/11 21:48:49 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void	ft_export(char **cmds)
 			if (pluse_key && node)
 			{
 				new_value = ft_strjoin(ft_strdup(key + 1), node->value);
-				printf("new value: %s\n", new_value);
+				// printf("new value: %s\n", new_value);
 				cmds[i] = ft_strjoin(key, "=");
 				cmds[i] = ft_strjoin(cmds[i], new_value);
 				// printf("new value: %s\n", cmds[i]);

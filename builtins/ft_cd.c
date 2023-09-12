@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:16:02 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/09 23:01:52 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/11 22:37:35 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_cd(char **args)
 		g_data.exit_status = 1;
 		return ;
 	}
+	// checking for home = cd only
 	if (!args[1])
 	{
 		home = ft_search_for_key("HOME");
@@ -70,7 +71,9 @@ void	ft_cd(char **args)
 			return ;
 		}
 	}
+	
 	status = access(args[1], F_OK);
+
 	if (!status)
 	{
 		pwd = getcwd(NULL, 0);
@@ -85,14 +88,19 @@ void	ft_cd(char **args)
 			pwd_env = ft_search_for_key("PWD");
 			if (pwd_env)
 			{
+				pwd = getcwd(NULL, 0);
+				if (!pwd)
+					return ;
 				free(pwd_env->value);
-				pwd_env->value = ft_strdup(getcwd(NULL, 0));
+				pwd_env->value = pwd;
 			}
 			pwd_env = ft_search_for_key("OLDPWD");
 			if (pwd_env)
 			{
+				if (!oldpwd)
+					return ;
 				free(pwd_env->value);
-				pwd_env->value = ft_strdup(oldpwd);
+				pwd_env->value = oldpwd;
 			}
 		}
 		else
