@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 22:29:15 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/12 19:29:26 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/12 19:34:52 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,23 @@ static long ft_atol(const char *nptr)
 	return (n * sign);
 }
 
+static int valid_arg(char *arg)
+{
+	int i;
+
+	i = 0;
+	while (arg[i])
+	{
+		if (!ft_isdigit(arg[i]))
+		{
+			ft_dprintf(2, "Minishell: exit: %s: numeric argument required\n", arg);
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
 void	ft_exit(char **args)
 {
 	unsigned char	exit_code;
@@ -89,28 +106,22 @@ void	ft_exit(char **args)
 		dprintf(2, "exit with 0\n");
 		exit(0);
 	}
-	if (args[2])
-	{
-		ft_dprintf(2, "Minishell: exit: too many arguments\n");
-		g_data.exit_status = 1;
-		return ;
-	}
 	if (!args[1][i])
 	{
 		ft_dprintf(2, "Minishell: %s: numeric argument required\n", args[1]);
 		exit(2);
 	}
-	while (args[1][i])
+	if (args[2])
 	{
-		if (i == 0 && (args[1][i] == '+' || args[1][i] == '-'))
-			i++;
-		if (!ft_isdigit(args[1][i]) || !args[1][i])
-		{
-			ft_dprintf(2, "Minishell: %s: numeric argument required\n", args[1]);
+		// check for the first ags if valid
+		if (!valid_arg(args[1]))
 			exit(2);
-		}
-		i++;
+		ft_dprintf(2, "Minishell: exit: too many arguments\n");
+		g_data.exit_status = 1;
+		return ;
 	}
+	if (!valid_arg(args[1]))
+		exit(2);
 	str = ft_ltoa(ft_atol(args[1]));
 	if (ft_strcmp(str, args[1]))
 	{
