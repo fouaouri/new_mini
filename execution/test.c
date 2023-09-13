@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/12 17:49:53 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:14:25 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,33 @@ int	main(int ac, char **av, char **env) {
 				continue ;
 			}
 
-			if (current->next == NULL)
+			if (current->next == NULL && is_builtins(current->commandes[0]))
 			{
+				int std_in;
+				int std_out;
+				int err;
+
+				std_in = dup(STDIN_FILENO);
+				std_out = dup(STDOUT_FILENO);
+				err = handle_files(current);
+				if (err < 0)
+				{
+					g_data.exit_status = 1;
+					return (err);
+				}
+				ft_dup2(current->infile, current->outfile);
 				if (execute_builtins(current, current->commandes[0]))
+				{
+					dup2(std_in, STDIN_FILENO);
+					dup2(std_out, STDOUT_FILENO);
+					close(std_in);
+					close(std_out);
 					continue;
+				}
 				else
 					close_fd(current->infile, current->outfile);
 			}
+
 			while (current)
 			{
 				if (execute(current) == SUCCESS)
