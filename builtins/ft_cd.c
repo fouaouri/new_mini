@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:16:02 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/12 16:10:39 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/13 12:43:41 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,9 @@ void	ft_cd(char **args)
 			pwd_env = ft_search_for_key("PWD");
 			if (pwd_env)
 			{
+				pwd = getcwd(NULL, 0);
+				if (!pwd)
+					return ;
 				free(pwd_env->value);
 				pwd_env->value = pwd;
 			}
