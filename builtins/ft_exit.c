@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 22:29:15 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/12 19:34:52 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/13 15:15:49 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static int valid_arg(char *arg)
 	i = 0;
 	while (arg[i])
 	{
-		if (!ft_isdigit(arg[i]))
+		if (!ft_isdigit(arg[i]) && (arg[i] != '-' && arg[i] != '+') )
 		{
 			ft_dprintf(2, "Minishell: exit: %s: numeric argument required\n", arg);
 			return (0);
@@ -96,11 +96,12 @@ static int valid_arg(char *arg)
 void	ft_exit(char **args)
 {
 	unsigned char	exit_code;
-	// long res;
 	char *str;
 	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	if (!args[1])
 	{
 		dprintf(2, "exit with 0\n");
@@ -123,7 +124,9 @@ void	ft_exit(char **args)
 	if (!valid_arg(args[1]))
 		exit(2);
 	str = ft_ltoa(ft_atol(args[1]));
-	if (ft_strcmp(str, args[1]))
+	if (args[1][0] == '+')
+		j = 1;
+	if (ft_strcmp(str, args[1] + j))
 	{
 		ft_dprintf(2, "Minishell: %s: numeric argument required\n", args[1]);
 		exit(2);
