@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 16:57:54 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/10 17:31:01 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/13 23:33:49 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_env	*ft_add_new_env(char *str)
 	t_env *node;
 	char *ptr;
 
-	node = malloc(sizeof(t_env));
+	node = my_malloc(sizeof(t_env));
 	ptr = ft_strchr(str, '=');
 	if (ptr)
 	{

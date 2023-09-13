@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/10 17:32:25 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/13 23:34:39 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	exec_cmd(t_list *node)
 	if (node->pid < 0)
 	{
 		ft_dprintf(2,"minishell: fork: %s\n", strerror(errno));
+		my_free_all();
 		exit(EXIT_FAILURE);
 	}
 	if (node->pid == 0)
@@ -89,6 +90,7 @@ int	exec_cmd(t_list *node)
 			// ft_dprintf(2,"minishell: %s: ", node->commandes[0]);
 			ft_dprintf(2,"minishell: %s: %s\n", node->commandes[0], strerror(errno));
 			g_data.exit_status = 127;
+			my_free_all();
 			exit(EXIT_FAILURE);
 		}
 	}
