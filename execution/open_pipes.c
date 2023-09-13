@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/13 16:13:24 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/13 18:18:19 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,21 +75,21 @@ int	exec_cmd(t_list *node)
 		else
 			ft_dprintf(2,"minishell: %s: command not found\n", node->commandes[0]);
 		g_data.exit_status = 127;
-		ft_free(env);
+		// ft_free(env);
 		return (ERROR);
 	}
 	else if (!ft_strcmp(cmd_full_path, "p"))
 	{
 		ft_dprintf(2,"minishell: %s: Permission denied\n", node->commandes[0]);
 		g_data.exit_status = 127;
-		ft_free(env);
+		// ft_free(env);
 		return (ERROR);
 	}
 	node->pid = fork();
 	if (node->pid < 0)
 	{
 		ft_dprintf(2,"minishell: fork: %s\n", strerror(errno));
-		ft_free(env);
+		// ft_free(env);
 		exit(EXIT_FAILURE);
 	}
 	if (node->pid == 0)
@@ -103,6 +103,7 @@ int	exec_cmd(t_list *node)
 				close(node->next->infile);
 		}
 		// execute builtin
+		printf("cmd_full_path: %s\n", cmd_full_path);
 		if (is_builtins(node->commandes[0]))
 		{
 			if (execute_builtins(node, node->commandes[0]))
@@ -114,7 +115,6 @@ int	exec_cmd(t_list *node)
 		{
 			ft_dprintf(2,"minishell: %s: %s\n", node->commandes[0], strerror(errno));
 			g_data.exit_status = 127;
-			ft_free(env);
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -122,7 +122,6 @@ int	exec_cmd(t_list *node)
 	{
 		signal(SIGINT, SIG_IGN);
 	}
-	if (env)
-		ft_free(env);
+	// if (env) ft_free(env);
 	return (SUCCESS);
 }
