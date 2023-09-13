@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/13 16:14:25 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/13 18:31:35 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int ac, char **av, char **env) {
 	g_data.exit_status = 0;
 
 	(void)av;
-	readline = malloc(sizeof(t_read));
+	readline = my_malloc(sizeof(t_read));
 	if (!readline)
 		return (ERROR);
 	g_data.l_env = init_env(env);

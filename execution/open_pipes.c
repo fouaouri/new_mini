@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/13 18:18:19 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/13 18:28:07 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int	exec_cmd(t_list *node)
 		printf("cmd_full_path: %s\n", cmd_full_path);
 		if (is_builtins(node->commandes[0]))
 		{
+			ft_free(env);
 			if (execute_builtins(node, node->commandes[0]))
 				exit(EXIT_SUCCESS);
 			else
@@ -115,6 +116,7 @@ int	exec_cmd(t_list *node)
 		{
 			ft_dprintf(2,"minishell: %s: %s\n", node->commandes[0], strerror(errno));
 			g_data.exit_status = 127;
+			ft_free(env);
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -122,6 +124,7 @@ int	exec_cmd(t_list *node)
 	{
 		signal(SIGINT, SIG_IGN);
 	}
-	// if (env) ft_free(env);
+	// if (env)
+		// ft_free(env);
 	return (SUCCESS);
 }

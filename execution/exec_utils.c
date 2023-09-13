@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 16:19:28 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/12 17:51:49 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/13 18:22:45 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*ft_concat(char *s1, char c, char *s2)
 	j = i;
 	if (!s2)
 		return (ft_strdup(s1));
-	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 2));
+	str = my_malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 2));
 	if (!str)
 		return (NULL);
 	while (s1[j])
@@ -57,7 +57,7 @@ char **create_env()
 
 	i = 0;
 	tmp = g_data.l_env;
-	env = malloc(sizeof(char *) * (ft_lst_size() + 1));
+	env = my_malloc(sizeof(char *) * (ft_lst_size() + 1));
 	if (!env)
 		return (NULL);
 	while(tmp)
