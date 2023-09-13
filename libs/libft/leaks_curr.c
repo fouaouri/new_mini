@@ -6,11 +6,12 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:18:14 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/12 10:15:35 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/13 19:33:14 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
 t_alloc	*head(void)
 {
 	static t_alloc	alloc;
@@ -64,17 +65,17 @@ void	*my_malloc(size_t size)
 	return (new);
 }
 
-// void	my_free_all(void)
-// {
-// 	t_alloc	*curr;
-// 	int		i;
+void	my_free_all(void)
+{
+	t_alloc	*curr;
+	int		i;
 
-// 	curr = head();
-// 	i = 0;
-// 	while (i < curr->pos)
-// 	{
-// 		free((void *)curr->ptr[i]);
-// 		curr->ptr[i] = 0;
-// 		i++;
-// 	}
-// }
+	curr = head();
+	i = 0;
+	while (i < curr->pos)
+	{
+		free((void *)curr->ptr[i]);
+		curr->ptr[i] = 0;
+		i++;
+	}
+}

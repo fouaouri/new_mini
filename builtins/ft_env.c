@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 16:57:45 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/06 22:44:32 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/13 19:21:28 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	ft_env()
 {
-	// check if the key has a vlaue. if it has, print it
-	t_env *tmp;
+	t_env	*tmp;
 
 	tmp = g_data.l_env;
 	while (tmp)

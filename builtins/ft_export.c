@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 16:57:54 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/13 18:20:53 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/13 19:40:02 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ void	ft_update_value(t_env *node, char *str)
 {
 	char *ptr;
 
-	if (node->value)
-		free(node->value);
+	// if (node->value)
+	// 	free(node->value);
 	node->value = NULL;
 	ptr = ft_strchr(str, '=');
 	if (ptr)
@@ -145,25 +145,18 @@ void	ft_export(char **cmds)
 					old_value = ft_strdup("");
 				else
 					old_value = node->value;
-				// get new value
 				key = ft_strchr(cmds[i], '=');
-				// printf("key: %s\n", key);
 				new_value = ft_strjoin(old_value, key + 1);
-				// printf("new_value: %s\n",new_value);
 				old_value = ft_substr(cmds[i], 0, ft_strlen(cmds[i]) - ft_strlen(key - 1));
-				// printf("old_value: %s\n",old_value);
 				old_value = ft_strjoin(old_value, "=");
 				cmds[i] = ft_strjoin(old_value, new_value);
-				// printf("cmds: %s\n", cmds[i]);
 			}
 			if (node)
 				ft_update_value(node, cmds[i]);
 			else
 			{
-				// check for + key, and rm from cmds[i]
 				if (pluse_key && !node)
 				{
-					// remove + from cmds[i]
 					old_value = ft_strjoin(key, "=");
 					key = ft_strchr(cmds[i], '=');
 					cmds[i] = ft_strjoin(old_value, key + 1);

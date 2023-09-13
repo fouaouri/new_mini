@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 13:17:31 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/13 18:29:03 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/13 19:35:37 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*check_cmd(char **path, char *cmd)
 		ret = access(tmp, X_OK);
 		if (!ret)
 			return (tmp);
-		free(tmp);
+		// free(tmp);
 		path++;
 	}
 	ret = access(cmd, X_OK);

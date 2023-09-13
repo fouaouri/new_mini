@@ -6,22 +6,22 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 15:38:48 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/11 22:24:42 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/13 18:51:59 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
+// normed
 int	check_infile_acces(char *file)
 {
-	// check file acces
-	int status;
-	
+	int	status;
+
 	status = access(file, F_OK);
 	if (status == -1)
 		return (ft_error(FILE_NOT_EXIST, file));
-	else {
-		// premision denied
+	else
+	{
 		status = open(file, O_RDONLY);
 		if (status == -1)
 			return (ft_error(PERSMISSION_DENIED, file));
@@ -33,10 +33,8 @@ int	check_infile_acces(char *file)
 
 int	check_outfile_acces(char *file)
 {
-	// check file acces
-	int status;
-	
-		// premision denied
+	int	status;
+
 	status = open(file, O_WRONLY | O_APPEND | O_CREAT, 0644);
 	if (status == -1)
 		return (ft_error(PERSMISSION_DENIED, file));
@@ -44,63 +42,96 @@ int	check_outfile_acces(char *file)
 		return (status);
 }
 
-int find_file_type(char **type, char *t) {
-	int i, last_index;
+int	find_file_type(char **type, char *t)
+{
+	int	i;
+	int	last_index;
 
-	last_index = ERROR; // Initialize last_index to -1
 	i = 0;
-	while (type[i]) {
+	last_index = ERROR;
+	while (type[i])
+	{
 		if (ft_strcmp(type[i], t) == 0)
-			last_index = i; // Update last_index to the current index
+			last_index = i;
 		i++;
 	}
-	return last_index;
+	return (last_index);
+}
+
+int	open_append(t_list *node, int i)
+{
+	int	status;
+
+	status = open(node->file_name[i], O_WRONLY | O_APPEND | O_CREAT, 0644);
+	if (status < 0)
+		return (ft_error(FILE_NOT_EXIST, node->file_name[i]));
+	if (node->outfile != STDOUT_FILENO)
+		close(node->outfile);
+	node->outfile = status;
+	return (SUCCESS);
+}
+
+int	open_heredoc(t_list *node, int i)
+{
+	if (node->infile != STDIN_FILENO)
+		close(node->infile);
+	node->infile = ft_atoi(node->file_name[i]);
+	if (node->infile == -1)
+		return (-2);
+	return (SUCCESS);
+}
+
+int	open_outfiles(t_list *node, int i)
+{
+	int	status;
+
+	status = open(node->file_name[i], O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	if (status < 0)
+		return (ft_error(FILE_NOT_EXIST, node->file_name[i]));
+	if (node->outfile != STDOUT_FILENO)
+		close(node->outfile);
+	node->outfile = status;
+	return (SUCCESS);
+}
+
+int	open_infiles(t_list *node, int i)
+{
+	int	status;
+
+	status = check_infile_acces(node->file_name[i]);
+	if (status < 0)
+		return (status);
+	if (node->infile != STDIN_FILENO)
+		close(node->infile);
+	node->infile = status;
+	return (SUCCESS);
 }
 
 int	handle_files(t_list *node)
 {
-	int i;
-	int status;
+	int	i;
 
-	i = 0;
-	while (node->type[i])
+	i = -1;
+	while (node->type[++i])
 	{
 		if (!ft_strcmp(node->type[i], "i"))
 		{
-			status = check_infile_acces(node->file_name[i]);
-			if (status < 0)
-				return (status);
-			if (node->infile != STDIN_FILENO)
-				close(node->infile);
-			node->infile = status;
+			if (open_infiles(node, i) < 0)
+				return (ERROR);
 		}
 		else if (!ft_strcmp(node->type[i], "H"))
 		{
-			if (node->infile != STDIN_FILENO)
-				close(node->infile);
-			node->infile = ft_atoi(node->file_name[i]);
-			if (node->infile == -1)
-				return (-2);
+			if (open_heredoc(node, i) < 0)
+				return (ERROR);
 		}
 		else if (!ft_strcmp(node->type[i], "o"))
 		{
-			status = open(node->file_name[i], O_WRONLY | O_TRUNC | O_CREAT, 0644);
-			if (status < 0)
-				return (ft_error(FILE_NOT_EXIST, node->file_name[i]));
-			if (node->outfile != STDOUT_FILENO)
-				close(node->outfile);
-			node->outfile = status;
+			if (open_outfiles(node, i) < 0)
+				return (ERROR);
 		}
 		else if (!ft_strcmp(node->type[i], "a"))
-		{
-			status = open(node->file_name[i], O_WRONLY | O_APPEND | O_CREAT, 0644);
-			if (status < 0)
-				return (ft_error(FILE_NOT_EXIST, node->file_name[i]));
-			if (node->outfile != STDOUT_FILENO)
-				close(node->outfile);
-			node->outfile = status;
-		}
-		i++;
+			if (open_append(node, i) < 0)
+				return (ERROR);
 	}
 	return (SUCCESS);
 }

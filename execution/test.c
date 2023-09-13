@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/13 18:31:35 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/13 19:42:27 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ int	main(int ac, char **av, char **env) {
 	t_list *tmp;
 	int i;
 	int status;
+	int std_in;
+	int std_out;
+	int err;
 	g_data.exit_status = 0;
 
 	(void)av;
@@ -31,13 +34,9 @@ int	main(int ac, char **av, char **env) {
 
 	while (ac == 1)
 	{
-		// setting signals
 		signal(SIGINT, ctl_c_handler);
-		// ctr-/
 		signal(SIGQUIT, SIG_IGN);
-		
 		hold = parsing(readline, g_data.l_env);
-		
 		if (hold)
 		{
 			(*hold)->outfile = STDOUT_FILENO;
@@ -69,9 +68,6 @@ int	main(int ac, char **av, char **env) {
 
 			if (current->next == NULL && is_builtins(current->commandes[0]))
 			{
-				int std_in;
-				int std_out;
-				int err;
 
 				std_in = dup(STDIN_FILENO);
 				std_out = dup(STDOUT_FILENO);
@@ -110,7 +106,7 @@ int	main(int ac, char **av, char **env) {
 		}
 		else
 			continue ;
-		free_list(hold);
+		// free_list(hold);
 	}
 	return 0;
 }

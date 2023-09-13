@@ -6,21 +6,22 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 16:19:28 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/13 18:22:45 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/13 19:44:34 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-int	ft_lst_size()
+int	ft_lst_size(void)
 {
-	t_env *tmp;
+	t_env	*tmp;
+	int		i;
 
-	int i = 0;
+	i = 0;
 	tmp = g_data.l_env;
 	while (tmp)
 	{
-		tmp= tmp->next;
+		tmp = tmp->next;
 		i++;
 	}
 	return (i);
@@ -29,8 +30,8 @@ int	ft_lst_size()
 char	*ft_concat(char *s1, char c, char *s2)
 {
 	char	*str;
-	int	i;
-	int j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = i;
@@ -49,18 +50,18 @@ char	*ft_concat(char *s1, char c, char *s2)
 	return (str);
 }
 
-char **create_env()
+char	**create_env(void)
 {
-	char **env;
-	t_env *tmp;
-	int i;
+	char	**env;
+	t_env	*tmp;
+	int		i;
 
 	i = 0;
 	tmp = g_data.l_env;
 	env = my_malloc(sizeof(char *) * (ft_lst_size() + 1));
 	if (!env)
 		return (NULL);
-	while(tmp)
+	while (tmp)
 	{
 		env[i] = ft_concat(tmp->key, '=', tmp->value);
 		tmp = tmp->next;
@@ -72,7 +73,7 @@ char **create_env()
 
 void	ft_free(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -94,6 +95,7 @@ void	ft_dup2(int in_fd, int out_fd)
 	{
 		ft_dprintf(2, "minishell: dup2: %s\n", strerror(errno));
 		g_data.exit_status = 1;
+		my_free_all();
 		exit(EXIT_FAILURE);
 	}
 	if (in_fd != STDIN_FILENO)
@@ -103,6 +105,7 @@ void	ft_dup2(int in_fd, int out_fd)
 	{
 		ft_dprintf(2, "minishell: dup2: %s\n", strerror(errno));
 		g_data.exit_status = 1;
+		my_free_all();
 		exit(EXIT_FAILURE);
 	}
 	if (out_fd != STDOUT_FILENO)
@@ -111,7 +114,7 @@ void	ft_dup2(int in_fd, int out_fd)
 
 int	wait_childs(t_list *node)
 {
-	int g_exit_status;
+	int	g_exit_status;
 
 	g_exit_status = 0;
 	while (node)

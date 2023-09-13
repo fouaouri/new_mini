@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:16:02 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/13 15:19:55 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/13 19:39:11 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_cd(char **args)
 				{
 					if (!oldpwd)
 						return ;
-					free(pwd_env->value);
+					// free(pwd_env->value);
 					pwd_env->value = oldpwd;
 				}
 			}
@@ -110,7 +110,7 @@ void	ft_cd(char **args)
 			{
 				if (!oldpwd)
 					return ;
-				free(pwd_env->value);
+				// free(pwd_env->value);
 				pwd_env->value = oldpwd;
 			}
 		}
