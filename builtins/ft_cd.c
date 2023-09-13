@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:16:02 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/13 12:43:41 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/13 15:19:55 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,18 +81,18 @@ void	ft_cd(char **args)
 	}
 	else
 	{
-		pwd = getcwd(NULL, 0);
-		if (!pwd)
-		{
-			ft_dprintf(2,"minishell: cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n");
-			g_data.exit_status = 1;
-		}
 		changed_dir = chdir(args[1]);
 		if (changed_dir)
 		{
 			g_data.exit_status = 1;
 			ft_dprintf(2,"minishell: cd: %s: not a directory\n", args[1]);
 			return ;
+		}
+		pwd = getcwd(NULL, 0);
+		if (!pwd)
+		{
+			ft_dprintf(2,"minishell: cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n");
+			g_data.exit_status = 1;
 		}
 		else
 		{
