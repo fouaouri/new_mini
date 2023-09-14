@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 16:57:54 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/14 15:39:18 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/14 17:11:14 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ void	ft_update_value(t_env *node, char *str)
 {
 	char *ptr;
 
-	// if (node->value)
-	// 	free(node->value);
+	if (node->value)
+		free(node->value);
 	node->value = NULL;
 	ptr = ft_strchr(str, '=');
 	if (ptr)

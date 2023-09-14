@@ -6,11 +6,12 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/14 15:40:27 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/14 17:12:04 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"execution.h"
+#include <readline/readline.h>
 
 t_data	g_data;
 
@@ -103,10 +104,10 @@ int	main(int ac, char **av, char **env) {
 			if (status == -1)
 				return (ERROR);
 			g_data.exit_status = status;
+			free(readline->input);
 		}
 		else
 			continue ;
-		// free_list(hold);
 	}
 	return 0;
 }

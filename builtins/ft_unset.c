@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 16:58:00 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/14 15:39:26 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/14 17:11:02 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@ void	check_for_node(t_env *node, t_env *bf_node)
 	while (bf_node->next != node)
 		bf_node = bf_node->next;
 	bf_node->next = node->next;
-	// free(node->key);
-	// if (node->value)
-	// 	free(node->value);
-	// free(node);
+	free(node->key);
+	if (node->value)
+		free(node->value);
+	free(node);
 }
 
 void	ft_unset_util(t_env *node)
 {
 	g_data.l_env = node->next;
-	// free(node->key);
-	// if (node->value)
-	// 	free(node->value);
-	// free(node);
+	free(node->key);
+	if (node->value)
+		free(node->value);
+	free(node);
 }
 
 void	ft_unset(char **keys)
