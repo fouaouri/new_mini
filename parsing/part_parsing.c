@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 23:24:24 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/13 23:23:44 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/14 15:56:07 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,7 @@ void	clean_d_quotes(t_read *readline)
 	readline->arr1 = my_malloc(sizeof(char *) * (len + 1));
 	while (i < len)
 	{
-		// printf("arr : %s\n", readline->arr[i]);
 		readline->arr1[i] = ft_clean_d_quotes(readline->arr[i]);
-		// printf("arr1----------> : %s\n", readline->arr1[i]);
 		i++;
 	}
 	readline->arr1[i] = NULL;

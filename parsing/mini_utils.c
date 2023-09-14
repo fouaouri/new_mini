@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 16:24:44 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/13 19:56:12 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/14 16:17:20 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_strjoin_char(char *s1, char c)
 	}
 	lorst[i] = c;
 	lorst[i + 1] = '\0';
-	return (free(s1), lorst);
+	return (lorst);
 }
 
 int	index_pipe(t_read *readline)
@@ -74,6 +74,20 @@ int	ft_strcmp(const char *s1, const char *s2)
 	{
 		if (str1[i] != str2[i])
 			return (str1[i] - str2[i]);
+		i++;
+	}
+	return (0);
+}
+
+int	find_space(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str && str[i])
+	{
+		if (str[i] == ' ' || str[i] == '\t')
+			return (1);
 		i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/13 23:34:42 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/14 18:37:44 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,6 @@ int	main(int ac, char **av, char **env) {
 		// ctr-/
 		signal(SIGQUIT, SIG_IGN);
 		
-		hold = parsing(readline, g_data.l_env);
-		int i;
-		while((*hold) != NULL)
-		{
-			i = 0;
-			while((*hold)->commandes[i])
-				printf("commandes :%s\n", (*hold)->commandes[i++]);
-			i = 0;
-			 while((*hold)->file_name[i])
-			 	printf("file_name : %s\n", (*hold)->file_name[i++]);
-			i = 0;
-			while ((*hold)->type[i])
-				printf("type : %s\n", (*hold)->type[i++]);
-			(*hold) = (*hold)->next;
-		}
 		hold = parsing(readline, g_data.l_env);
 		if (hold)
 		{
