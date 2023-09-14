@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:33:48 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/14 15:42:02 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/14 19:42:50 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,5 +175,8 @@ t_env	*ft_search_for_key(char *key);
 int		help_count(char *str, int i, int count, int len);
 int		check_last_char(char c);
 void	init_expand(t_variables *var);
+int		find_space(char *str);
+void	skip_f_numbre(char c, t_variables **var);
+void	multi_instru(t_read *readline, t_variables **var, t_env *l_env);
 
 #endif

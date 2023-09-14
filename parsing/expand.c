@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 14:40:33 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/14 00:06:43 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/14 18:14:31 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,7 @@ void	if_else_expand(t_read *readline, t_variables *var, t_env *l_env)
 	}
 	else
 		else_expand_2(readline, var);
-	if(readline->input[var->i] >= '0'
-		&& readline->input[var->i] <= '9' && var->k == 1)
-	{
-		var->i += 1;
-		var->k = 0;
-	}
+	skip_f_numbre(readline->input[var->i], &var);
 	while (readline->input[var->i] && readline->input[var->i] != '\"'
 		&& check_special_char(readline->input[var->i]) == 1)
 		readline->new_input = ft_strjoin_char(readline->new_input,

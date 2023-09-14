@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 17:34:28 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/13 22:17:15 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/14 15:55:20 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,13 @@ int	find_count(char *str)
 	return (0);
 }
 
-int	find_space(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str && str[i])
-	{
-		if (str[i] == ' ' || str[i] == '\t')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 void	lst_quote(char **file_name, char **commandes, char **type)
 {
 	int	i;
-	// int	e;
 
 	i = 0;
-	// e = 0;
 	while (commandes && commandes[i])
 	{
-			// printf("cmd : %s\n", commandes[i]);
 		if (find_count(commandes[i]))
 			commandes[i] = ft_clean_d_quotes1(commandes[i]);
 		i++;

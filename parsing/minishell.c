@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:36:42 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/13 19:56:12 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/14 18:39:09 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,26 @@ void	print_minishell(t_read *readln)
 		exit(0);
 }
 
-void	if_export_clean(t_read *readline)
-{
-	int	i;
-	int	len;
+// void	if_export_clean(t_read *readline)
+// {
+// 	int	i;
+// 	int	len;
 
-	if (ft_strcmp(readline->arr[0], "export") != 0)
-		clean_d_quotes(readline);
-	else
-	{
-		i = 0;
-		len = counter_arr(readline->put_zero);
-		readline->arr1 = my_malloc(sizeof(char *) * (len + 1));
-		while (i < len)
-		{
-			readline->arr1[i] = ft_strdup(readline->arr[i]);
-			i++;
-		}
-		readline->arr1[i] = NULL;
-	}
-}
+// 	if (ft_strcmp(readline->arr[0], "export") != 0)
+// 		clean_d_quotes(readline);
+// 	else
+// 	{
+// 		i = 0;
+// 		len = counter_arr(readline->put_zero);
+// 		readline->arr1 = my_malloc(sizeof(char *) * (len + 1));
+// 		while (i < len)
+// 		{
+// 			readline->arr1[i] = ft_strdup(readline->arr[i]);
+// 			i++;
+// 		}
+// 		readline->arr1[i] = NULL;
+// 	}
+// }
 
 t_list	**parsing(t_read *readline, t_env *l_env)
 {
@@ -82,7 +82,8 @@ t_list	**parsing(t_read *readline, t_env *l_env)
 			sep_by_spaces(readline);
 			add_spaces_in_the_input(readline);
 			fill_the_arr(readline);
-			if_export_clean(readline);
+			clean_d_quotes(readline);
+			free(readline->input);
 			return (sep_files(readline, sep));
 		}	
 	}
