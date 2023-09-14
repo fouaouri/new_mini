@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 15:38:48 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/13 18:51:59 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/14 15:46:05 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,14 @@ int	open_outfiles(t_list *node, int i)
 
 	status = open(node->file_name[i], O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	if (status < 0)
+	{
+		if (!node->file_name[i])
+		{
+			ft_dprintf(2, "minishell: ambiguous redirect\n");
+			return -1;
+		}
 		return (ft_error(FILE_NOT_EXIST, node->file_name[i]));
+	}
 	if (node->outfile != STDOUT_FILENO)
 		close(node->outfile);
 	node->outfile = status;
