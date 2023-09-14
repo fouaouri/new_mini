@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 16:39:51 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/07 16:51:12 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/14 23:10:08 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,7 @@ int	count_commande(t_read *readline)
 	count = 0;
 	while (readline->arr1[i] && ft_strcmp(readline->arr1[i], "|") != 0)
 	{
-		if (ft_strlen(readline->input) == 1)
-		{
-			count += 1;
-			break ;
-		}
-		else if (readline->arr1[i + 1]
+		if (readline->arr1[i + 1]
 			&& (ft_strcmp(readline->arr1[i], "<") == 0
 				|| ft_strcmp(readline->arr1[i], ">") == 0
 				|| ft_strcmp(readline->arr1[i], "<<\0") == 0

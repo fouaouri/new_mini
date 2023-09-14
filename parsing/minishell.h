@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:33:48 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/14 18:33:53 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/14 23:10:35 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ typedef struct t_data
 {
 	int		exit_status;
 	int		if_export;
-	int		in_heredoc;
+	int		heredoc;
 	t_env	*l_env;
 }	t_data;
 
