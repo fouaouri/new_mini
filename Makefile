@@ -11,7 +11,7 @@ EXECUTION_SRC = execution/
 EXECUTION_FILES = check_cmd.c parse_path.c test.c heredoc.c \
 									handle_files.c ft_errors.c open_pipes.c \
 									exec_utils.c execution_flow.c free_utils.c \
-									signals_handlers.c
+									signals_handlers.c mini_utils.c pipe_utils.c handle_files_utils.c \
 
 BUILTINS_FILES = ft_exit.c ft_export.c ft_env.c ft_unset.c ft_pwd.c ft_echo.c ft_cd.c
 
@@ -20,7 +20,6 @@ PARSING_FILES = parsing.c mini_utils.c minishell.c mini_utils_2.c syntax_err1.c 
 								ft_count_quotes.c help_clean.c part_parsing.c parse_env.c init_quotes1.c \
 
 # echo.c env.c libft_bonus.c redirections.c 
-
 PARSING_F_FILES = $(addprefix $(PARSING_SRC), $(PARSING_FILES))
 BUILTINS_F_FILES = $(addprefix $(BUILTINS_SRC), $(BUILTINS_FILES))
 EXECUTION_F_FILES	= $(addprefix $(EXECUTION_SRC), $(EXECUTION_FILES))

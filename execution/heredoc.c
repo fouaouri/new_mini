@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 21:32:31 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/14 17:05:41 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/14 17:26:16 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	heredoc_handler(char *line, int p_fd[2], char *dilimiter)
 	}
 	write(p_fd[1], line, ft_strlen(line));
 	write(p_fd[1], "\n", 1);
-	// free(line);
 }
 
 int	ft_heredoc(char *dilimiter)

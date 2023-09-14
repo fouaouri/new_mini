@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 16:19:28 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/14 15:39:40 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/14 19:28:09 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,24 +71,6 @@ char	**create_env(void)
 	return (env);
 }
 
-void	ft_free(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		free(str[i++]);
-	free(str);
-}
-
-void	close_fd(int in_fd, int out_fd)
-{
-	if (in_fd != STDIN_FILENO)
-		close(in_fd);
-	if (out_fd != STDOUT_FILENO)
-		close(out_fd);
-}
-
 void	ft_dup2(int in_fd, int out_fd)
 {
 	if (dup2(in_fd, STDIN_FILENO) == -1)
@@ -116,7 +98,7 @@ int	wait_childs(t_list *node)
 {
 	int	g_exit_status;
 
-	g_exit_status = 0;
+	g_exit_status = g_data.exit_status;
 	while (node)
 	{
 		if (node->pid != 0)

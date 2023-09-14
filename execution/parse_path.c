@@ -6,13 +6,13 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:27:02 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/07 14:37:20 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/14 17:26:43 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"execution.h"
+#include "execution.h"
 
-char	**parse_path()
+char	**parse_path(void)
 {
 	char	**res;
 	t_env	*path;
