@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 17:34:28 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/14 15:55:20 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/14 21:59:37 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	find_count(char *str)
 	return (0);
 }
 
-void	lst_quote(char **file_name, char **commandes, char **type)
+void	lst_quote(char **commandes)
 {
 	int	i;
 
@@ -35,16 +35,9 @@ void	lst_quote(char **file_name, char **commandes, char **type)
 	{
 		if (find_count(commandes[i]))
 			commandes[i] = ft_clean_d_quotes1(commandes[i]);
-		i++;
+		else
+			i++;
 	}
-	i = 0;
-	while (file_name[i++])
-		if (find_count(file_name[i]))
-			file_name[i] = ft_clean_d_quotes1(file_name[i]);
-	i = 0;
-	while (type[i++])
-		if (find_count(type[i]))
-			type[i] = ft_clean_d_quotes1(type[i]);
 }
 
 t_list	*ft_lstnew(char **file_name, char **commandes, char **type)
@@ -54,7 +47,7 @@ t_list	*ft_lstnew(char **file_name, char **commandes, char **type)
 	new_node = (t_list *)my_malloc(sizeof(t_list));
 	if (new_node == NULL)
 		return (NULL);
-	lst_quote(file_name, commandes, type);
+	lst_quote(commandes);
 	new_node->file_name = file_name;
 	new_node->commandes = commandes;
 	new_node->type = type;
