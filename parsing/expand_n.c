@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:42:08 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/13 23:59:40 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/14 18:31:50 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	while_d_c(t_read *readline, t_variables *var)
 
 void	expand_d_c(t_read *readline, t_variables *var, t_env *l_env)
 {
-	// int k = 0;
 	if (var->s_d == 0)
 		var->s_d = 1;
 	else if (var->s_d == 1)
@@ -83,23 +82,17 @@ void	expand_d_c(t_read *readline, t_variables *var, t_env *l_env)
 	{
 		while_d_c(readline, var);
 		if (readline->input[var->i - 1] == '$')
+		{
 			while (readline->input[var->i]
 				&& check_special_char(readline->input[var->i]) == 1
 				&& readline->input[var->i] != '\"')
-				{
-					if(readline->input[var->i] >= '0'
-						&& readline->input[var->i] <= '9' && var->k == 1)
-					{
-						var->i += 1;
-						var->k = 0;
-					}
-					readline->new_input = ft_strjoin_char(readline->new_input,
-							readline->input[var->i++]);
-				}
-		if (var->k == 1)
-			call_env(readline, readline->new_input, l_env, var);
-		else if (var->k == 0)
-			readline->exp = ft_strjoin(readline->exp, readline->new_input);
+			{
+				skip_f_numbre(readline->input[var->i], &var);
+				readline->new_input = ft_strjoin_char(readline->new_input,
+						readline->input[var->i++]);
+			}
+		}
+		multi_instru(readline, &var, l_env);
 		if_if_exp(readline, var);
 	}
 }

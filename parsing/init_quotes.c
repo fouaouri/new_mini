@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 21:18:06 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/13 19:56:12 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/14 18:34:34 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,12 @@ void	ft_clean_d(char *str, t_variables *var)
 			var->str1[var->k++] = str[var->i++];
 		var->i++;
 	}
+}
+
+void	multi_instru(t_read *readline, t_variables **var, t_env *l_env)
+{
+	if ((*var)->k == 1)
+		call_env(readline, readline->new_input, l_env, (*var));
+	else if ((*var)->k == 0)
+		readline->exp = ft_strjoin(readline->exp, readline->new_input);
 }

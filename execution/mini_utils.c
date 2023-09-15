@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:50:43 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/14 19:30:56 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/14 19:43:55 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	run_minishell(int ac, t_read *readline, t_list *current)
 			return (ERROR);
 		else if (err == 2)
 			continue ;
-		free(readline->input);
+		// free(readline->input);
 	}
 	return (SUCCESS);
 }
