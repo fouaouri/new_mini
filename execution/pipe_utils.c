@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:53:20 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/14 18:54:05 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/15 19:39:08 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	check_for_valid_cmd(t_list *node)
 	if (!node->commandes[0][0])
 	{
 		ft_dprintf(2, "minishell: %s: command not found\n", node->commandes[0]);
+		g_data.exit_status = 127;
 		return (ERROR);
 	}
 	return (SUCCESS);
