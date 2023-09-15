@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 14:40:33 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/14 18:14:31 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/14 23:16:20 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ void	if_else_expand(t_read *readline, t_variables *var, t_env *l_env)
 	if (var->k == 1 && var->e == 0)
 		call_env(readline, readline->new_input, l_env, var);
 	else if (var->k == 0)
+	{
 		readline->exp = ft_strjoin(readline->exp, readline->new_input);
+		g_data.heredoc = 1;
+	}
 	readline->new_input = ft_calloc(1, 1);
 }
 
@@ -76,8 +79,11 @@ void	else_expand(t_read *readline, t_variables *var, t_env *l_env)
 	if (readline->input[var->i] == '$' && var->e == 0)
 		if_else_expand(readline, var, l_env);
 	else
+	{
 		readline->exp = ft_strjoin_char(readline->exp,
 				readline->input[var->i++]);
+		g_data.heredoc = 1;
+	}
 }
 
 void	expand_s_c(t_read *readline, t_variables *var)
