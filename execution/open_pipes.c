@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/14 19:20:32 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/15 16:39:32 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ void	run_builtins_pipe(t_list *node)
 {
 	if (execute_builtins(node, node->commandes[0]))
 	{
-		my_free_all();
+		// my_free_all();
 		exit(EXIT_SUCCESS);
 	}
 	else
 	{
-		my_free_all();
+		// my_free_all();
 		exit(EXIT_FAILURE);
 	}
 }
@@ -61,7 +61,7 @@ void	exec_in_child(t_list *node, char **env, char *cmd_full_path)
 		ft_dprintf(2, "minishell: %s: %s\n", \
 			node->commandes[0], strerror(errno));
 		g_data.exit_status = 127;
-		my_free_all();
+		// my_free_all();
 		exit(EXIT_FAILURE);
 	}
 }
@@ -81,7 +81,7 @@ int	exec_cmd(t_list *node)
 	if (node->pid < 0)
 	{
 		ft_dprintf(2, "minishell: fork: %s\n", strerror(errno));
-		my_free_all();
+		// my_free_all();
 		exit(EXIT_FAILURE);
 	}
 	if (node->pid == 0)

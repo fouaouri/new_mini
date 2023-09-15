@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 21:32:31 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/14 17:26:16 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/15 16:39:19 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,13 @@ void	heredoc_handler(char *line, int p_fd[2], char *dilimiter)
 			"Minishell: warning: heredoc error: (wanted delemter'%s')\n", \
 			dilimiter);
 		close(p_fd[1]);
-		my_free_all();
+		// my_free_all();
 		exit(0);
 	}
 	if (!ft_strcmp(line, dilimiter))
 	{
 		close(p_fd[1]);
-		my_free_all();
+		// my_free_all();
 		exit(0);
 	}
 	write(p_fd[1], line, ft_strlen(line));
