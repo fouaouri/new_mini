@@ -6,65 +6,45 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:22:17 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/08 16:24:08 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/15 19:26:59 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_putnbr_fd(int n, int fd)
-{
-	int		ret;
-	char	c;
-
-	ret = 0;
-	if (n == -2147483648)
-		return (write(fd, "-2147483648", 11));
-	if (n < 0)
-	{
-		ret += write(fd, "-", 1);
-		n = -n;
-	}
-	if (n >= 10)
-		ret += ft_putnbr_fd(n / 10, fd);
-	c = n % 10 + '0';
-	ret += write(fd, &c, 1);
-	return (ret);
-}
-
-int	ft_vdprintf(int fd, const char *s, va_list ap)
+int	ft_vdprintf(int fd, const char *str, va_list vlist)
 {
 	int		i;
-	int		ret;
+	int		val;
 
 	i = 0;
-	ret = 0;
-	while (s[i])
+	val = 0;
+	while (str[i])
 	{
-		if (s[i] == '%')
+		if (str[i] == '%')
 		{
 			i++;
-			if (s[i] == 'd')
-				ret += ft_putnbr_fd(va_arg(ap, int), fd);
-			else if (s[i] == 's')
-				ret += ft_putstr_fd(va_arg(ap, char *), fd);
-			else if (s[i] == '%')
-				ret += write(fd, "%", 1);
+			if (str[i] == 'd')
+				val += ft_putnbr_fd(va_arg(vlist, int), fd);
+			else if (str[i] == 's')
+				val += ft_putstr_fd(va_arg(vlist, char *), fd);
+			else if (str[i] == '%')
+				val += write(fd, "%", 1);
 		}
 		else
-			ret += write(fd, &s[i], 1);
+			val += write(fd, &str[i], 1);
 		i++;
 	}
-	return (ret);
+	return (val);
 }
 
-int	ft_dprintf(int fd, const char *s, ...)
+int	ft_dprintf(int fd, const char *str, ...)
 {
-	va_list	ap;
-	int		ret;
+	va_list	vlist;
+	int		val;
 
-	va_start(ap, s);
-	ret = ft_vdprintf(fd, s, ap);
-	va_end(ap);
-	return (ret);
+	va_start(vlist, str);
+	val = ft_vdprintf(fd, str, vlist);
+	va_end(vlist);
+	return (val);
 }

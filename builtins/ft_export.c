@@ -6,164 +6,73 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 16:57:54 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/14 17:11:14 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/15 19:00:04 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-/* ************* TODO ******************
- * NOTE; check for => export key+=valu,
- * should update the value
- * ******* TODO ****************** */
-
-t_env	*ft_add_new_env(char *str)
+int	check_for_pluse_key(char *cmds, char *pluse_key, char *key)
 {
-	t_env *node;
-	char *ptr;
-
-	node = my_malloc(sizeof(t_env));
-	ptr = ft_strchr(str, '=');
-	if (ptr)
-	{
-		node->key = ft_substr(str, 0, ft_strlen(str) - ft_strlen(ptr));
-		node->value = ft_strdup(ptr + 1);
-	}
-	else
-	{
-		node->key = ft_strdup(str);
-		node->value = NULL;
-	}
-	node->next = NULL;
-	return (node);
-}
-
-t_env	*ft_search_for_key(char *key)
-{
-	t_env *node;
-	node = g_data.l_env;
-
-	while(node)
-	{
-		if (!ft_strcmp((node)->key, key))
-			return (node);
-		node = (node)->next;
-	}
-	return (NULL);
-}
-
-int	ft_validate_key(char *key)
-{
-	int i;
-
-	i = 0;
-	if (!key)
-		ft_dprintf(2, "Minishell: export: `%s': not a valid identifier\n", key);
-	if (key[i] != '_' && !ft_isalpha(key[i]))
+	if (!ft_strchr(cmds, '=') && pluse_key)
 	{
 		ft_dprintf(2, "Minishell: export: `%s': not a valid identifier\n", key);
-		return (0);
-	}
-	i++;
-	while (key[i])
-	{
-		if (!ft_isalnum(key[i]) && key[i] != '_')
-		{
-			ft_dprintf(2, "Minishell: export: `%s': not a valid identifier\n", key);
-			return (0);
-		}
-		i++;
+		g_data.exit_status = 1;
+		return (-1);
 	}
 	return (1);
 }
 
-void	ft_print_env()
+void	ft_export_util(t_env *node, char *key, char *pluse_key, char *cmds)
 {
-	t_env	*env;
+	char	*old_value;
 
-	env = g_data.l_env;
-	while (env)
+	if (pluse_key && node)
 	{
-		printf("declare -x ");
-		printf("%s", env->key);
-		if (env->value)
-			printf("=\"%s\"", env->value);
-		printf("\n");
-		env = env->next;
+		if (!node->value)
+			old_value = ft_strdup("");
+		else
+			old_value = node->value;
+		cmds = check_for_pluse(cmds, old_value, key);
 	}
-}
-
-void	ft_update_value(t_env *node, char *str)
-{
-	char *ptr;
-
-	if (node->value)
-		free(node->value);
-	node->value = NULL;
-	ptr = ft_strchr(str, '=');
-	if (ptr)
-		node->value = ft_strdup(ptr + 1);
+	if (node)
+	{
+		key = ft_strchr(cmds, '=');
+		if (!key && !pluse_key)
+			return ;
+		ft_update_value(node, cmds);
+	}
+	else
+	{
+		if (pluse_key && !node)
+			cmds = add_new_key_after(cmds, key);
+		node = ft_add_new_env(cmds);
+		ft_add_back_env(&g_data.l_env, node);
+	}
 }
 
 void	ft_export(char **cmds)
 {
-	int i;
-	char *key;
-	t_env *node;
-	char *pluse_key;
-	char *new_value;
-	char *old_value;
+	int		i;
+	char	*key;
+	char	*pluse_key;
+	t_env	*node;
 
-	if (!cmds[1])
-	{
-		ft_print_env();
-		return ;
-	}
 	i = 1;
+	if (print_export(cmds) == -1)
+		return ;
 	while (cmds[i])
 	{
-		key = ft_strchr(cmds[i], '=');
-		if (key) // NOTE: leaks
-			key = ft_substr(cmds[i], 0, ft_strlen(cmds[i]) - ft_strlen(key));
-		else
-			key = ft_strdup(cmds[i]);
+		key = get_key(cmds[i]);
 		pluse_key = ft_strchr(key, '+');
-		if (!ft_strchr(cmds[i], '=') && pluse_key)
-		{
-			ft_dprintf(2, "Minishell: export: `%s': not a valid identifier\n", key);
+		if (check_for_pluse_key(cmds[i], pluse_key, key) == -1)
 			return ;
-		}
 		if (pluse_key && ft_strlen(pluse_key) == 1)
 			key = ft_substr(key, 0, ft_strlen(key) - ft_strlen(pluse_key));
 		if (ft_validate_key(key))
 		{
 			node = ft_search_for_key(key);
-			if (pluse_key && node)
-			{
-				// get old value from key
-				if (!node->value)
-					old_value = ft_strdup("");
-				else
-					old_value = node->value;
-				key = ft_strchr(cmds[i], '=');
-				new_value = ft_strjoin(old_value, key + 1);
-				old_value = ft_substr(cmds[i], 0, ft_strlen(cmds[i]) - ft_strlen(key - 1));
-				old_value = ft_strjoin(old_value, "=");
-				cmds[i] = ft_strjoin(old_value, new_value);
-			}
-			if (node)
-				ft_update_value(node, cmds[i]);
-			else
-			{
-				if (pluse_key && !node)
-				{
-					old_value = ft_strjoin(key, "=");
-					key = ft_strchr(cmds[i], '=');
-					cmds[i] = ft_strjoin(old_value, key + 1);
-				}
-				node = ft_add_new_env(cmds[i]);
-				ft_add_back_env(&g_data.l_env, node);
-			}
+			ft_export_util(node, key, pluse_key, cmds[i]);
 		}
 		i++;
 	}

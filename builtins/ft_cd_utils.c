@@ -1,33 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_cd_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/01 15:45:37 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/15 19:26:44 by melhadou         ###   ########.fr       */
+/*   Created: 2023/09/15 17:01:03 by melhadou          #+#    #+#             */
+/*   Updated: 2023/09/15 17:01:14 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "builtins.h"
 
-int	ft_putnbr_fd(int nbr, int fd)
+int	check_args(char **args)
 {
-	int		val;
-	char	c;
-
-	val = 0;
-	if (nbr == -2147483648)
-		return (write(fd, "-2147483648", 11));
-	if (nbr < 0)
+	if (args[1] && args[2])
 	{
-		val += write(fd, "-", 1);
-		nbr = -nbr;
+		ft_dprintf(2, "minishell: cd: too many arguments\n", 2);
+		g_data.exit_status = 1;
+		return (-1);
 	}
-	if (nbr >= 10)
-		val += ft_putnbr_fd(nbr / 10, fd);
-	c = nbr % 10 + '0';
-	val += write(fd, &c, 1);
-	return (val);
+	return (1);
+}
+
+int	check_access_status(int status, char **args)
+{
+	if (status)
+	{
+		g_data.exit_status = 1;
+		ft_dprintf(2, "minishell: cd: %s: cd No such file or directory\n", \
+		args[1]);
+		return (-1);
+	}
+	return (1);
 }

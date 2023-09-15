@@ -6,7 +6,7 @@
 /*   By: melhadou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 21:49:17 by melhadou          #+#    #+#             */
-/*   Updated: 2022/11/12 21:10:13 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/15 19:23:57 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ size_t	ft_strlen(const char *str)
 
 	len = 0;
 	while (str[len] != '\0')
-	{
-			len++;
-	}
+		len++;
 	return (len);
 }
