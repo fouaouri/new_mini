@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/16 17:38:05 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/16 21:57:24 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 t_data	g_data;
 
-int	run_execution(t_list *current, int status, t_list **hold)
+int	run_execution(t_list *current, t_list **hold)
 {
+	int	status;
+
 	while (current)
 	{
 		if (execute(current) == SUCCESS)

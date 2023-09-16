@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:50:43 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/16 18:14:33 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/16 21:58:34 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	sig_handler(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-int	run_minishell_util(t_list *current, int status, t_list **hold)
+int	run_minishell_util(t_list *current, t_list **hold)
 {
 	int	err;
 
@@ -69,18 +69,16 @@ int	run_minishell_util(t_list *current, int status, t_list **hold)
 		else if (err < 0)
 			return (ERROR);
 	}
-	if (run_execution(current, status, hold) == ERROR)
+	if (run_execution(current, hold) == ERROR)
 		return (ERROR);
 	return (SUCCESS);
 }
 
 int	run_minishell(int ac, t_read *readline, t_list *current)
 {
-	int		status;
 	int		err;
 	t_list	**hold;
 
-	status = 0;
 	while (ac == 1)
 	{
 		sig_handler();
@@ -89,7 +87,7 @@ int	run_minishell(int ac, t_read *readline, t_list *current)
 			continue ;
 		set_hold(*hold);
 		current = *hold;
-		err = run_minishell_util(current, status, hold);
+		err = run_minishell_util(current, hold);
 		if (err < 0)
 			return (ERROR);
 		else if (err == 2)
