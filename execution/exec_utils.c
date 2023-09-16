@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 16:19:28 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/14 19:28:09 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/16 02:53:39 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,9 @@ void	ft_dup2(int in_fd, int out_fd)
 
 int	wait_childs(t_list *node)
 {
-	int	g_exit_status;
+	int g_exit_status;
 
-	g_exit_status = g_data.exit_status;
+	g_exit_status = 0;
 	while (node)
 	{
 		if (node->pid != 0)
@@ -115,3 +115,27 @@ int	wait_childs(t_list *node)
 	}
 	return (g_exit_status);
 }
+
+// int	wait_childs(t_list *node)
+// {
+// 	int	g_exit_status;
+// 	int status;
+
+// 	g_exit_status = g_data.exit_status;
+// 	status = 0;
+// 	while (node)
+// 	{
+// 		if (node->pid != 0)
+// 		{
+// 			if (waitpid(node->pid, &status, 0) == -1)
+// 				return (ERROR);
+// 			else if (WIFEXITED(status))
+// 				g_exit_status = WEXITSTATUS(status);
+// 			else if (WIFSIGNALED(status))
+// 				g_exit_status = WTERMSIG(status);
+// 		}
+// 		close_fd(node->infile, node->outfile);
+// 		node = node->next;
+// 	}
+// 	return (g_exit_status);
+// }
