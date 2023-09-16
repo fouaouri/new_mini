@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:26:36 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/16 16:40:14 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/16 22:04:04 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ int		execute_builtins(t_list *node, char *builtin);
 int		is_builtins(char *builtin);
 int		execute(t_list *node);
 int		run_builtin(t_list *current);
-int		run_execution(t_list *current, int status, t_list **hold);
-int	run_minishell(int ac, t_read *readline, t_env *l_env, t_list *current);
-int	run_minishell_util(t_read *readline, t_env *l_env,t_list *current, int status, t_list **hold);
+int		run_execution(t_list *current, t_list **hold);
+int		run_minishell(int ac, t_read *readline, t_env *l_env, t_list *current);
+int		run_minishell_util(t_read *readline, t_env *l_env,t_list *current, t_list **hold);
 int		check_for_valid_cmd(t_list *node);
 int		open_append(t_list *node, int i);
 int		open_heredoc(t_list *node, int i);

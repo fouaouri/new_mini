@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 16:19:28 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/14 19:28:09 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/16 18:05:22 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,12 @@ int	wait_childs(t_list *node)
 	{
 		if (node->pid != 0)
 		{
-			if (waitpid(node->pid, &g_data.exit_status, 0) == -1)
+			if (waitpid(node->pid, &g_exit_status, 0) == -1)
 				return (ERROR);
-			if (WIFEXITED(g_data.exit_status))
-				g_exit_status = WEXITSTATUS(g_data.exit_status);
-			if (WIFSIGNALED(g_data.exit_status))
-				g_exit_status = WTERMSIG(g_data.exit_status) + 128;
+			if (WIFEXITED(g_exit_status))
+				g_exit_status = WEXITSTATUS(g_exit_status);
+			if (WIFSIGNALED(g_exit_status))
+				g_exit_status = WTERMSIG(g_exit_status) + 128;
 		}
 		close_fd(node->infile, node->outfile);
 		node = node->next;

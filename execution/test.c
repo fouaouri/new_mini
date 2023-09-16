@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/16 16:35:50 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/16 22:04:28 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 t_data	g_data;
 
-int	run_execution(t_list *current, int status, t_list **hold)
+int	run_execution(t_list *current, t_list **hold)
 {
+	int	status;
+
 	while (current)
 	{
 		if (execute(current) == SUCCESS)
@@ -27,6 +29,9 @@ int	run_execution(t_list *current, int status, t_list **hold)
 	status = wait_childs(*hold);
 	if (status == -1)
 		return (ERROR);
+	if (status == 141)
+		status = 127;
+	printf("status -> %d\n", status);
 	g_data.exit_status = status;
 	return (SUCCESS);
 }

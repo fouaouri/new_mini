@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:36:42 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/16 17:43:25 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/16 22:04:49 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	check_syntax_error(t_read *readline)
 
 void	print_minishell(t_read *readln)
 {
-	readln->input = readline("\033[0;32mMinishell $> \033[0m");
+	readln->input = readline("Minishell $> ");
 	if (ft_strcmp(readln->input, "\0") != 0)
 		add_history(readln->input);
 	if (readln->input == NULL)
@@ -66,5 +66,7 @@ t_list	**parsing(t_read *readline, t_env *l_env)
 			return (sep_files(readline, sep));
 		}	
 	}
+	else
+		free(readline->input);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:50:43 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/16 21:05:24 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/16 22:04:17 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	sig_handler(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-int	run_minishell_util(t_read *readline, t_env *l_env,t_list *current, int status, t_list **hold)
+int	run_minishell_util(t_read *readline, t_env *l_env, t_list *current, t_list **hold)
 {
 	int	err;
 
@@ -69,18 +69,16 @@ int	run_minishell_util(t_read *readline, t_env *l_env,t_list *current, int statu
 		else if (err < 0)
 			return (ERROR);
 	}
-	if (run_execution(current, status, hold) == ERROR)
+	if (run_execution(current, hold) == ERROR)
 		return (ERROR);
 	return (SUCCESS);
 }
 
 int	run_minishell(int ac, t_read *readline, t_env *l_env, t_list *current)
 {
-	int		status;
 	int		err;
 	t_list	**hold;
 
-	status = 0;
 	while (ac == 1)
 	{
 		sig_handler();
@@ -89,7 +87,7 @@ int	run_minishell(int ac, t_read *readline, t_env *l_env, t_list *current)
 			continue ;
 		set_hold(*hold);
 		current = *hold;
-		err = run_minishell_util(readline,l_env,current, status, hold);
+		err = run_minishell_util(readline,l_env,current, hold);
 		if (err < 0)
 			return (ERROR);
 		else if (err == 2)

@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/15 19:39:43 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/16 18:23:58 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 int	execute_builtins(t_list *node, char *builtin)
 {
+	int err;
+
+	err = 0;
 	if (!ft_strcmp(builtin, "export"))
-		ft_export(node->commandes);
+		err = ft_export(node->commandes);
 	else if (!ft_strcmp(builtin, "unset"))
 		ft_unset(node->commandes);
 	else if (!ft_strcmp(builtin, "env"))
@@ -23,14 +26,17 @@ int	execute_builtins(t_list *node, char *builtin)
 	else if (!ft_strcmp(builtin, "exit"))
 		ft_exit(node->commandes);
 	else if (!ft_strcmp(builtin, "cd"))
-		ft_cd(node->commandes);
+		err = ft_cd(node->commandes);
 	else if (!ft_strcmp(builtin, "pwd"))
 		ft_pwd();
 	else if (!ft_strcmp(builtin, "echo"))
-		ft_echo(node);
+		err = ft_echo(node);
 	else
 		return (0);
-	g_data.exit_status = 0;
+	if (err == -1)
+		g_data.exit_status = 1;
+	else
+		g_data.exit_status = 0;
 	return (1);
 }
 
