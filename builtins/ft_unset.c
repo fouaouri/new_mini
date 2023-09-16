@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 16:58:00 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/14 17:11:02 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/16 18:20:15 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ void	ft_unset(char **keys)
 	while (keys[i])
 	{
 		key = keys[i++];
-		if (!ft_validate_key(key))
-			return ;
 		node = ft_search_for_key(key);
 		if (node)
 		{

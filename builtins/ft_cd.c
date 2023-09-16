@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:16:02 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/15 19:19:12 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/16 18:50:11 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,20 @@ int	check_home(t_env *home, t_env *pwd_env, char *pwd, char *oldpwd)
 		{
 			ft_dprintf(2, "minishell: cd: %s: not a directory\n", home->value);
 			g_data.exit_status = 1;
-			return (1);
+			free(oldpwd);
+			return (-1);
 		}
 		else
 			check_pwd(pwd_env, pwd, oldpwd);
-		return (1);
 	}
 	else
 	{
 		ft_dprintf(2, "minishell: cd: HOME not set\n");
 		g_data.exit_status = 1;
-		return (1);
+		free(oldpwd);
+		return (-1);
 	}
+	return (1);
 }
 
 int	change_dir(char *args, char *pwd, char *oldpwd, t_env *pwd_env)
@@ -68,6 +70,7 @@ int	change_dir(char *args, char *pwd, char *oldpwd, t_env *pwd_env)
 	{
 		g_data.exit_status = 1;
 		ft_dprintf(2, "minishell: cd: %s: not a directory\n", args);
+		free(oldpwd);
 		return (-1);
 	}
 	pwd = getcwd(NULL, 0);
@@ -83,7 +86,7 @@ int	change_dir(char *args, char *pwd, char *oldpwd, t_env *pwd_env)
 	return (1);
 }
 
-void	ft_cd(char **args)
+int	ft_cd(char **args)
 {
 	t_env	*home;
 	char	*pwd;
@@ -95,17 +98,26 @@ void	ft_cd(char **args)
 	pwd = NULL;
 	pwd_env = NULL;
 	if (check_args(args) < 0)
-		return ;
+	{
+		free(oldpwd);
+		return (-1);
+	}
 	if (!args[1])
 	{
 		home = ft_search_for_key("HOME");
-		if (check_home(home, pwd_env, pwd, oldpwd))
-			return ;
+		if (check_home(home, pwd_env, pwd, oldpwd) < 0)
+			return (-1);
+		else
+			return (1);
 	}
 	status = access(args[1], F_OK);
 	if (check_access_status(status, args) < 0)
-		return ;
+	{
+		free(oldpwd);
+		return (-1);
+	}
 	else
 		if (change_dir(args[1], pwd, oldpwd, pwd_env) < 0)
-			return ;
+			return (-1);
+	return (1);
 }

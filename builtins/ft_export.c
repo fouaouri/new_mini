@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 16:57:54 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/15 19:00:04 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/16 18:19:04 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_export_util(t_env *node, char *key, char *pluse_key, char *cmds)
 	}
 }
 
-void	ft_export(char **cmds)
+int	ft_export(char **cmds)
 {
 	int		i;
 	char	*key;
@@ -60,13 +60,13 @@ void	ft_export(char **cmds)
 
 	i = 1;
 	if (print_export(cmds) == -1)
-		return ;
+		return (-1);
 	while (cmds[i])
 	{
 		key = get_key(cmds[i]);
 		pluse_key = ft_strchr(key, '+');
 		if (check_for_pluse_key(cmds[i], pluse_key, key) == -1)
-			return ;
+			return (-1);
 		if (pluse_key && ft_strlen(pluse_key) == 1)
 			key = ft_substr(key, 0, ft_strlen(key) - ft_strlen(pluse_key));
 		if (ft_validate_key(key))
@@ -76,4 +76,5 @@ void	ft_export(char **cmds)
 		}
 		i++;
 	}
+	return (1);
 }
