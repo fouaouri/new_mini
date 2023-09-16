@@ -16,7 +16,7 @@ echo $+
 echo $USER?
 'l'"s"
 [01:00]
->|llll  (khas it7el file smitou llll
+>|llll  (khas it7el file smitou llll)
 [01:01]
 <<"$USER"  (mayt expandash)
 [01:01]
@@ -41,4 +41,4 @@ echo lllll"           lllkfl | >kk        "
 echo "'       ''    lllkfl | >kk  ''      '"
 
 jrbi only spaces and tabs ==> segfault (noted // okey I will)
-command to be test =>    |  
+command to be test =>    |

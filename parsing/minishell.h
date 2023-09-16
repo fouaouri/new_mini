@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:33:48 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/16 21:17:46 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/16 22:50:50 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ void	skip_f_numbre(char c, t_variables **var);
 void	multi_instru(t_read *readline, t_variables **var, t_env *l_env);
 int		there_is_quotes(char *str);
 void	expand_single_he(t_read *readline, t_variables *var, t_env *l_env);
-void	expand_arr_here(t_read *readline, t_env *l_env);
+void	expand_heredoc(t_read *readline, t_env *l_env);
 void	expand_d_c(t_read *readline, t_variables *var, t_env *l_env);
 
 #endif

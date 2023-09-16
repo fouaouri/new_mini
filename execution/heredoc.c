@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 21:32:31 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/16 20:21:17 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/16 22:51:26 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	heredoc_handler(t_read *readln, t_env *l_env, int p_fd[2], char *dilimiter)
 {
 	readln->input = readline("> ");
 	if (g_data.heredoc == 0)
-		expand_arr(readln, l_env);
+		expand_heredoc(readln, l_env);
 	else
 		readln->exp = ft_strdup(readln->input);
 	if (!readln->exp)
