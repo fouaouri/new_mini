@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/16 18:23:58 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/17 00:33:08 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,9 @@ void	exec_in_child(t_list *node, char **env, char *cmd_full_path)
 		if (node->next->infile != STDIN_FILENO)
 			close(node->next->infile);
 	if (is_builtins(node->commandes[0]))
+	{
 		run_builtins_pipe(node);
+	}
 	else if (execve(cmd_full_path, node->commandes, env) == -1)
 	{
 		ft_dprintf(2, "minishell: %s: %s\n", \
