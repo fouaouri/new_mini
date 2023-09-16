@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:36:42 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/14 18:39:09 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/16 17:43:25 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,27 +42,6 @@ void	print_minishell(t_read *readln)
 	if (readln->input == NULL)
 		exit(0);
 }
-
-// void	if_export_clean(t_read *readline)
-// {
-// 	int	i;
-// 	int	len;
-
-// 	if (ft_strcmp(readline->arr[0], "export") != 0)
-// 		clean_d_quotes(readline);
-// 	else
-// 	{
-// 		i = 0;
-// 		len = counter_arr(readline->put_zero);
-// 		readline->arr1 = my_malloc(sizeof(char *) * (len + 1));
-// 		while (i < len)
-// 		{
-// 			readline->arr1[i] = ft_strdup(readline->arr[i]);
-// 			i++;
-// 		}
-// 		readline->arr1[i] = NULL;
-// 	}
-// }
 
 t_list	**parsing(t_read *readline, t_env *l_env)
 {

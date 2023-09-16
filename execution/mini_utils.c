@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:50:43 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/15 19:29:03 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/16 21:05:24 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ void	sig_handler(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-int	run_minishell_util(t_list *current, int status, t_list **hold)
+int	run_minishell_util(t_read *readline, t_env *l_env,t_list *current, int status, t_list **hold)
 {
 	int	err;
 
-	if (handle_heredoc(current) == -1)
+	if (handle_heredoc(readline, l_env,current) == -1)
 	{
 		run_heredoc(hold, current);
 		return (2);
@@ -74,7 +74,7 @@ int	run_minishell_util(t_list *current, int status, t_list **hold)
 	return (SUCCESS);
 }
 
-int	run_minishell(int ac, t_read *readline, t_list *current)
+int	run_minishell(int ac, t_read *readline, t_env *l_env, t_list *current)
 {
 	int		status;
 	int		err;
@@ -89,11 +89,12 @@ int	run_minishell(int ac, t_read *readline, t_list *current)
 			continue ;
 		set_hold(*hold);
 		current = *hold;
-		err = run_minishell_util(current, status, hold);
+		err = run_minishell_util(readline,l_env,current, status, hold);
 		if (err < 0)
 			return (ERROR);
 		else if (err == 2)
 			continue ;
+		g_data.heredoc = 0;
 	}
 	return (SUCCESS);
 }

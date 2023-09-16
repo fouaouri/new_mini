@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/14 19:42:39 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/16 16:35:50 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	main(int ac, char **av, char **env)
 	if (!readline)
 		return (ERROR);
 	g_data.l_env = init_env(env);
-	if (run_minishell(ac, readline, current) == ERROR)
+	if (run_minishell(ac, readline,g_data.l_env ,current) == ERROR)
 		return (ERROR);
 	return (0);
 }

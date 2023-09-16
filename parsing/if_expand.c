@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 21:16:57 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/14 18:36:20 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/16 21:16:56 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	initial_env(t_variables *var)
 	var->count = 0;
 }
 
-void	init_expand(t_variables *var)
+void	init_expand(t_read *readline, t_variables *var)
 {
 	var->i = 0;
 	var->count = 0;
@@ -46,6 +46,8 @@ void	init_expand(t_variables *var)
 	var->e = 0;
 	var->s_d = 0;
 	var->s_c = 0;
+	readline->exp = ft_calloc(1, 1);
+	readline->new_input = ft_calloc(1, 1);
 }
 
 void	skip_f_numbre(char c, t_variables **var)

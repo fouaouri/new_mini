@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:26:36 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/14 19:20:45 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/16 16:40:14 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ enum {
 void	run_builtins_pipe(t_list *node);
 void	close_fd(int in_fd, int out_fd);
 void	ft_dup2(int in_fd, int out_fd);
-void	heredoc_handler(char *line, int p_fd[2], char *dilimiter);
+void	heredoc_handler(t_read *readline, t_env *l_env, int p_fd[2], char *dilimiter);
 void	ft_free(char **str);
 void	free_list(t_list **node);
 void	ctl_c_handler(int sig);
@@ -52,10 +52,10 @@ char	*ft_concat(char *s1, char c, char *s2);
 char	*full_path(t_list *node);
 
 /* **** Function returuning int ****** */
-int		handle_heredoc(t_list *node);
+int	handle_heredoc(t_read *readline, t_env *l_env, t_list *node);
 int		wait_childs(t_list *node);
 int		ft_lst_size(void);
-int		ft_heredoc(char *dilimiter);
+int	ft_heredoc(t_read *readline, t_env *l_env, char *dilimiter);
 int		run_in_parent(int p_fd[2], int pid);
 int		ft_error(int err_id, char *file_name);
 int		find_file_type(char **type, char *t);
@@ -68,8 +68,8 @@ int		is_builtins(char *builtin);
 int		execute(t_list *node);
 int		run_builtin(t_list *current);
 int		run_execution(t_list *current, int status, t_list **hold);
-int		run_minishell(int ac, t_read *readline, t_list *current);
-int		run_minishell_util(t_list *current, int status, t_list **hold);
+int	run_minishell(int ac, t_read *readline, t_env *l_env, t_list *current);
+int	run_minishell_util(t_read *readline, t_env *l_env,t_list *current, int status, t_list **hold);
 int		check_for_valid_cmd(t_list *node);
 int		open_append(t_list *node, int i);
 int		open_heredoc(t_list *node, int i);

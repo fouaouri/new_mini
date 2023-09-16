@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 17:45:54 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/15 19:21:20 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/16 17:21:09 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	case_n(char *str)
 
 void	ft_cases(t_list *hold, t_variables *var)
 {
-	while (hold->commandes[var->i] && hold->commandes[var->i + 1])
+	while (hold->commandes[var->i] )
 	{
 		if (!case_n(hold->commandes[var->i]))
 		{
@@ -58,14 +58,17 @@ int	check_first_arg(char *str)
 	int	i;
 	int	len;
 
-	len = ft_strlen(str);
-	i = 0;
-	if (str[0] == '-')
-		i += 1;
-	while (str[i] && str[i] == 'n')
-		i++;
-	if (i == len)
-		return (1);
+	if (str)
+	{
+		len = ft_strlen(str);
+		i = 0;
+		if (str[0] == '-')
+			i += 1;
+		while (str[i] && str[i] == 'n') 
+			i++;
+		if (i == len)
+			return (1);
+	}
 	return (0);
 }
 
@@ -75,10 +78,12 @@ void	ft_echo(t_list *hold)
 
 	var.i = 1;
 	var.check = 0;
-	if (!hold->commandes[1])
+	if (ft_strcmp(hold->commandes[1], "\0") == 0)
 		printf("\n");
 	else if (check_first_arg(hold->commandes[1]) && !hold->commandes[2])
 		return ;
 	else
+	{
 		ft_cases(hold, &var);
+	}
 }

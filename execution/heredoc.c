@@ -6,13 +6,13 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 21:32:31 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/15 16:39:19 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/16 20:21:17 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-int	handle_heredoc(t_list *node)
+int	handle_heredoc(t_read *readline, t_env *l_env, t_list *node)
 {
 	int	i;
 	int	fd;
@@ -26,7 +26,7 @@ int	handle_heredoc(t_list *node)
 			{
 				if (node->file_name[i] == NULL)
 					return (0);
-				fd = ft_heredoc(node->file_name[i]);
+				fd = ft_heredoc(readline, l_env, node->file_name[i]);
 				if (fd == -1)
 					return (fd);
 				free(node->type[i]);
@@ -59,35 +59,37 @@ int	run_in_parent(int p_fd[2], int pid)
 	return (SUCCESS);
 }
 
-void	heredoc_handler(char *line, int p_fd[2], char *dilimiter)
+void	heredoc_handler(t_read *readln, t_env *l_env, int p_fd[2], char *dilimiter)
 {
-	line = readline("> ");
-	if (!line)
+	readln->input = readline("> ");
+	if (g_data.heredoc == 0)
+		expand_arr(readln, l_env);
+	else
+		readln->exp = ft_strdup(readln->input);
+	if (!readln->exp)
 	{
 		ft_dprintf(2, \
 			"Minishell: warning: heredoc error: (wanted delemter'%s')\n", \
 			dilimiter);
 		close(p_fd[1]);
-		// my_free_all();
 		exit(0);
 	}
-	if (!ft_strcmp(line, dilimiter))
+	if (!ft_strcmp(readln->exp, dilimiter))
 	{
 		close(p_fd[1]);
-		// my_free_all();
 		exit(0);
 	}
-	write(p_fd[1], line, ft_strlen(line));
+	write(p_fd[1], readln->exp, ft_strlen(readln->exp));
 	write(p_fd[1], "\n", 1);
 }
 
-int	ft_heredoc(char *dilimiter)
+int	ft_heredoc(t_read *readline, t_env *l_env, char *dilimiter)
 {
-	char	*line;
+	// char	*line;
 	int		pid;
 	int		p_fd[2];
 
-	line = NULL;
+	// line = NULL;
 	if (dilimiter == NULL)
 		return (-1);
 	pipe(p_fd);
@@ -97,7 +99,7 @@ int	ft_heredoc(char *dilimiter)
 		close(p_fd[0]);
 		signal(SIGINT, SIG_DFL);
 		while (1)
-			heredoc_handler(line, p_fd, dilimiter);
+			heredoc_handler(readline, l_env, p_fd, dilimiter);
 	}
 	else if (pid != 0)
 		if (run_in_parent(p_fd, pid) == -1)

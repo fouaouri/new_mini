@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 23:24:24 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/14 15:56:07 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/16 21:13:16 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ void	clean_d_quotes(t_read *readline)
 	readline->arr1 = my_malloc(sizeof(char *) * (len + 1));
 	while (i < len)
 	{
+		if (ft_strcmp(readline->arr[i], "<<") == 0
+			&& there_is_quotes(readline->arr[i + 1]) == 1)
+			g_data.heredoc = 1;
 		readline->arr1[i] = ft_clean_d_quotes(readline->arr[i]);
 		i++;
 	}

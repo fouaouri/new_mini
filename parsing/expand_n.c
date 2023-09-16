@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:42:08 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/14 18:31:50 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/16 21:18:01 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,11 @@ void	expand_d_c(t_read *readline, t_variables *var, t_env *l_env)
 		while_d_c(readline, var);
 		if (readline->input[var->i - 1] == '$')
 		{
+			skip_f_numbre(readline->input[var->i], &var);
 			while (readline->input[var->i]
 				&& check_special_char(readline->input[var->i]) == 1
 				&& readline->input[var->i] != '\"')
 			{
-				skip_f_numbre(readline->input[var->i], &var);
 				readline->new_input = ft_strjoin_char(readline->new_input,
 						readline->input[var->i++]);
 			}
@@ -101,9 +101,7 @@ void	expand_arr(t_read *readline, t_env *l_env)
 {
 	t_variables	var;
 
-	init_expand(&var);
-	readline->exp = ft_calloc(1, 1);
-	readline->new_input = ft_calloc(1, 1);
+	init_expand(readline, &var);
 	while (readline->input && readline->input[var.i])
 	{
 		if (readline->input && readline->input[var.i] == '<'
@@ -112,13 +110,17 @@ void	expand_arr(t_read *readline, t_env *l_env)
 		var.i++;
 	}
 	var.i = 0;
-	while (readline->input[var.i])
+	if (readline->input[var.i])
 	{
-		if (readline->input[var.i] == '\'' && var.s_d == 0)
-			expand_s_c(readline, &var);
-		else if (readline->input[var.i] == '\"' && var.s_c == 0 && var.e == 0)
-			expand_d_c(readline, &var, l_env);
-		else
-			else_expand(readline, &var, l_env);
+		while (readline->input[var.i])
+		{
+			if (readline->input[var.i] == '\'' && var.s_d == 0)
+				expand_s_c(readline, &var);
+			else if (readline->input[var.i] == '\"'
+				&& var.s_c == 0 && var.e == 0)
+				expand_d_c(readline, &var, l_env);
+			else
+				else_expand(readline, &var, l_env);
+		}
 	}
 }

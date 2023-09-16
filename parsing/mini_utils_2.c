@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 17:34:28 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/14 21:59:37 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/16 21:04:30 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ void	lst_quote(char **commandes)
 	{
 		if (find_count(commandes[i]))
 			commandes[i] = ft_clean_d_quotes1(commandes[i]);
-		else
-			i++;
+		i++;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 16:33:48 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/15 16:23:15 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/16 21:17:46 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_read
 	char	*put_zero;
 	char	*add_spaces;
 	char	*string;
+	char	*line;
 	char	**arr;
 	char	*exp;
 	char	**arr1;
@@ -98,7 +99,6 @@ typedef struct t_data
 
 // global variable for datafree(readline->input),
 extern t_data	g_data;
-
 /* init env functions*/
 t_env	*init_env(char **env);
 t_env	*ft_new_env(char *str);
@@ -174,9 +174,13 @@ void	ft_clean_d(char *str, t_variables *var);
 t_env	*ft_search_for_key(char *key);
 int		help_count(char *str, int i, int count, int len);
 int		check_last_char(char c);
-void	init_expand(t_variables *var);
+void	init_expand(t_read *readline, t_variables *var);
 int		find_space(char *str);
 void	skip_f_numbre(char c, t_variables **var);
 void	multi_instru(t_read *readline, t_variables **var, t_env *l_env);
+int		there_is_quotes(char *str);
+void	expand_single_he(t_read *readline, t_variables *var, t_env *l_env);
+void	expand_arr_here(t_read *readline, t_env *l_env);
+void	expand_d_c(t_read *readline, t_variables *var, t_env *l_env);
 
 #endif
