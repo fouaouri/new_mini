@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:18:14 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/16 23:12:17 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/16 23:40:28 by fouaouri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	get_pos(void)
 	}
 	return (pos);
 }
-#include <stdio.h>
+
 void	*my_malloc(size_t size)
 {
 	t_alloc			*alloc;
@@ -56,7 +56,6 @@ void	*my_malloc(size_t size)
 		alloc->pos++;
 	if (alloc->pos + 2 >= alloc->len)
 	{
-		printf("%d\n",alloc->len);
 		ptr = malloc(alloc->len * 2 * sizeof(uintptr_t));
 		ft_memcpy(ptr, alloc->ptr, alloc->len * sizeof(uintptr_t));
 		free(alloc->ptr);
@@ -72,7 +71,6 @@ void	my_free_all(void)
 	int		i;
 
 	curr = head();
-	printf("fee = %d\n",curr->len);
 	i = 0;
 	while (i < curr->pos)
 	{
