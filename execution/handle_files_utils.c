@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:00:07 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/15 19:53:11 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/17 00:36:57 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,15 @@ int	open_append(t_list *node, int i)
 {
 	int	status;
 
-	status = access(node->file_name[i], F_OK);
-	if (status == -1)
-		return (ft_error(FILE_NOT_EXIST, node->file_name[i]));
 	status = open(node->file_name[i], O_WRONLY | O_APPEND | O_CREAT, 0644);
 	if (status < 0)
-		return (ft_error(PERSMISSION_DENIED, node->file_name[i]));
+	{
+		status = access(node->file_name[i], F_OK);
+		if (status == -1)
+			return (ft_error(FILE_NOT_EXIST, node->file_name[i]));
+		else
+			return (ft_error(PERSMISSION_DENIED, node->file_name[i]));
+	}
 	if (node->outfile != STDOUT_FILENO)
 		close(node->outfile);
 	node->outfile = status;
@@ -68,12 +71,15 @@ int	open_outfiles(t_list *node, int i)
 		ft_dprintf(2, "minishell: ambiguous redirect\n");
 		return (-1);
 	}
-	status = access(node->file_name[i], F_OK);
-	if (status == -1)
-		return (ft_error(FILE_NOT_EXIST, node->file_name[i]));
 	status = open(node->file_name[i], O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	if (status < 0)
-		return (ft_error(PERSMISSION_DENIED, node->file_name[i]));
+	{
+		status = access(node->file_name[i], F_OK);
+		if (status == -1)
+			return (ft_error(FILE_NOT_EXIST, node->file_name[i]));
+		else
+			return (ft_error(PERSMISSION_DENIED, node->file_name[i]));
+	}
 	if (node->outfile != STDOUT_FILENO)
 		close(node->outfile);
 	node->outfile = status;

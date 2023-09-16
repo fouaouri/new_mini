@@ -21,7 +21,9 @@ g_data.l_env
 - [x] unset
 - [x] export
 - [x] env
-- [ ] exit
-- [ ] CD
-- [ ] pwd
-- [ ] echo
+- [x] exit
+- [x] CD
+- [x] pwd
+- [x] echo
+
+## HANDLE error on Builtins Over pipes

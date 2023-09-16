@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 16:19:28 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/16 23:29:02 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/17 00:39:47 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,14 +104,27 @@ int	wait_childs(t_list *node)
 		if (node->pid != 0)
 		{
 			if (waitpid(node->pid, &g_exit_status, 0) == -1)
-				return (ERROR);
+			{
+				ft_dprintf(2, "minishell: waitpid: %s\n", strerror(errno));
+				exit(EXIT_FAILURE);
+			}
 			if (WIFEXITED(g_exit_status))
 				g_exit_status = WEXITSTATUS(g_exit_status);
 			if (WIFSIGNALED(g_exit_status))
-				g_exit_status = WTERMSIG(g_exit_status) + 128;
+				g_exit_status = WTERMSIG(g_exit_status);
 		}
 		close_fd(node->infile, node->outfile);
 		node = node->next;
+	}
+	if (WIFSIGNALED(g_exit_status) && WTERMSIG(g_exit_status) == SIGQUIT)
+	{
+		ft_dprintf(STDERR_FILENO, "Quit: %d\n", WTERMSIG(g_exit_status));
+		g_exit_status = 131;
+	}
+	if (WIFSIGNALED(g_exit_status) && WTERMSIG(g_exit_status) == SIGINT)
+	{
+		ft_dprintf(STDERR_FILENO, "Quit: %d\n", WTERMSIG(g_exit_status));
+		g_exit_status = 130;
 	}
 	return (g_exit_status);
 }
