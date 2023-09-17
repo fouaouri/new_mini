@@ -6,11 +6,12 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:36:42 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/17 23:16:02 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/17 23:40:05 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <unistd.h>
 
 int	check_syntax_error(t_read *readline)
 {
@@ -43,6 +44,17 @@ void	print_minishell(t_read *readln)
 		exit(0);
 }
 
+void	ft_parsing(t_read *readline)
+{
+	replace_char(readline);
+	skip_spaces_in_the_input(readline);
+	sep_by_spaces(readline);
+	add_spaces_in_the_input(readline);
+	fill_the_arr(readline);
+	clean_d_quotes(readline);
+	free(readline->input);
+}
+
 t_list	**parsing(t_read *readline, t_env *l_env)
 {
 	t_file	*sep;
@@ -56,17 +68,13 @@ t_list	**parsing(t_read *readline, t_env *l_env)
 		sepe = check_syntax_error(readline);
 		if (sepe != -1)
 		{
-			replace_char(readline);
-			skip_spaces_in_the_input(readline);
-			sep_by_spaces(readline);
-			add_spaces_in_the_input(readline);
-			fill_the_arr(readline);
-			clean_d_quotes(readline);
-			free(readline->input);
+			ft_parsing(readline);
 			return (sep_files(readline, sep));
 		}
 		else
 			free(readline->input);
 	}
-	return (free(readline->input), NULL);
+	else if (readline->input)
+		free(readline->input);
+	return (NULL);
 }
