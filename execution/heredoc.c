@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 21:32:31 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/16 22:51:26 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/17 22:06:58 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,28 @@ int	run_in_parent(int p_fd[2], int pid)
 	return (SUCCESS);
 }
 
-void	heredoc_handler(t_read *readln, t_env *l_env, int p_fd[2], char *dilimiter)
+void	exit_from_heredoc(char *dilimiter, int p_fd[2])
+{
+	ft_dprintf(2, \
+		"Minishell: warning: heredoc error: (wanted delemter'%s')\n", \
+		dilimiter);
+	close(p_fd[1]);
+	exit(0);
+}
+
+void	heredoc_handler(t_read *readln, \
+				t_env *l_env, int p_fd[2], char *dilimiter)
 {
 	readln->input = readline("> ");
+	if (!readln->input)
+		exit_from_heredoc(dilimiter, p_fd);
 	if (g_data.heredoc == 0)
 		expand_heredoc(readln, l_env);
 	else
 		readln->exp = ft_strdup(readln->input);
+	free(readln->input);
 	if (!readln->exp)
-	{
-		ft_dprintf(2, \
-			"Minishell: warning: heredoc error: (wanted delemter'%s')\n", \
-			dilimiter);
-		close(p_fd[1]);
-		exit(0);
-	}
+		exit_from_heredoc(dilimiter, p_fd);
 	if (!ft_strcmp(readln->exp, dilimiter))
 	{
 		close(p_fd[1]);
@@ -85,11 +92,9 @@ void	heredoc_handler(t_read *readln, t_env *l_env, int p_fd[2], char *dilimiter)
 
 int	ft_heredoc(t_read *readline, t_env *l_env, char *dilimiter)
 {
-	// char	*line;
 	int		pid;
 	int		p_fd[2];
 
-	// line = NULL;
 	if (dilimiter == NULL)
 		return (-1);
 	pipe(p_fd);

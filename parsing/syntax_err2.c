@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 16:09:27 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/16 21:13:03 by fouaouri         ###   ########.fr       */
+/*   Updated: 2023/09/17 22:29:47 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	there_is_quotes(char *str)
 			if (str[i] == '\'' || str[i] == '\"')
 				return (1);
 			i++;
-		}	
+		}
 	}
 	return (0);
 }

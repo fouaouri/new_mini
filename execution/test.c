@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/17 19:04:28 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/17 22:11:58 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	run_execution(t_list *current, t_list **hold)
 		return (ERROR);
 	if (status == 13)
 		status = 127;
-	printf("status -> %d\n", status);
 	g_data.exit_status = status;
 	return (SUCCESS);
 }
@@ -70,7 +69,7 @@ int	main(int ac, char **av, char **env)
 	if (!readline)
 		return (ERROR);
 	g_data.l_env = init_env(env);
-	if (run_minishell(ac, readline,g_data.l_env ,current) == ERROR)
+	if (run_minishell(ac, readline, g_data.l_env, current) == ERROR)
 		return (ERROR);
 	return (0);
 }

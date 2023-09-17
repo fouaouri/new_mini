@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:26:36 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/17 21:16:27 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/17 22:12:57 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,13 @@ enum {
 };
 
 /* **** Void Function ****** */
+void	exit_from_heredoc(char *dilimiter, int p_fd[2]);
 void	check_error(char *cmd_full_path);
 void	wait_for_all(t_list *node, int *g_exit_status, int *should_update);
 void	close_fd(int in_fd, int out_fd);
 void	ft_dup2(int in_fd, int out_fd);
-void	heredoc_handler(t_read *readline, t_env *l_env, int p_fd[2], char *dilimiter);
+void	heredoc_handler(t_read *readline, t_env *l_env, \
+				int p_fd[2], char *dilimiter);
 void	ft_free(char **str);
 void	free_list(t_list **node);
 void	ctl_c_handler(int sig);
@@ -71,7 +73,8 @@ int		execute(t_list *node);
 int		run_builtin(t_list *current);
 int		run_execution(t_list *current, t_list **hold);
 int		run_minishell(int ac, t_read *readline, t_env *l_env, t_list *current);
-int		run_minishell_util(t_read *readline, t_env *l_env,t_list *current, t_list **hold);
+int		run_minishell_util(t_read *readline, t_env *l_env, \
+				t_list *current, t_list **hold);
 int		check_for_valid_cmd(t_list *node);
 int		open_append(t_list *node, int i);
 int		open_heredoc(t_list *node, int i);

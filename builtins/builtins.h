@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 22:29:38 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/16 22:02:37 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/17 22:27:47 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 # define BUILTINS_H
 # include "../libs/libft/libft.h"
 # include "../parsing/minishell.h"
-
-int	ft_cd(char **args);
-int	ft_echo(t_list *hold);
-int	ft_export(char **cmds);
 
 void	ft_unset(char **keys);
 void	ft_env(void);
@@ -33,6 +29,11 @@ char	*ft_ltoa(long n);
 char	*check_for_pluse(char *cmds, char *old_value, char *key);
 char	*add_new_key_after(char *cmds, char *key);
 char	*get_key(char *cmd);
+int		check_if_zeros(char *arg);
+int		ft_cd(char **args);
+int		ft_echo(t_list *hold);
+int		ft_export(char **cmds);
+int		skip_zeros(char *str);
 int		ft_validate_key(char *key);
 int		check_args(char **args);
 int		check_access_status(int status, char **args);

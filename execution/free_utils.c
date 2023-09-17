@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 15:53:42 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/17 21:16:18 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/17 22:11:27 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,3 @@ void	check_error(char *cmd_full_path)
 	if (access(cmd_full_path, X_OK) != 0)
 		g_data.exit_status = 126;
 }
-

@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 17:28:58 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/15 17:36:58 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/17 22:27:11 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,20 @@ long	ft_atol(const char *nptr)
 		i++;
 	}
 	return (n * sign);
+}
+
+int	skip_zeros(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '+')
+		i++;
+	while (str[i])
+	{
+		if (str[i] != '0')
+			break ;
+		i++;
+	}
+	return (i);
 }

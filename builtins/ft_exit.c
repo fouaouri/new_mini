@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 22:29:15 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/15 17:36:19 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/17 22:25:59 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,29 @@ unsigned char	ft_exit_util(char **args, char *str)
 	if (!valid_arg(args[1]))
 		exit(2);
 	str = ft_ltoa(ft_atol(args[1]));
-	if (args[1][0] == '+')
-		j = 1;
+	if (args[1][0] == '0' || args[1][0] == '+' || args[1][0] == '-')
+		j = skip_zeros(args[1]);
 	if (ft_strcmp(str, args[1] + j))
 	{
 		ft_dprintf(2, "Minishell: %s: numeric argument required\n", args[1]);
 		exit(2);
 	}
-	else
-		exit_code = ft_atol(args[1]);
+	exit_code = ft_atol(args[1]);
 	return (exit_code);
+}
+
+int	check_if_zeros(char *arg)
+{
+	int	i;
+
+	i = 0;
+	while (arg[i])
+	{
+		if (arg[i] != '0')
+			return (-1);
+		i++;
+	}
+	return (i);
 }
 
 void	ft_exit(char **args)
@@ -74,6 +87,10 @@ void	ft_exit(char **args)
 		ft_dprintf(2, "Minishell: %s: numeric argument required\n", args[1]);
 		exit(2);
 	}
+	if (check_if_zeros(args[1]) != -1)
+		exit(0);
+	if (!ft_strcmp(args[1], "-1"))
+		exit(-1);
 	exit_code = ft_exit_util(args, str);
 	if (exit_code == (unsigned char)-1)
 		return ;

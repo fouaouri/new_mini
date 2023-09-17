@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/17 21:16:34 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/17 22:03:47 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	execute_builtins(t_list *node, char *builtin)
 {
-	int err;
+	int	err;
 
 	err = 0;
 	if (!ft_strcmp(builtin, "export"))
@@ -34,7 +34,7 @@ int	execute_builtins(t_list *node, char *builtin)
 	else
 		return (0);
 	if (err == -1)
-		return 0;
+		return (0);
 	else
 		g_data.exit_status = 0;
 	return (1);
@@ -42,12 +42,13 @@ int	execute_builtins(t_list *node, char *builtin)
 
 int	run_builtins_pipe(t_list *node)
 {
-	int err;
+	int	err;
+
 	err = execute_builtins(node, node->commandes[0]);
 	if (err)
-		return(EXIT_SUCCESS);
+		return (EXIT_SUCCESS);
 	else
-		return(EXIT_FAILURE);
+		return (EXIT_FAILURE);
 }
 
 void	exec_in_child(t_list *node, char **env, char *cmd_full_path)
@@ -58,9 +59,7 @@ void	exec_in_child(t_list *node, char **env, char *cmd_full_path)
 		if (node->next->infile != STDIN_FILENO)
 			close(node->next->infile);
 	if (is_builtins(node->commandes[0]))
-	{
 		exit(run_builtins_pipe(node));
-	}
 	else if (execve(cmd_full_path, node->commandes, env) == -1)
 	{
 		ft_dprintf(2, "minishell: %s: %s\n", \

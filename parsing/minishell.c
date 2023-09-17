@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:36:42 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/16 22:04:49 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/17 22:29:12 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_list	**parsing(t_read *readline, t_env *l_env)
 			clean_d_quotes(readline);
 			free(readline->input);
 			return (sep_files(readline, sep));
-		}	
+		}
 	}
 	else
 		free(readline->input);

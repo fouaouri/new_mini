@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 17:45:54 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/16 22:02:53 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/17 22:02:29 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	case_n(char *str)
 
 void	ft_cases(t_list *hold, t_variables *var)
 {
-	while (hold->commandes[var->i] )
+	while (hold->commandes[var->i])
 	{
 		if (!case_n(hold->commandes[var->i]))
 		{
@@ -81,8 +81,8 @@ int	ft_echo(t_list *hold)
 	if (ft_strcmp(hold->commandes[1], "\0") == 0)
 		printf("\n");
 	else if (check_first_arg(hold->commandes[1]) && !hold->commandes[2])
-		return 1;
+		return (1);
 	else
 		ft_cases(hold, &var);
-	return 1;
+	return (1);
 }
