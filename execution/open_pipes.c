@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/17 19:16:59 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/17 21:16:34 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ int	execute_builtins(t_list *node, char *builtin)
 	else
 		return (0);
 	if (err == -1)
-	{
-		// g_data.exit_status = 1;
 		return 0;
-	}
 	else
 		g_data.exit_status = 0;
 	return (1);
@@ -95,13 +92,6 @@ int	exec_cmd(t_list *node)
 		exec_in_child(node, env, cmd_full_path);
 	else if (node->pid != 0)
 		signal(SIGINT, SIG_IGN);
-
-	if (!ft_strcmp(cmd_full_path, "."))
-		g_data.exit_status = 126;
-	if (!ft_strcmp(cmd_full_path, ".."))
-		g_data.exit_status = 126;
-	if (access(cmd_full_path, X_OK) != 0)
-		g_data.exit_status = 126;
-
+	check_error(cmd_full_path);
 	return (SUCCESS);
 }

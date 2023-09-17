@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:26:36 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/17 15:36:26 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/17 21:16:27 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ enum {
 };
 
 /* **** Void Function ****** */
-int	run_builtins_pipe(t_list *node);
+void	check_error(char *cmd_full_path);
+void	wait_for_all(t_list *node, int *g_exit_status, int *should_update);
 void	close_fd(int in_fd, int out_fd);
 void	ft_dup2(int in_fd, int out_fd);
 void	heredoc_handler(t_read *readline, t_env *l_env, int p_fd[2], char *dilimiter);
@@ -52,10 +53,11 @@ char	*ft_concat(char *s1, char c, char *s2);
 char	*full_path(t_list *node);
 
 /* **** Function returuning int ****** */
-int	handle_heredoc(t_read *readline, t_env *l_env, t_list *node);
+int		run_builtins_pipe(t_list *node);
+int		handle_heredoc(t_read *readline, t_env *l_env, t_list *node);
 int		wait_childs(t_list *node);
 int		ft_lst_size(void);
-int	ft_heredoc(t_read *readline, t_env *l_env, char *dilimiter);
+int		ft_heredoc(t_read *readline, t_env *l_env, char *dilimiter);
 int		run_in_parent(int p_fd[2], int pid);
 int		ft_error(int err_id, char *file_name);
 int		find_file_type(char **type, char *t);

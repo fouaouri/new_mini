@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 16:19:28 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/17 19:13:36 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/17 21:13:14 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,48 +97,14 @@ void	ft_dup2(int in_fd, int out_fd)
 int	wait_childs(t_list *node)
 {
 	int	g_exit_status;
-	int shouldUpdate = 1;
+	int	should_update;
+	int	res;
 
 	g_exit_status = g_data.exit_status;
-	int res = g_exit_status;
-	dprintf(2, "-> exit code at the begninng of time %d\n", g_exit_status);
-	while (node)
-	{
-		if (node->pid == 0 || g_exit_status == 127)
-		{
-			dprintf(2, "-> skipping command\n");
-			close_fd(node->infile, node->outfile);
-			node = node->next;
-			continue ;
-		}
-
-		if (g_exit_status == 126) {
-			waitpid(node->pid, NULL, 0);
-			shouldUpdate = 0;
-			node = node->next;
-			continue;
-		}
-
-		if (waitpid(node->pid, &g_exit_status, 0) == -1)
-		{
-			ft_dprintf(2, "minishell: waitpid: %s\n", strerror(errno));
-			exit(EXIT_FAILURE);
-		}
-
-		if (WIFEXITED(g_exit_status)) {
-			g_exit_status = WEXITSTATUS(g_exit_status);
-			dprintf(2, "-> command exited normally\n");
-		} else if (WIFSIGNALED(g_exit_status)) {
-			g_exit_status = WTERMSIG(g_exit_status) + 128;
-			dprintf(2, "-> command exited due to uncaught signal\n");
-		}
-
-		close_fd(node->infile, node->outfile);
-		node = node->next;
-	}
-
-	if (shouldUpdate)
+	should_update = 1;
+	res = g_exit_status;
+	wait_for_all(node, &g_exit_status, &should_update);
+	if (should_update)
 		res = g_exit_status;
-
 	return (res);
 }
