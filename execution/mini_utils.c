@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:50:43 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/17 21:19:07 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/17 23:14:26 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ int	run_builtin(t_list *current)
 	ft_dup2(current->infile, current->outfile);
 	if (execute_builtins(current, current->commandes[0]))
 	{
-		dup2(std_in, STDIN_FILENO);
-		dup2(std_out, STDOUT_FILENO);
-		close(std_in);
-		close(std_out);
+		ft_dup2(std_in, std_out);
 		return (1);
 	}
 	else
+	{
+		ft_dup2(std_in, std_out);
 		close_fd(current->infile, current->outfile);
+	}
 	return (2);
 }
 

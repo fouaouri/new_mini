@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:36:42 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/17 22:29:12 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/17 23:16:02 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ t_list	**parsing(t_read *readline, t_env *l_env)
 			free(readline->input);
 			return (sep_files(readline, sep));
 		}
+		else
+			free(readline->input);
 	}
-	else
-		free(readline->input);
-	return (NULL);
+	return (free(readline->input), NULL);
 }
