@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 12:37:50 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/17 00:33:08 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/17 19:16:59 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,23 @@ int	execute_builtins(t_list *node, char *builtin)
 	else
 		return (0);
 	if (err == -1)
-		g_data.exit_status = 1;
+	{
+		// g_data.exit_status = 1;
+		return 0;
+	}
 	else
 		g_data.exit_status = 0;
 	return (1);
 }
 
-void	run_builtins_pipe(t_list *node)
+int	run_builtins_pipe(t_list *node)
 {
-	if (execute_builtins(node, node->commandes[0]))
-		exit(EXIT_SUCCESS);
+	int err;
+	err = execute_builtins(node, node->commandes[0]);
+	if (err)
+		return(EXIT_SUCCESS);
 	else
-		exit(EXIT_FAILURE);
+		return(EXIT_FAILURE);
 }
 
 void	exec_in_child(t_list *node, char **env, char *cmd_full_path)
@@ -57,13 +62,13 @@ void	exec_in_child(t_list *node, char **env, char *cmd_full_path)
 			close(node->next->infile);
 	if (is_builtins(node->commandes[0]))
 	{
-		run_builtins_pipe(node);
+		exit(run_builtins_pipe(node));
 	}
 	else if (execve(cmd_full_path, node->commandes, env) == -1)
 	{
 		ft_dprintf(2, "minishell: %s: %s\n", \
 			node->commandes[0], strerror(errno));
-		g_data.exit_status = 127;
+		g_data.exit_status = 126;
 		exit(EXIT_FAILURE);
 	}
 }
@@ -90,5 +95,13 @@ int	exec_cmd(t_list *node)
 		exec_in_child(node, env, cmd_full_path);
 	else if (node->pid != 0)
 		signal(SIGINT, SIG_IGN);
+
+	if (!ft_strcmp(cmd_full_path, "."))
+		g_data.exit_status = 126;
+	if (!ft_strcmp(cmd_full_path, ".."))
+		g_data.exit_status = 126;
+	if (access(cmd_full_path, X_OK) != 0)
+		g_data.exit_status = 126;
+
 	return (SUCCESS);
 }

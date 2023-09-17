@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:15:06 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/17 00:17:24 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/17 19:04:28 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ int	run_execution(t_list *current, t_list **hold)
 
 	while (current)
 	{
+		g_data.exit_status = 0;
 		if (execute(current) == SUCCESS)
-			g_data.exit_status = 0;
+			g_data.exit_status = g_data.exit_status;
 		else
 			close_fd(current->infile, current->outfile);
 		current = current->next;

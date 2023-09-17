@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:53:20 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/15 19:39:08 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/17 19:15:48 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ char	*full_path(t_list *node)
 {
 	char	*cmd_full_path;
 
+	if (is_builtins(node->commandes[0]))
+		return (node->commandes[0]);
 	cmd_full_path = check_cmd(parse_path(), node->commandes[0]);
-	if (!cmd_full_path && !is_builtins(node->commandes[0]))
+	if (!cmd_full_path)
 	{
 		if (ft_strchr(node->commandes[0], '/'))
 			ft_dprintf(2, "minishell: %s: no such file or directory\n", \
@@ -63,7 +65,7 @@ char	*full_path(t_list *node)
 	else if (!ft_strcmp(cmd_full_path, "p"))
 	{
 		ft_dprintf(2, "minishell: %s: Permission denied\n", node->commandes[0]);
-		g_data.exit_status = 127;
+		g_data.exit_status = 126;
 		return (NULL);
 	}
 	return (cmd_full_path);

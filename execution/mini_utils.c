@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:50:43 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/17 00:39:58 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/17 18:23:07 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	run_minishell_util(t_read *readline, t_env *l_env, t_list *current, t_list *
 		else if (err < 0)
 			return (ERROR);
 	}
-	if (run_execution(current, hold) == ERROR)
+	else if (run_execution(current, hold) == ERROR)
 		return (ERROR);
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:26:36 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/16 22:04:04 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/17 15:36:26 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ enum {
 };
 
 /* **** Void Function ****** */
-void	run_builtins_pipe(t_list *node);
+int	run_builtins_pipe(t_list *node);
 void	close_fd(int in_fd, int out_fd);
 void	ft_dup2(int in_fd, int out_fd);
 void	heredoc_handler(t_read *readline, t_env *l_env, int p_fd[2], char *dilimiter);

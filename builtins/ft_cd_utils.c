@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 17:01:03 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/15 17:01:14 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/17 16:41:25 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	check_access_status(int status, char **args)
 	if (status)
 	{
 		g_data.exit_status = 1;
-		ft_dprintf(2, "minishell: cd: %s: cd No such file or directory\n", \
+		ft_dprintf(2, "minishell: cd: %s: No such file or directory\n", \
 		args[1]);
 		return (-1);
 	}
