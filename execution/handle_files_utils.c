@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:00:07 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/18 03:29:01 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/18 03:57:03 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ int	open_append(t_list *node, int i)
 {
 	int	status;
 
+	if (!node->file_name[i])
+	{
+		ft_dprintf(2, "minishell: ambiguous redirect\n");
+		return (-1);
+	}
 	status = open(node->file_name[i], O_WRONLY | O_APPEND | O_CREAT, 0644);
 	if (status < 0)
 	{
@@ -85,6 +90,11 @@ int	open_infiles(t_list *node, int i)
 {
 	int	status;
 
+	if (!node->file_name[i])
+	{
+		ft_dprintf(2, "minishell: ambiguous redirect\n");
+		return (-1);
+	}
 	status = check_infile_acces(node->file_name[i]);
 	if (status < 0)
 		return (status);
