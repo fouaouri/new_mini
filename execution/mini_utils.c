@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:50:43 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/17 23:14:26 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/18 03:54:51 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,13 @@ int	run_builtin(t_list *current)
 	if (err < 0)
 	{
 		g_data.exit_status = 1;
+		ft_dup2(std_in, std_out);
 		return (err);
 	}
 	ft_dup2(current->infile, current->outfile);
-	if (execute_builtins(current, current->commandes[0]))
-	{
-		ft_dup2(std_in, std_out);
-		return (1);
-	}
-	else
-	{
-		ft_dup2(std_in, std_out);
-		close_fd(current->infile, current->outfile);
-	}
+	execute_builtins(current, current->commandes[0]);
+	ft_dup2(std_in, std_out);
+	close_fd(current->infile, current->outfile);
 	return (2);
 }
 
@@ -90,7 +84,7 @@ int	run_minishell(int ac, t_read *readline, t_env *l_env, t_list *current)
 		current = *hold;
 		err = run_minishell_util(readline, l_env, current, hold);
 		if (err < 0)
-			return (ERROR);
+			continue ;
 		else if (err == 2)
 			continue ;
 		g_data.heredoc = 0;

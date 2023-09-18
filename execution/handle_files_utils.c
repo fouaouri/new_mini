@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:00:07 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/17 18:16:22 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/18 03:29:01 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,6 @@ int	open_outfiles(t_list *node, int i)
 {
 	int	status;
 
-	if (g_data.if_export && ft_strchr(node->file_name[i], ' '))
-	{
-		ft_dprintf(2, "minishell: %s: ambiguous redirect\n", node->file_name[i]);
-		return (-1);
-	}
 	if (!node->file_name[i])
 	{
 		ft_dprintf(2, "minishell: ambiguous redirect\n");
