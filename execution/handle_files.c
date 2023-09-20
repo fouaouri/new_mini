@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 15:38:48 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/17 00:34:06 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/20 02:33:28 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	check_infile_acces(char *file)
 		status = open(file, O_RDONLY);
 		if (status == -1)
 			return (ft_error(PERSMISSION_DENIED, file));
-		else 
+		else
 			return (status);
 	}
 	return (ERROR);
@@ -37,7 +37,7 @@ int	check_outfile_acces(char *file)
 	status = open(file, O_WRONLY | O_APPEND | O_CREAT, 0644);
 	if (status == -1)
 		return (ft_error(PERSMISSION_DENIED, file));
-	else 
+	else
 		return (status);
 }
 

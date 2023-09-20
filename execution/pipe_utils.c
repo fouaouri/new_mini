@@ -6,7 +6,7 @@
 /*   By: melhadou <melhadou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:53:20 by melhadou          #+#    #+#             */
-/*   Updated: 2023/09/17 19:15:48 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/20 02:33:50 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	is_builtins(char *builtin)
 
 int	check_for_valid_cmd(t_list *node)
 {
-	if (!node->commandes[0]) 
+	if (!node->commandes[0])
 		return (ERROR);
 	if (!node->commandes[0][0])
 	{

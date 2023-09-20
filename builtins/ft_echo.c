@@ -6,7 +6,7 @@
 /*   By: fouaouri <fouaouri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 17:45:54 by fouaouri          #+#    #+#             */
-/*   Updated: 2023/09/17 22:02:29 by melhadou         ###   ########.fr       */
+/*   Updated: 2023/09/20 02:31:34 by melhadou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	check_first_arg(char *str)
 		i = 0;
 		if (str[0] == '-')
 			i += 1;
-		while (str[i] && str[i] == 'n') 
+		while (str[i] && str[i] == 'n')
 			i++;
 		if (i == len)
 			return (1);
